@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>version</key>
+	<integer>0</integer>
+	<key>plans</key>
+	<array>
+		<dict>
+			<key>planId</key>
+			<string>plan1</string>
+			<key>type</key>
+			<integer>1</integer>
+			<key>classPath</key>
+			<string>TestClass</string>
+			<key>selector</key>
+			<string>noArgFunction</string>
+			<key>values</key>
+			<array/>
+		</dict>
+		<dict>
+			<key>planId</key>
+			<string>plan2</string>
+			<key>type</key>
+			<integer>0</integer>
+			<key>classPath</key>
+			<string>TestClass</string>
+			<key>selector</key>
+			<string>argFunction:</string>
+			<key>values</key>
+			<array>
+				<string>1.title.title</string>
+			</array>
+		</dict>
+	</array>
+</dict>
+</plist>
