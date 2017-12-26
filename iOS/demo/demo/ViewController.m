@@ -36,7 +36,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"ViewController";
+    self.title = @"ViewController.title";
     [CAIStatistic start];
     // Do any additional setup after loading the view, typically from a nib.
 }

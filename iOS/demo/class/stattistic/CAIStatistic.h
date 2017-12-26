@@ -10,6 +10,9 @@
 
 @interface CAIStatistic : NSObject
 
+@property (nonatomic, strong)NSDictionary *plans;
+
++ (instancetype)shareStatistic;
 + (void)start;
 
 @end

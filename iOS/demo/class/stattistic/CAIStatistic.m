@@ -13,7 +13,6 @@
 @interface CAIStatistic()
 
 @property (nonatomic, assign)NSInteger version; //统计版本默认为0
-@property (nonatomic, strong)NSDictionary *plans;
 @property (nonatomic, strong)NSMutableArray<id<AspectToken>> *allAspectToken;
 
 @end
