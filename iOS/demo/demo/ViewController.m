@@ -9,6 +9,7 @@
 #import "ViewController.h"
 #import "CAIStatistic.h"
 #import "Aspects.h"
+#import "CAISUtils.h"
 
 @interface TestClass:NSObject
 
@@ -51,6 +52,13 @@
     TestClass * test = [[TestClass alloc]init];
     [test noArgFunction];
     [test argFunction:self];
+    
+    [UIDevice currentDevice];
+    [UIScreen mainScreen].bounds;
+    Class device = NSClassFromString(@"UIScreen");
+    SEL selector = NSSelectorFromString(@"mainScreen");
+    NSString * dev = [CAISUtils objectForClass:device selector:selector keyPath:@"bounds"];
+    NSLog(@"%@",dev.description);
 }
 
 

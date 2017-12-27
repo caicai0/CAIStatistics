@@ -91,7 +91,7 @@
         NSLog(@"%ld,%@,%@",plan.type,plan.className,plan.selectorName);
         if (plan.keyPaths && plan.keyPaths.count) {
             for (NSInteger i=0; i<plan.keyPaths.count; i++) {
-                CAISKeyPath * keyPath = plan.keyPaths[i];
+                CAISKeyPoint * keyPath = plan.keyPaths[i];
                 NSString *value = [keyPath stringValueForInfo:info];
                 NSLog(@"%@",value);
             }

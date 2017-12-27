@@ -28,21 +28,29 @@
             plan.planId = planId;
             plan.className = classPath;
             plan.selectorName = selector;
-            NSArray *values = dic[@"values"];
-            if (values && [values isKindOfClass:[NSArray class]] && values.count) {
+            NSDictionary *values = dic[@"values"];
+            
+            if (values && [values isKindOfClass:[NSDictionary class]] && values.count) {
                 NSMutableArray * allPath = [NSMutableArray array];
-                for (NSInteger i=0; i<values.count; i++) {
-                    NSString * keypath = values[i];
-                    if (keypath && [keypath isKindOfClass:[NSString class]] && keypath.length) {
-                        CAISKeyPath * skeyPath = [CAISKeyPath keyPathForString:keypath];
+                [values enumerateKeysAndObjectsUsingBlock:^(NSString *  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+                    if (key && [key isKindOfClass:[NSString class]] && key.length && obj && [obj isKindOfClass:[NSString class]] && [obj length]) {
+                        NSString * keypath = obj;
+                        CAISKeyPoint * skeyPath = [CAISKeyPoint keyPointForString:keypath];
                         if (skeyPath) {
+                            skeyPath.key = key;
                             [allPath addObject:skeyPath];
                         }
+                    }else if(key && [key isKindOfClass:[NSString class]] && key.length && obj && [obj isKindOfClass:[NSDictionary class]] && [obj count]){
+                        NSDictionary * keyDic= obj;
+                        CAISKeyPoint * skeyPath = [CAISKeyPoint keyPointForDictionary:keyDic];
+                        if (skeyPath) {
+                            skeyPath.key = key;
+                            [allPath addObject:skeyPath];
+                        }
+                    }else{
+                        NSLog(@"ERROR %@,%@",key,obj);
                     }
-                }
-                if (allPath.count) {
-                    plan.keyPaths = [NSArray arrayWithArray:allPath];
-                }
+                }];
             }
             return plan;
         }else{

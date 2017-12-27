@@ -17,7 +17,7 @@
 		4B2383101FEA45490097F0C2 /* demoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B23830F1FEA45490097F0C2 /* demoUITests.m */; };
 		4B2383231FEA4A610097F0C2 /* CAIStatistic.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B2383221FEA4A610097F0C2 /* CAIStatistic.m */; };
 		4B2383261FEA4BBB0097F0C2 /* CAISPlan.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B2383251FEA4BBB0097F0C2 /* CAISPlan.m */; };
-		4B2383291FEA4C400097F0C2 /* CAISKeyPath.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B2383281FEA4C400097F0C2 /* CAISKeyPath.m */; };
+		4B2383291FEA4C400097F0C2 /* CAISKeyPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B2383281FEA4C400097F0C2 /* CAISKeyPoint.m */; };
 		4B2DE6D11FEB4FD000E3CE6F /* Statistic.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4B2DE6D01FEB4FD000E3CE6F /* Statistic.plist */; };
 		4B2DE6F81FF0918400E3CE6F /* Aspects.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B2DE6DF1FF0918400E3CE6F /* Aspects.m */; };
 		4B2DE6F91FF0918400E3CE6F /* Aspects.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B2DE6DF1FF0918400E3CE6F /* Aspects.m */; };
@@ -57,6 +57,7 @@
 		4B2DE7211FF092FF00E3CE6F /* CAISLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B2DE71E1FF092FF00E3CE6F /* CAISLog.m */; };
 		4BE18EB01FF0D962003D7EE2 /* CAISNet.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BE18EAF1FF0D962003D7EE2 /* CAISNet.m */; };
 		4BE18EB31FF0D9EF003D7EE2 /* CAISReport.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BE18EB21FF0D9EF003D7EE2 /* CAISReport.m */; };
+		4BF96CB11FF36AA100290C73 /* CAISUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BF96CB01FF36AA100290C73 /* CAISUtils.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -97,8 +98,8 @@
 		4B2383221FEA4A610097F0C2 /* CAIStatistic.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CAIStatistic.m; sourceTree = "<group>"; };
 		4B2383241FEA4BBB0097F0C2 /* CAISPlan.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CAISPlan.h; sourceTree = "<group>"; };
 		4B2383251FEA4BBB0097F0C2 /* CAISPlan.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CAISPlan.m; sourceTree = "<group>"; };
-		4B2383271FEA4C400097F0C2 /* CAISKeyPath.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CAISKeyPath.h; sourceTree = "<group>"; };
-		4B2383281FEA4C400097F0C2 /* CAISKeyPath.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CAISKeyPath.m; sourceTree = "<group>"; };
+		4B2383271FEA4C400097F0C2 /* CAISKeyPoint.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CAISKeyPoint.h; sourceTree = "<group>"; };
+		4B2383281FEA4C400097F0C2 /* CAISKeyPoint.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CAISKeyPoint.m; sourceTree = "<group>"; };
 		4B2DE6D01FEB4FD000E3CE6F /* Statistic.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Statistic.plist; sourceTree = "<group>"; };
 		4B2DE6D21FEB5BA100E3CE6F /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		4B2DE6D31FEB79BF00E3CE6F /* CAISType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CAISType.h; sourceTree = "<group>"; };
@@ -131,6 +132,8 @@
 		4BE18EAF1FF0D962003D7EE2 /* CAISNet.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CAISNet.m; sourceTree = "<group>"; };
 		4BE18EB11FF0D9EF003D7EE2 /* CAISReport.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CAISReport.h; sourceTree = "<group>"; };
 		4BE18EB21FF0D9EF003D7EE2 /* CAISReport.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CAISReport.m; sourceTree = "<group>"; };
+		4BF96CAF1FF36AA100290C73 /* CAISUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CAISUtils.h; sourceTree = "<group>"; };
+		4BF96CB01FF36AA100290C73 /* CAISUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CAISUtils.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -221,7 +224,7 @@
 			children = (
 				4BE18EAD1FF0D8E4003D7EE2 /* net */,
 				4B2DE71C1FF092BE00E3CE6F /* stattistic */,
-				4B2DE7161FF0924200E3CE6F /* localLoger */,
+				4B2DE7161FF0924200E3CE6F /* logger */,
 			);
 			path = class;
 			sourceTree = "<group>";
@@ -302,13 +305,13 @@
 			path = fmdb;
 			sourceTree = "<group>";
 		};
-		4B2DE7161FF0924200E3CE6F /* localLoger */ = {
+		4B2DE7161FF0924200E3CE6F /* logger */ = {
 			isa = PBXGroup;
 			children = (
 				4B2DE7171FF0927C00E3CE6F /* CAISLocalLogger.h */,
 				4B2DE7181FF0927C00E3CE6F /* CAISLocalLogger.m */,
 			);
-			path = localLoger;
+			path = logger;
 			sourceTree = "<group>";
 		};
 		4B2DE71C1FF092BE00E3CE6F /* stattistic */ = {
@@ -318,13 +321,15 @@
 				4B2383221FEA4A610097F0C2 /* CAIStatistic.m */,
 				4B2383241FEA4BBB0097F0C2 /* CAISPlan.h */,
 				4B2383251FEA4BBB0097F0C2 /* CAISPlan.m */,
-				4B2383271FEA4C400097F0C2 /* CAISKeyPath.h */,
-				4B2383281FEA4C400097F0C2 /* CAISKeyPath.m */,
+				4B2383271FEA4C400097F0C2 /* CAISKeyPoint.h */,
+				4B2383281FEA4C400097F0C2 /* CAISKeyPoint.m */,
 				4B2DE6D31FEB79BF00E3CE6F /* CAISType.h */,
 				4B2DE71D1FF092FF00E3CE6F /* CAISLog.h */,
 				4B2DE71E1FF092FF00E3CE6F /* CAISLog.m */,
 				4BE18EB11FF0D9EF003D7EE2 /* CAISReport.h */,
 				4BE18EB21FF0D9EF003D7EE2 /* CAISReport.m */,
+				4BF96CAF1FF36AA100290C73 /* CAISUtils.h */,
+				4BF96CB01FF36AA100290C73 /* CAISUtils.m */,
 			);
 			path = stattistic;
 			sourceTree = "<group>";
@@ -482,6 +487,7 @@
 				4B2DE70A1FF0918400E3CE6F /* FMDatabasePool.m in Sources */,
 				4B2DE70D1FF0918400E3CE6F /* FMDatabaseQueue.m in Sources */,
 				4B2DE6F81FF0918400E3CE6F /* Aspects.m in Sources */,
+				4BF96CB11FF36AA100290C73 /* CAISUtils.m in Sources */,
 				4B2382F01FEA45490097F0C2 /* ViewController.m in Sources */,
 				4B2382FB1FEA45490097F0C2 /* main.m in Sources */,
 				4BE18EB31FF0D9EF003D7EE2 /* CAISReport.m in Sources */,
@@ -490,7 +496,7 @@
 				4B2383231FEA4A610097F0C2 /* CAIStatistic.m in Sources */,
 				4B2DE7101FF0918400E3CE6F /* FMResultSet.m in Sources */,
 				4B2382ED1FEA45490097F0C2 /* AppDelegate.m in Sources */,
-				4B2383291FEA4C400097F0C2 /* CAISKeyPath.m in Sources */,
+				4B2383291FEA4C400097F0C2 /* CAISKeyPoint.m in Sources */,
 				4B2DE7041FF0918400E3CE6F /* FMDatabase.m in Sources */,
 				4B2DE6FB1FF0918400E3CE6F /* FMDatabase+FTS3.m in Sources */,
 				4B2DE7071FF0918400E3CE6F /* FMDatabaseAdditions.m in Sources */,

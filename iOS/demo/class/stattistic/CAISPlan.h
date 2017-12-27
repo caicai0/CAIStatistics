@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "CAISType.h"
-#import "CAISKeyPath.h"
+#import "CAISKeyPoint.h"
 
 @interface CAISPlan : NSObject
 
@@ -16,7 +16,8 @@
 @property (assign, nonatomic)CAISPlanType type;
 @property (strong, nonatomic)NSString * className;
 @property (strong, nonatomic)NSString * selectorName;
-@property (strong, nonatomic)NSArray<CAISKeyPath*> * keyPaths;
+@property (strong, nonatomic)NSDictionary * keyPoints;
+@property (strong, nonatomic)NSArray<CAISKeyPoint*> * keyPaths;
 
 + (instancetype)planForDictionary:(NSDictionary *)dic;
 

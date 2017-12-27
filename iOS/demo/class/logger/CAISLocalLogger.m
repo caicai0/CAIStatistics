@@ -22,14 +22,8 @@
 + (instancetype)loggerInPath:(NSString *)path{
     BOOL isDir = NO;
     if (path && [[NSFileManager defaultManager]fileExistsAtPath:path isDirectory:&isDir] && isDir) {
-        static CAISLocalLogger * shareLogger;
-        static dispatch_once_t onceToken;
-        dispatch_once(&onceToken, ^{
-            shareLogger = [[CAISLocalLogger alloc]init];
-        });
-        return shareLogger;
+        return [[CAISLocalLogger alloc]initWithPath:path];
     }else{
-        //
         NSLog(@"错误地址");
         return nil;
     }

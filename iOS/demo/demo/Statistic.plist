@@ -4,6 +4,18 @@
 <dict>
 	<key>version</key>
 	<integer>0</integer>
+	<key>baseInfo</key>
+	<dict>
+		<key>bundleVersion</key>
+		<dict>
+			<key>class</key>
+			<string>UIBundle</string>
+			<key>selector</key>
+			<string>currentBundle</string>
+			<key>keyPath</key>
+			<string>CFBundleVersion</string>
+		</dict>
+	</dict>
 	<key>plans</key>
 	<array>
 		<dict>
@@ -15,8 +27,6 @@
 			<string>TestClass</string>
 			<key>selector</key>
 			<string>noArgFunction</string>
-			<key>values</key>
-			<array/>
 		</dict>
 		<dict>
 			<key>planId</key>
@@ -28,9 +38,10 @@
 			<key>selector</key>
 			<string>argFunction:</string>
 			<key>values</key>
-			<array>
+			<dict>
+				<key>controllerTitle</key>
 				<string>1.title</string>
-			</array>
+			</dict>
 		</dict>
 	</array>
 </dict>

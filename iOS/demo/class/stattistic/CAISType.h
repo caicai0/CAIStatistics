@@ -14,4 +14,9 @@ typedef NS_ENUM(NSUInteger, CAISPlanType) {
     CAISPlanTypeCount
 };
 
+typedef NS_ENUM(NSUInteger, CAISKeyPointType) {
+    CAISKeyPointTypeKeyPathString,
+    CAISKeyPointTypeClassMethode
+};
+
 #endif /* CAISType_h */
