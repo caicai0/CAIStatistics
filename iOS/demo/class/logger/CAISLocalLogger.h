@@ -16,6 +16,12 @@
 
 + (instancetype)loggerInPath:(NSString *)path;
 
+//基本信息部分
+- (void)updateBaseInfo:(NSDictionary*)baseInfo;//baseInfo 有效的时候才会回调
+- (BOOL)baseInfoIsNew;
+- (void)resetInfoIsNew;
+
+//统计计划部分
 - (void)addLog:(CAISLog *)log;//针对不同类型修改sql
 - (void)getAllFinish:(void(^)(NSDictionary *dic))finish;
 

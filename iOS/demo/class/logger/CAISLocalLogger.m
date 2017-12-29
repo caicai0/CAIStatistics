@@ -49,6 +49,36 @@
     }];
 }
 
+- (void)updateBaseInfo:(NSDictionary*)baseInfo{
+    if (baseInfo && [baseInfo isKindOfClass:[NSDictionary class]]) {
+        NSUserDefaults * userDefaults = [[NSUserDefaults alloc]initWithSuiteName:@"CAIStatistic_baseInfo"];
+        NSDictionary * localBaseInfo = [userDefaults objectForKey:@"baseInfo"];
+        BOOL same = NO;
+        if ([baseInfo isEqual:localBaseInfo]) {
+            same = YES;
+        }else{
+            [userDefaults setObject:baseInfo forKey:@"baseInfo"];
+            [userDefaults synchronize];
+        }
+        [userDefaults setBool:!same forKey:@"baseInfoIsNew"];
+        [userDefaults synchronize];
+    }else{
+        NSLog(@"ERROR baseInfo");
+    }
+}
+
+- (BOOL)baseInfoIsNew{
+    NSUserDefaults * userDefaults = [[NSUserDefaults alloc]initWithSuiteName:@"CAIStatistic_baseInfo"];
+    BOOL isNew = [userDefaults boolForKey:@"baseInfoIsNew"];
+    return isNew;
+}
+
+- (void)resetInfoIsNew{
+    NSUserDefaults * userDefaults = [[NSUserDefaults alloc]initWithSuiteName:@"CAIStatistic_baseInfo"];
+    [userDefaults setBool:NO forKey:@"baseInfoIsNew"];
+    [userDefaults synchronize];
+}
+
 - (void)addLog:(CAISLog *)log{
     if(log && [log isKindOfClass:[CAISLog class]]){
         if (log.plan && [log.plan isKindOfClass:[CAISPlan class]]) {

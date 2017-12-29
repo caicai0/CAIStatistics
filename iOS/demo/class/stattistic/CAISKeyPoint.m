@@ -34,6 +34,7 @@
         }
         if (!hasError) {
             CAISKeyPoint * keypath = [[CAISKeyPoint alloc]init];
+            keypath.type = CAISKeyPointTypeKeyPathString;
             keypath.index = index;
             keypath.hasPath = (paths.count>0);
             keypath.pathArray = [NSArray arrayWithArray:paths];
@@ -52,6 +53,7 @@
     if (className && [className isKindOfClass:[NSString class]] && className.length
         && selectorName && [selectorName isKindOfClass:[NSString class]] && selectorName.length) {
         CAISKeyPoint * keypath = [[CAISKeyPoint alloc]init];
+        keypath.type = CAISKeyPointTypeClassMethode;
         keypath.aclass = NSClassFromString(className);
         keypath.selector = NSSelectorFromString(selectorName);
         NSString * keys = [dic objectForKey:@"keyPath"];

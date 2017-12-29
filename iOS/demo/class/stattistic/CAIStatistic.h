@@ -10,9 +10,10 @@
 
 @interface CAIStatistic : NSObject
 
+@property (nonatomic, strong)NSDictionary *baseInfos;
 @property (nonatomic, strong)NSDictionary *plans;
 
 + (instancetype)shareStatistic;
-+ (void)start;
++ (void)startInLocalPath:(NSString *)filePath;
 
 @end

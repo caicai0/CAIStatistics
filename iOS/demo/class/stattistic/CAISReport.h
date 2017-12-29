@@ -11,6 +11,8 @@
 @interface CAISReport : NSObject
 
 @property (strong, nonatomic)NSString * planVersion;
+@property (strong, nonatomic)NSString * deviceId;
+@property (strong, nonatomic)NSDictionary * baseInfo;
 @property (strong, nonatomic)NSArray * logs;
 @property (strong, nonatomic)NSDate * createDate;
 

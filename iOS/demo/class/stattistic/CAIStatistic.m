@@ -9,11 +9,14 @@
 #import "CAIStatistic.h"
 #import "CAISPlan.h"
 #import "Aspects.h"
+#import "CAISUtils.h"
+#import "CAISLocalLogger.h"
 
 @interface CAIStatistic()
 
 @property (nonatomic, assign)NSInteger version; //统计版本默认为0
 @property (nonatomic, strong)NSMutableArray<id<AspectToken>> *allAspectToken;
+@property (nonatomic, strong)CAISLocalLogger * localLogger;
 
 @end
 
@@ -28,11 +31,13 @@
     return shareInstance;
 }
 
-+ (void)start{
++ (void)startInLocalPath:(NSString *)path{
     NSString * filePath = [[NSBundle mainBundle]pathForResource:@"Statistic" ofType:@"plist"];
     NSDictionary * dic = [NSDictionary dictionaryWithContentsOfFile:filePath];
-    [[CAIStatistic shareStatistic]updatePlansFromDictionary:dic];
+    [[CAIStatistic shareStatistic]updateFromDictionary:dic];
     [[CAIStatistic shareStatistic]analysisAllPlans];
+    [CAIStatistic shareStatistic].localLogger = [CAISLocalLogger loggerInPath:path];
+    [[CAIStatistic shareStatistic]updateBaseInfo];
 }
 
 - (instancetype)init
@@ -40,15 +45,42 @@
     self = [super init];
     if (self) {
         self.allAspectToken = [NSMutableArray array];
+        
     }
     return self;
 }
 
-- (void)updatePlansFromDictionary:(NSDictionary *)dic{
+- (void)updateFromDictionary:(NSDictionary *)dic{
     NSNumber * versionNmber = dic[@"version"];
     if (versionNmber && [versionNmber isKindOfClass:[NSNumber class]]) {
         self.version = [versionNmber integerValue];
     }
+    //基本统计信息
+    NSDictionary * baseInfoDir = dic[@"baseInfo"];
+    if (baseInfoDir && [baseInfoDir isKindOfClass:[NSDictionary class]] && baseInfoDir.count) {
+        NSMutableDictionary * allPath = [NSMutableDictionary dictionary];
+        [baseInfoDir enumerateKeysAndObjectsUsingBlock:^(NSString *  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+            if (key && [key isKindOfClass:[NSString class]] && key.length && obj && [obj isKindOfClass:[NSString class]] && [obj length]) {
+                NSString * keypath = obj;
+                CAISKeyPoint * skeyPath = [CAISKeyPoint keyPointForString:keypath];
+                if (skeyPath) {
+                    skeyPath.key = key;
+                    [allPath setObject:skeyPath forKey:key];
+                }
+            }else if(key && [key isKindOfClass:[NSString class]] && key.length && obj && [obj isKindOfClass:[NSDictionary class]] && [obj count]){
+                NSDictionary * keyDic= obj;
+                CAISKeyPoint * skeyPath = [CAISKeyPoint keyPointForDictionary:keyDic];
+                if (skeyPath) {
+                    skeyPath.key = key;
+                    [allPath setObject:skeyPath forKey:key];
+                }
+            }else{
+                NSLog(@"ERROR %@,%@",key,obj);
+            }
+        }];
+        self.baseInfos = [NSDictionary dictionaryWithDictionary:allPath];
+    }
+    //统计计划
     NSArray * plans = dic[@"plans"];
     NSMutableDictionary *allPlans = [NSMutableDictionary dictionary];
     if (plans && [plans isKindOfClass:[NSArray class]] && plans.count) {
@@ -98,6 +130,23 @@
         }
     }else if(plan.type == CAISPlanTypeCount){
         NSLog(@"%ld,%@,%@",plan.type,plan.className,plan.selectorName);
+    }
+}
+
+- (void)updateBaseInfo{
+    if (self.baseInfos && self.baseInfos.count) {
+        NSMutableDictionary * result = [NSMutableDictionary dictionary];
+        @try {
+            [self.baseInfos enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, CAISKeyPoint* _Nonnull obj, BOOL * _Nonnull stop) {
+                id object = [obj stringValueForInfo:nil];
+                NSString * value = [object description];
+                [result setObject:value forKey:key];
+            }];
+        } @catch (NSException *exception) {
+            [result setObject:exception.description forKey:@"exception"];
+        } @finally {
+            [self.localLogger updateBaseInfo:result];
+        }
     }
 }
 
