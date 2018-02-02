@@ -1,5 +1,5 @@
 var mysql = require('mysql');
-var config = require('../config/default.js')
+var config = require('../config/default.js');
 
 var pool  = mysql.createPool({
   host     : config.database.HOST,
@@ -26,7 +26,7 @@ let query = function( sql, values ) {
       }
     })
   })
-}
+};
 
 let users=
     `create table if not exists users(
