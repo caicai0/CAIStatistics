@@ -10,5 +10,9 @@
     "api"
   ],
   "author": "liyufeng",
-  "license": "GPL-3.0"
+  "license": "GPL-3.0",
+  "dependencies": {
+    "mysql2": "^1.5.1",
+    "sequelize": "^4.31.2"
+  }
 }
