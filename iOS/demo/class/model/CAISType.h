@@ -19,4 +19,10 @@ typedef NS_ENUM(NSUInteger, CAISKeyPointType) {
     CAISKeyPointTypeClassMethode
 };
 
+typedef NS_ENUM(NSUInteger, UploadType) {
+    UploadTypeRealTime,//实时上传 默认
+    UploadTypeTime,//定时上传
+    UploadTypeNumber,//计数上传
+};
+
 #endif /* CAISType_h */

@@ -38,7 +38,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"ViewController.title";
-    [CAIStatistic start];
+    NSArray *paths=NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    [CAIStatistic startInLocalPath:documentsDirectory];
     // Do any additional setup after loading the view, typically from a nib.
 }
 
@@ -53,8 +55,6 @@
     [test noArgFunction];
     [test argFunction:self];
     
-    [UIDevice currentDevice];
-    [UIScreen mainScreen].bounds;
     Class device = NSClassFromString(@"UIScreen");
     SEL selector = NSSelectorFromString(@"mainScreen");
     NSString * dev = [CAISUtils objectForClass:device selector:selector keyPath:@"bounds"];
