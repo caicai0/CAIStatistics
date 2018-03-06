@@ -9,6 +9,6 @@ const config = {
       PORT: '63003',
       HOST: 'flagcaicai.f3322.net'
     }
-  }
+  };
   
-  module.exports = config
+  module.exports = config;
