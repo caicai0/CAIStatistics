@@ -53,8 +53,8 @@
 		4B2DE71A1FF0927C00E3CE6F /* CAISLocalLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B2DE7181FF0927C00E3CE6F /* CAISLocalLogger.m */; };
 		4B2DE71B1FF0927C00E3CE6F /* CAISLocalLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B2DE7181FF0927C00E3CE6F /* CAISLocalLogger.m */; };
 		4B2DE71F1FF092FF00E3CE6F /* CAISLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B2DE71E1FF092FF00E3CE6F /* CAISLog.m */; };
-		4B2DE7201FF092FF00E3CE6F /* CAISLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B2DE71E1FF092FF00E3CE6F /* CAISLog.m */; };
-		4B2DE7211FF092FF00E3CE6F /* CAISLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B2DE71E1FF092FF00E3CE6F /* CAISLog.m */; };
+		4B31A33C204D426200BBBE4C /* CAISUploader.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B31A33B204D426200BBBE4C /* CAISUploader.m */; };
+		4B31A340204E47EA00BBBE4C /* CAISRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B31A33F204E47EA00BBBE4C /* CAISRecorder.m */; };
 		4BE18EB01FF0D962003D7EE2 /* CAISNet.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BE18EAF1FF0D962003D7EE2 /* CAISNet.m */; };
 		4BE18EB31FF0D9EF003D7EE2 /* CAISReport.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BE18EB21FF0D9EF003D7EE2 /* CAISReport.m */; };
 		4BF96CB11FF36AA100290C73 /* CAISUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BF96CB01FF36AA100290C73 /* CAISUtils.m */; };
@@ -128,6 +128,10 @@
 		4B2DE7181FF0927C00E3CE6F /* CAISLocalLogger.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CAISLocalLogger.m; sourceTree = "<group>"; };
 		4B2DE71D1FF092FF00E3CE6F /* CAISLog.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CAISLog.h; sourceTree = "<group>"; };
 		4B2DE71E1FF092FF00E3CE6F /* CAISLog.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CAISLog.m; sourceTree = "<group>"; };
+		4B31A33A204D426200BBBE4C /* CAISUploader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CAISUploader.h; sourceTree = "<group>"; };
+		4B31A33B204D426200BBBE4C /* CAISUploader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CAISUploader.m; sourceTree = "<group>"; };
+		4B31A33E204E47EA00BBBE4C /* CAISRecorder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CAISRecorder.h; sourceTree = "<group>"; };
+		4B31A33F204E47EA00BBBE4C /* CAISRecorder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CAISRecorder.m; sourceTree = "<group>"; };
 		4BE18EAE1FF0D962003D7EE2 /* CAISNet.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CAISNet.h; sourceTree = "<group>"; };
 		4BE18EAF1FF0D962003D7EE2 /* CAISNet.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CAISNet.m; sourceTree = "<group>"; };
 		4BE18EB11FF0D9EF003D7EE2 /* CAISReport.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CAISReport.h; sourceTree = "<group>"; };
@@ -222,9 +226,10 @@
 		4B2383201FEA470B0097F0C2 /* class */ = {
 			isa = PBXGroup;
 			children = (
+				4B31A341204E47FD00BBBE4C /* model */,
 				4BE18EAD1FF0D8E4003D7EE2 /* net */,
 				4B2DE71C1FF092BE00E3CE6F /* stattistic */,
-				4B2DE7161FF0924200E3CE6F /* logger */,
+				4B2DE7161FF0924200E3CE6F /* local */,
 			);
 			path = class;
 			sourceTree = "<group>";
@@ -305,13 +310,17 @@
 			path = fmdb;
 			sourceTree = "<group>";
 		};
-		4B2DE7161FF0924200E3CE6F /* logger */ = {
+		4B2DE7161FF0924200E3CE6F /* local */ = {
 			isa = PBXGroup;
 			children = (
 				4B2DE7171FF0927C00E3CE6F /* CAISLocalLogger.h */,
 				4B2DE7181FF0927C00E3CE6F /* CAISLocalLogger.m */,
+				4B31A33A204D426200BBBE4C /* CAISUploader.h */,
+				4B31A33B204D426200BBBE4C /* CAISUploader.m */,
+				4B31A33E204E47EA00BBBE4C /* CAISRecorder.h */,
+				4B31A33F204E47EA00BBBE4C /* CAISRecorder.m */,
 			);
-			path = logger;
+			path = local;
 			sourceTree = "<group>";
 		};
 		4B2DE71C1FF092BE00E3CE6F /* stattistic */ = {
@@ -319,6 +328,15 @@
 			children = (
 				4B2383211FEA4A610097F0C2 /* CAIStatistic.h */,
 				4B2383221FEA4A610097F0C2 /* CAIStatistic.m */,
+				4BF96CAF1FF36AA100290C73 /* CAISUtils.h */,
+				4BF96CB01FF36AA100290C73 /* CAISUtils.m */,
+			);
+			path = stattistic;
+			sourceTree = "<group>";
+		};
+		4B31A341204E47FD00BBBE4C /* model */ = {
+			isa = PBXGroup;
+			children = (
 				4B2383241FEA4BBB0097F0C2 /* CAISPlan.h */,
 				4B2383251FEA4BBB0097F0C2 /* CAISPlan.m */,
 				4B2383271FEA4C400097F0C2 /* CAISKeyPoint.h */,
@@ -328,10 +346,8 @@
 				4B2DE71E1FF092FF00E3CE6F /* CAISLog.m */,
 				4BE18EB11FF0D9EF003D7EE2 /* CAISReport.h */,
 				4BE18EB21FF0D9EF003D7EE2 /* CAISReport.m */,
-				4BF96CAF1FF36AA100290C73 /* CAISUtils.h */,
-				4BF96CB01FF36AA100290C73 /* CAISUtils.m */,
 			);
-			path = stattistic;
+			path = model;
 			sourceTree = "<group>";
 		};
 		4BE18EAD1FF0D8E4003D7EE2 /* net */ = {
@@ -483,11 +499,13 @@
 				4B2383261FEA4BBB0097F0C2 /* CAISPlan.m in Sources */,
 				4B2DE71F1FF092FF00E3CE6F /* CAISLog.m in Sources */,
 				4B2DE6FE1FF0918400E3CE6F /* FMTokenizers.m in Sources */,
+				4B31A340204E47EA00BBBE4C /* CAISRecorder.m in Sources */,
 				4BE18EB01FF0D962003D7EE2 /* CAISNet.m in Sources */,
 				4B2DE70A1FF0918400E3CE6F /* FMDatabasePool.m in Sources */,
 				4B2DE70D1FF0918400E3CE6F /* FMDatabaseQueue.m in Sources */,
 				4B2DE6F81FF0918400E3CE6F /* Aspects.m in Sources */,
 				4BF96CB11FF36AA100290C73 /* CAISUtils.m in Sources */,
+				4B31A33C204D426200BBBE4C /* CAISUploader.m in Sources */,
 				4B2382F01FEA45490097F0C2 /* ViewController.m in Sources */,
 				4B2382FB1FEA45490097F0C2 /* main.m in Sources */,
 				4BE18EB31FF0D9EF003D7EE2 /* CAISReport.m in Sources */,
@@ -513,7 +531,6 @@
 				4B2383051FEA45490097F0C2 /* demoTests.m in Sources */,
 				4B2DE7051FF0918400E3CE6F /* FMDatabase.m in Sources */,
 				4B2DE7111FF0918400E3CE6F /* FMResultSet.m in Sources */,
-				4B2DE7201FF092FF00E3CE6F /* CAISLog.m in Sources */,
 				4B2DE6FF1FF0918400E3CE6F /* FMTokenizers.m in Sources */,
 				4B2DE70B1FF0918400E3CE6F /* FMDatabasePool.m in Sources */,
 				4B2DE7081FF0918400E3CE6F /* FMDatabaseAdditions.m in Sources */,
@@ -532,7 +549,6 @@
 				4B2383101FEA45490097F0C2 /* demoUITests.m in Sources */,
 				4B2DE7061FF0918400E3CE6F /* FMDatabase.m in Sources */,
 				4B2DE7121FF0918400E3CE6F /* FMResultSet.m in Sources */,
-				4B2DE7211FF092FF00E3CE6F /* CAISLog.m in Sources */,
 				4B2DE7001FF0918400E3CE6F /* FMTokenizers.m in Sources */,
 				4B2DE70C1FF0918400E3CE6F /* FMDatabasePool.m in Sources */,
 				4B2DE7091FF0918400E3CE6F /* FMDatabaseAdditions.m in Sources */,

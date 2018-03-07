@@ -45,7 +45,6 @@
     self = [super init];
     if (self) {
         self.allAspectToken = [NSMutableArray array];
-        
     }
     return self;
 }
