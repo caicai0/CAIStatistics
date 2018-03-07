@@ -1,18 +1,10 @@
-var Koa=require('koa');
-var path=require('path');
-var bodyParser = require('koa-bodyparser');
-var config = require('./config/default.js');
-var router=require('koa-router');
-var koaStatic = require('koa-static');
-var app=new Koa();
-
-// session存储配置
-const sessionMysqlConfig= {
-  user: config.database.USERNAME,
-  password: config.database.PASSWORD,
-  database: config.database.DATABASE,
-  host: config.database.HOST
-};
+const Koa=require('koa');
+const path=require('path');
+const bodyParser = require('koa-bodyparser');
+const config = require(__dirname + '/config/config.js');
+const router=require('koa-router');
+const koaStatic = require('koa-static');
+const app=new Koa();
 
 // 配置静态资源加载中间件
 app.use(require('./middlewares/error'));
@@ -33,6 +25,6 @@ app.on('error',function(err,ctx){
 if (module.parent) {
   	module.exports = app;
 }else{
-	app.listen(3000)
+	app.listen(3000);
 }
 console.log(`listening on port ${config.port}`);
