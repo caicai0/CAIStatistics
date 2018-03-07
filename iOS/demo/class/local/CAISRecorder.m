@@ -7,7 +7,30 @@
 //
 
 #import "CAISRecorder.h"
+#import "CAISLocalLogger.h"
+#import "CAISUploader.h"
+
+@interface CAISRecorder()
+
+@property (nonatomic, strong) CAISUploader * uploader;
+@property (nonatomic, strong) CAISLocalLogger * localLogger;
+
+@end
 
 @implementation CAISRecorder
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        self.uploader = [[CAISUploader alloc]init];
+        self.localLogger = [[CAISLocalLogger alloc]init];
+    }
+    return self;
+}
+
+- (void)recordOneLog:(CAISLog *)log{
+    
+}
 
 @end

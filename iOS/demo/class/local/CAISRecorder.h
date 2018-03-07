@@ -7,7 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "CAISLog.h"
 
 @interface CAISRecorder : NSObject
+
+- (void)recordOneLog:(CAISLog *)log;
 
 @end
