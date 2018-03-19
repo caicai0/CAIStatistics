@@ -1,0 +1,26 @@
+{
+  "development": {
+    "username": "root",
+    "password": "FLYgirl791008.",
+    "database": "demo",
+    "host": "flagcaicai.f3322.net",
+    "port":63003,
+    "dialect": "mysql"
+  },
+  "test": {
+    "username": "root",
+    "password": "FLYgirl791008.",
+    "database": "demo",
+    "host": "flagcaicai.f3322.net",
+    "port":63003,
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "root",
+    "password": "FLYgirl791008.",
+    "database": "demo",
+    "host": "flagcaicai.f3322.net",
+    "port":63003,
+    "dialect": "mysql"
+  }
+}
