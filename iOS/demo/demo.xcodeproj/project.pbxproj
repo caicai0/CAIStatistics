@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		330C26C12064F8A800CD4EE8 /* Aspects.m in Sources */ = {isa = PBXBuildFile; fileRef = 330C26BC2064F8A800CD4EE8 /* Aspects.m */; };
 		4B2382ED1FEA45490097F0C2 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B2382EC1FEA45490097F0C2 /* AppDelegate.m */; };
 		4B2382F01FEA45490097F0C2 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B2382EF1FEA45490097F0C2 /* ViewController.m */; };
 		4B2382F31FEA45490097F0C2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4B2382F11FEA45490097F0C2 /* Main.storyboard */; };
@@ -19,36 +20,6 @@
 		4B2383261FEA4BBB0097F0C2 /* CAISPlan.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B2383251FEA4BBB0097F0C2 /* CAISPlan.m */; };
 		4B2383291FEA4C400097F0C2 /* CAISKeyPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B2383281FEA4C400097F0C2 /* CAISKeyPoint.m */; };
 		4B2DE6D11FEB4FD000E3CE6F /* Statistic.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4B2DE6D01FEB4FD000E3CE6F /* Statistic.plist */; };
-		4B2DE6F81FF0918400E3CE6F /* Aspects.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B2DE6DF1FF0918400E3CE6F /* Aspects.m */; };
-		4B2DE6F91FF0918400E3CE6F /* Aspects.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B2DE6DF1FF0918400E3CE6F /* Aspects.m */; };
-		4B2DE6FA1FF0918400E3CE6F /* Aspects.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B2DE6DF1FF0918400E3CE6F /* Aspects.m */; };
-		4B2DE6FB1FF0918400E3CE6F /* FMDatabase+FTS3.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B2DE6E41FF0918400E3CE6F /* FMDatabase+FTS3.m */; };
-		4B2DE6FC1FF0918400E3CE6F /* FMDatabase+FTS3.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B2DE6E41FF0918400E3CE6F /* FMDatabase+FTS3.m */; };
-		4B2DE6FD1FF0918400E3CE6F /* FMDatabase+FTS3.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B2DE6E41FF0918400E3CE6F /* FMDatabase+FTS3.m */; };
-		4B2DE6FE1FF0918400E3CE6F /* FMTokenizers.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B2DE6E61FF0918400E3CE6F /* FMTokenizers.m */; };
-		4B2DE6FF1FF0918400E3CE6F /* FMTokenizers.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B2DE6E61FF0918400E3CE6F /* FMTokenizers.m */; };
-		4B2DE7001FF0918400E3CE6F /* FMTokenizers.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B2DE6E61FF0918400E3CE6F /* FMTokenizers.m */; };
-		4B2DE7011FF0918400E3CE6F /* FMDatabase+InMemoryOnDiskIO.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B2DE6EA1FF0918400E3CE6F /* FMDatabase+InMemoryOnDiskIO.m */; };
-		4B2DE7021FF0918400E3CE6F /* FMDatabase+InMemoryOnDiskIO.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B2DE6EA1FF0918400E3CE6F /* FMDatabase+InMemoryOnDiskIO.m */; };
-		4B2DE7031FF0918400E3CE6F /* FMDatabase+InMemoryOnDiskIO.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B2DE6EA1FF0918400E3CE6F /* FMDatabase+InMemoryOnDiskIO.m */; };
-		4B2DE7041FF0918400E3CE6F /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B2DE6ED1FF0918400E3CE6F /* FMDatabase.m */; };
-		4B2DE7051FF0918400E3CE6F /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B2DE6ED1FF0918400E3CE6F /* FMDatabase.m */; };
-		4B2DE7061FF0918400E3CE6F /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B2DE6ED1FF0918400E3CE6F /* FMDatabase.m */; };
-		4B2DE7071FF0918400E3CE6F /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B2DE6EF1FF0918400E3CE6F /* FMDatabaseAdditions.m */; };
-		4B2DE7081FF0918400E3CE6F /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B2DE6EF1FF0918400E3CE6F /* FMDatabaseAdditions.m */; };
-		4B2DE7091FF0918400E3CE6F /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B2DE6EF1FF0918400E3CE6F /* FMDatabaseAdditions.m */; };
-		4B2DE70A1FF0918400E3CE6F /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B2DE6F11FF0918400E3CE6F /* FMDatabasePool.m */; };
-		4B2DE70B1FF0918400E3CE6F /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B2DE6F11FF0918400E3CE6F /* FMDatabasePool.m */; };
-		4B2DE70C1FF0918400E3CE6F /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B2DE6F11FF0918400E3CE6F /* FMDatabasePool.m */; };
-		4B2DE70D1FF0918400E3CE6F /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B2DE6F31FF0918400E3CE6F /* FMDatabaseQueue.m */; };
-		4B2DE70E1FF0918400E3CE6F /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B2DE6F31FF0918400E3CE6F /* FMDatabaseQueue.m */; };
-		4B2DE70F1FF0918400E3CE6F /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B2DE6F31FF0918400E3CE6F /* FMDatabaseQueue.m */; };
-		4B2DE7101FF0918400E3CE6F /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B2DE6F61FF0918400E3CE6F /* FMResultSet.m */; };
-		4B2DE7111FF0918400E3CE6F /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B2DE6F61FF0918400E3CE6F /* FMResultSet.m */; };
-		4B2DE7121FF0918400E3CE6F /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B2DE6F61FF0918400E3CE6F /* FMResultSet.m */; };
-		4B2DE7131FF0918400E3CE6F /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4B2DE6F71FF0918400E3CE6F /* Info.plist */; };
-		4B2DE7141FF0918400E3CE6F /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4B2DE6F71FF0918400E3CE6F /* Info.plist */; };
-		4B2DE7151FF0918400E3CE6F /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4B2DE6F71FF0918400E3CE6F /* Info.plist */; };
 		4B2DE7191FF0927C00E3CE6F /* CAISLocalLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B2DE7181FF0927C00E3CE6F /* CAISLocalLogger.m */; };
 		4B2DE71A1FF0927C00E3CE6F /* CAISLocalLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B2DE7181FF0927C00E3CE6F /* CAISLocalLogger.m */; };
 		4B2DE71B1FF0927C00E3CE6F /* CAISLocalLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B2DE7181FF0927C00E3CE6F /* CAISLocalLogger.m */; };
@@ -78,6 +49,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		330C26BB2064F8A800CD4EE8 /* Aspects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Aspects.h; sourceTree = "<group>"; };
+		330C26BC2064F8A800CD4EE8 /* Aspects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Aspects.m; sourceTree = "<group>"; };
 		4B2382E81FEA45490097F0C2 /* demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B2382EB1FEA45490097F0C2 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		4B2382EC1FEA45490097F0C2 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -103,27 +76,6 @@
 		4B2DE6D01FEB4FD000E3CE6F /* Statistic.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Statistic.plist; sourceTree = "<group>"; };
 		4B2DE6D21FEB5BA100E3CE6F /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		4B2DE6D31FEB79BF00E3CE6F /* CAISType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CAISType.h; sourceTree = "<group>"; };
-		4B2DE6DE1FF0918400E3CE6F /* Aspects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Aspects.h; sourceTree = "<group>"; };
-		4B2DE6DF1FF0918400E3CE6F /* Aspects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Aspects.m; sourceTree = "<group>"; };
-		4B2DE6E31FF0918400E3CE6F /* FMDatabase+FTS3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FMDatabase+FTS3.h"; sourceTree = "<group>"; };
-		4B2DE6E41FF0918400E3CE6F /* FMDatabase+FTS3.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "FMDatabase+FTS3.m"; sourceTree = "<group>"; };
-		4B2DE6E51FF0918400E3CE6F /* FMTokenizers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMTokenizers.h; sourceTree = "<group>"; };
-		4B2DE6E61FF0918400E3CE6F /* FMTokenizers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMTokenizers.m; sourceTree = "<group>"; };
-		4B2DE6E71FF0918400E3CE6F /* fts3_tokenizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fts3_tokenizer.h; sourceTree = "<group>"; };
-		4B2DE6E91FF0918400E3CE6F /* FMDatabase+InMemoryOnDiskIO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FMDatabase+InMemoryOnDiskIO.h"; sourceTree = "<group>"; };
-		4B2DE6EA1FF0918400E3CE6F /* FMDatabase+InMemoryOnDiskIO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "FMDatabase+InMemoryOnDiskIO.m"; sourceTree = "<group>"; };
-		4B2DE6EC1FF0918400E3CE6F /* FMDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabase.h; sourceTree = "<group>"; };
-		4B2DE6ED1FF0918400E3CE6F /* FMDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabase.m; sourceTree = "<group>"; };
-		4B2DE6EE1FF0918400E3CE6F /* FMDatabaseAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseAdditions.h; sourceTree = "<group>"; };
-		4B2DE6EF1FF0918400E3CE6F /* FMDatabaseAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabaseAdditions.m; sourceTree = "<group>"; };
-		4B2DE6F01FF0918400E3CE6F /* FMDatabasePool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabasePool.h; sourceTree = "<group>"; };
-		4B2DE6F11FF0918400E3CE6F /* FMDatabasePool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabasePool.m; sourceTree = "<group>"; };
-		4B2DE6F21FF0918400E3CE6F /* FMDatabaseQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseQueue.h; sourceTree = "<group>"; };
-		4B2DE6F31FF0918400E3CE6F /* FMDatabaseQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabaseQueue.m; sourceTree = "<group>"; };
-		4B2DE6F41FF0918400E3CE6F /* FMDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDB.h; sourceTree = "<group>"; };
-		4B2DE6F51FF0918400E3CE6F /* FMResultSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMResultSet.h; sourceTree = "<group>"; };
-		4B2DE6F61FF0918400E3CE6F /* FMResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMResultSet.m; sourceTree = "<group>"; };
-		4B2DE6F71FF0918400E3CE6F /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4B2DE7171FF0927C00E3CE6F /* CAISLocalLogger.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CAISLocalLogger.h; sourceTree = "<group>"; };
 		4B2DE7181FF0927C00E3CE6F /* CAISLocalLogger.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CAISLocalLogger.m; sourceTree = "<group>"; };
 		4B2DE71D1FF092FF00E3CE6F /* CAISLog.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CAISLog.h; sourceTree = "<group>"; };
@@ -165,10 +117,27 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		330C26B92064F8A800CD4EE8 /* thirdpart */ = {
+			isa = PBXGroup;
+			children = (
+				330C26BA2064F8A800CD4EE8 /* aspects */,
+			);
+			path = thirdpart;
+			sourceTree = "<group>";
+		};
+		330C26BA2064F8A800CD4EE8 /* aspects */ = {
+			isa = PBXGroup;
+			children = (
+				330C26BB2064F8A800CD4EE8 /* Aspects.h */,
+				330C26BC2064F8A800CD4EE8 /* Aspects.m */,
+			);
+			path = aspects;
+			sourceTree = "<group>";
+		};
 		4B2382DF1FEA45490097F0C2 = {
 			isa = PBXGroup;
 			children = (
-				4B2DE6DC1FF0918400E3CE6F /* thirdpart */,
+				330C26B92064F8A800CD4EE8 /* thirdpart */,
 				4B2DE6D21FEB5BA100E3CE6F /* README.md */,
 				4B2383201FEA470B0097F0C2 /* class */,
 				4B2382EA1FEA45490097F0C2 /* demo */,
@@ -232,82 +201,6 @@
 				4B2DE7161FF0924200E3CE6F /* local */,
 			);
 			path = class;
-			sourceTree = "<group>";
-		};
-		4B2DE6DC1FF0918400E3CE6F /* thirdpart */ = {
-			isa = PBXGroup;
-			children = (
-				4B2DE6DD1FF0918400E3CE6F /* aspects */,
-				4B2DE6E01FF0918400E3CE6F /* fmdb */,
-			);
-			path = thirdpart;
-			sourceTree = "<group>";
-		};
-		4B2DE6DD1FF0918400E3CE6F /* aspects */ = {
-			isa = PBXGroup;
-			children = (
-				4B2DE6DE1FF0918400E3CE6F /* Aspects.h */,
-				4B2DE6DF1FF0918400E3CE6F /* Aspects.m */,
-			);
-			path = aspects;
-			sourceTree = "<group>";
-		};
-		4B2DE6E01FF0918400E3CE6F /* fmdb */ = {
-			isa = PBXGroup;
-			children = (
-				4B2DE6E11FF0918400E3CE6F /* extra */,
-				4B2DE6EB1FF0918400E3CE6F /* fmdb */,
-			);
-			path = fmdb;
-			sourceTree = "<group>";
-		};
-		4B2DE6E11FF0918400E3CE6F /* extra */ = {
-			isa = PBXGroup;
-			children = (
-				4B2DE6E21FF0918400E3CE6F /* fts3 */,
-				4B2DE6E81FF0918400E3CE6F /* InMemoryOnDiskIO */,
-			);
-			path = extra;
-			sourceTree = "<group>";
-		};
-		4B2DE6E21FF0918400E3CE6F /* fts3 */ = {
-			isa = PBXGroup;
-			children = (
-				4B2DE6E31FF0918400E3CE6F /* FMDatabase+FTS3.h */,
-				4B2DE6E41FF0918400E3CE6F /* FMDatabase+FTS3.m */,
-				4B2DE6E51FF0918400E3CE6F /* FMTokenizers.h */,
-				4B2DE6E61FF0918400E3CE6F /* FMTokenizers.m */,
-				4B2DE6E71FF0918400E3CE6F /* fts3_tokenizer.h */,
-			);
-			path = fts3;
-			sourceTree = "<group>";
-		};
-		4B2DE6E81FF0918400E3CE6F /* InMemoryOnDiskIO */ = {
-			isa = PBXGroup;
-			children = (
-				4B2DE6E91FF0918400E3CE6F /* FMDatabase+InMemoryOnDiskIO.h */,
-				4B2DE6EA1FF0918400E3CE6F /* FMDatabase+InMemoryOnDiskIO.m */,
-			);
-			path = InMemoryOnDiskIO;
-			sourceTree = "<group>";
-		};
-		4B2DE6EB1FF0918400E3CE6F /* fmdb */ = {
-			isa = PBXGroup;
-			children = (
-				4B2DE6EC1FF0918400E3CE6F /* FMDatabase.h */,
-				4B2DE6ED1FF0918400E3CE6F /* FMDatabase.m */,
-				4B2DE6EE1FF0918400E3CE6F /* FMDatabaseAdditions.h */,
-				4B2DE6EF1FF0918400E3CE6F /* FMDatabaseAdditions.m */,
-				4B2DE6F01FF0918400E3CE6F /* FMDatabasePool.h */,
-				4B2DE6F11FF0918400E3CE6F /* FMDatabasePool.m */,
-				4B2DE6F21FF0918400E3CE6F /* FMDatabaseQueue.h */,
-				4B2DE6F31FF0918400E3CE6F /* FMDatabaseQueue.m */,
-				4B2DE6F41FF0918400E3CE6F /* FMDB.h */,
-				4B2DE6F51FF0918400E3CE6F /* FMResultSet.h */,
-				4B2DE6F61FF0918400E3CE6F /* FMResultSet.m */,
-				4B2DE6F71FF0918400E3CE6F /* Info.plist */,
-			);
-			path = fmdb;
 			sourceTree = "<group>";
 		};
 		4B2DE7161FF0924200E3CE6F /* local */ = {
@@ -468,7 +361,6 @@
 				4B2382F81FEA45490097F0C2 /* LaunchScreen.storyboard in Resources */,
 				4B2DE6D11FEB4FD000E3CE6F /* Statistic.plist in Resources */,
 				4B2382F51FEA45490097F0C2 /* Assets.xcassets in Resources */,
-				4B2DE7131FF0918400E3CE6F /* Info.plist in Resources */,
 				4B2382F31FEA45490097F0C2 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -477,7 +369,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4B2DE7141FF0918400E3CE6F /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -485,7 +376,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4B2DE7151FF0918400E3CE6F /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -497,27 +387,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				4B2383261FEA4BBB0097F0C2 /* CAISPlan.m in Sources */,
+				330C26C12064F8A800CD4EE8 /* Aspects.m in Sources */,
 				4B2DE71F1FF092FF00E3CE6F /* CAISLog.m in Sources */,
-				4B2DE6FE1FF0918400E3CE6F /* FMTokenizers.m in Sources */,
 				4B31A340204E47EA00BBBE4C /* CAISRecorder.m in Sources */,
 				4BE18EB01FF0D962003D7EE2 /* CAISNet.m in Sources */,
-				4B2DE70A1FF0918400E3CE6F /* FMDatabasePool.m in Sources */,
-				4B2DE70D1FF0918400E3CE6F /* FMDatabaseQueue.m in Sources */,
-				4B2DE6F81FF0918400E3CE6F /* Aspects.m in Sources */,
 				4BF96CB11FF36AA100290C73 /* CAISUtils.m in Sources */,
 				4B31A33C204D426200BBBE4C /* CAISUploader.m in Sources */,
 				4B2382F01FEA45490097F0C2 /* ViewController.m in Sources */,
 				4B2382FB1FEA45490097F0C2 /* main.m in Sources */,
 				4BE18EB31FF0D9EF003D7EE2 /* CAISReport.m in Sources */,
 				4B2DE7191FF0927C00E3CE6F /* CAISLocalLogger.m in Sources */,
-				4B2DE7011FF0918400E3CE6F /* FMDatabase+InMemoryOnDiskIO.m in Sources */,
 				4B2383231FEA4A610097F0C2 /* CAIStatistic.m in Sources */,
-				4B2DE7101FF0918400E3CE6F /* FMResultSet.m in Sources */,
 				4B2382ED1FEA45490097F0C2 /* AppDelegate.m in Sources */,
 				4B2383291FEA4C400097F0C2 /* CAISKeyPoint.m in Sources */,
-				4B2DE7041FF0918400E3CE6F /* FMDatabase.m in Sources */,
-				4B2DE6FB1FF0918400E3CE6F /* FMDatabase+FTS3.m in Sources */,
-				4B2DE7071FF0918400E3CE6F /* FMDatabaseAdditions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -526,16 +408,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4B2DE71A1FF0927C00E3CE6F /* CAISLocalLogger.m in Sources */,
-				4B2DE7021FF0918400E3CE6F /* FMDatabase+InMemoryOnDiskIO.m in Sources */,
-				4B2DE6FC1FF0918400E3CE6F /* FMDatabase+FTS3.m in Sources */,
 				4B2383051FEA45490097F0C2 /* demoTests.m in Sources */,
-				4B2DE7051FF0918400E3CE6F /* FMDatabase.m in Sources */,
-				4B2DE7111FF0918400E3CE6F /* FMResultSet.m in Sources */,
-				4B2DE6FF1FF0918400E3CE6F /* FMTokenizers.m in Sources */,
-				4B2DE70B1FF0918400E3CE6F /* FMDatabasePool.m in Sources */,
-				4B2DE7081FF0918400E3CE6F /* FMDatabaseAdditions.m in Sources */,
-				4B2DE6F91FF0918400E3CE6F /* Aspects.m in Sources */,
-				4B2DE70E1FF0918400E3CE6F /* FMDatabaseQueue.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -544,16 +417,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4B2DE71B1FF0927C00E3CE6F /* CAISLocalLogger.m in Sources */,
-				4B2DE7031FF0918400E3CE6F /* FMDatabase+InMemoryOnDiskIO.m in Sources */,
-				4B2DE6FD1FF0918400E3CE6F /* FMDatabase+FTS3.m in Sources */,
 				4B2383101FEA45490097F0C2 /* demoUITests.m in Sources */,
-				4B2DE7061FF0918400E3CE6F /* FMDatabase.m in Sources */,
-				4B2DE7121FF0918400E3CE6F /* FMResultSet.m in Sources */,
-				4B2DE7001FF0918400E3CE6F /* FMTokenizers.m in Sources */,
-				4B2DE70C1FF0918400E3CE6F /* FMDatabasePool.m in Sources */,
-				4B2DE7091FF0918400E3CE6F /* FMDatabaseAdditions.m in Sources */,
-				4B2DE6FA1FF0918400E3CE6F /* Aspects.m in Sources */,
-				4B2DE70F1FF0918400E3CE6F /* FMDatabaseQueue.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

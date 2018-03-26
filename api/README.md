@@ -20,3 +20,7 @@ API
 			1. planId 计划Id 
 			2. values 数组内部类型字符串 （日志型）
 			3. number 事件出现的次数 （计数型）
+2. /download 下载xml
+	1. 内容格式  JSON
+	2. 方式  POST
+	3.  

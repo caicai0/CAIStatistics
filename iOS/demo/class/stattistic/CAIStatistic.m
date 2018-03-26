@@ -22,6 +22,10 @@
 
 @implementation CAIStatistic
 
++ (void)initialize{
+    
+}
+
 + (instancetype)shareStatistic{
     static CAIStatistic * shareInstance;
     static dispatch_once_t onceToken;

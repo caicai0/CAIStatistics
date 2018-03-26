@@ -7,8 +7,6 @@
 //
 
 #import "CAISLocalLogger.h"
-#import "FMDB.h"
-#import "FMDatabaseQueue.h"
 #import "CAIStatistic.h"
 
 @interface CAISLocalLogger()
