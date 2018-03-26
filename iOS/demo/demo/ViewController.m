@@ -8,7 +8,7 @@
 
 #import "ViewController.h"
 #import "CAIStatistic.h"
-#import "Aspects.h"
+#import "SRPAspects.h"
 #import "CAISUtils.h"
 
 @interface TestClass:NSObject

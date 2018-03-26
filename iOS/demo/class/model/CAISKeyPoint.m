@@ -7,7 +7,7 @@
 //
 
 #import "CAISKeyPoint.h"
-#import "Aspects.h"
+#import "SRPAspects.h"
 #import "CAISUtils.h"
 
 @implementation CAISKeyPoint
@@ -66,11 +66,11 @@
     }
 }
 
-- (NSString *)stringValueForInfo:(id<AspectInfo>)info{
+- (NSString *)stringValueForInfo:(id<SRPAspectInfo>)info{
     NSString * result = @"NULL";
     @try {
         if (self.type == CAISKeyPointTypeKeyPathString) {
-            if (info && [info conformsToProtocol:@protocol(AspectInfo)]) {
+            if (info && [info conformsToProtocol:@protocol(SRPAspectInfo)]) {
                 id instance = [info instance];
                 NSArray * arguments = [info arguments];
                 if (self.index<arguments.count+1) {

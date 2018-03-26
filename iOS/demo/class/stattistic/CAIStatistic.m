@@ -8,14 +8,14 @@
 
 #import "CAIStatistic.h"
 #import "CAISPlan.h"
-#import "Aspects.h"
+#import "SRPAspects.h"
 #import "CAISUtils.h"
 #import "CAISLocalLogger.h"
 
 @interface CAIStatistic()
 
 @property (nonatomic, assign)NSInteger version; //统计版本默认为0
-@property (nonatomic, strong)NSMutableArray<id<AspectToken>> *allAspectToken;
+@property (nonatomic, strong)NSMutableArray<id<SRPAspectToken>> *allSRPAspectToken;
 @property (nonatomic, strong)CAISLocalLogger * localLogger;
 
 @end
@@ -48,7 +48,7 @@
 {
     self = [super init];
     if (self) {
-        self.allAspectToken = [NSMutableArray array];
+        self.allSRPAspectToken = [NSMutableArray array];
     }
     return self;
 }
@@ -101,9 +101,9 @@
 - (void)analysisAllPlans{
     if (self.plans && self.plans.count) {
         //删除原有的钩子
-        for (id<AspectToken> aspectToken in self.allAspectToken) {
-            [aspectToken remove];
-            [self.allAspectToken removeObject:aspectToken];
+        for (id<SRPAspectToken> SRPAspectToken in self.allSRPAspectToken) {
+            [SRPAspectToken remove];
+            [self.allSRPAspectToken removeObject:SRPAspectToken];
         }
         //开始解析
         __weak typeof(self)weakSelf = self;
@@ -111,17 +111,17 @@
             CAISPlan * plan = obj;
             Class aclass = NSClassFromString(plan.className);
             SEL selector = NSSelectorFromString(plan.selectorName);
-            id<AspectToken> aspectToken = [aclass aspect_hookSelector:selector withOptions:AspectPositionAfter usingBlock:^(id<AspectInfo> info) {
+            id<SRPAspectToken> SRPAspectToken = [aclass SRPAspect_hookSelector:selector withOptions:SRPAspectPositionAfter usingBlock:^(id<SRPAspectInfo> info) {
                 [weakSelf handleHook:info plan:plan];
             } error:NULL];
-            if (aspectToken) {
-                [weakSelf.allAspectToken addObject:aspectToken];
+            if (SRPAspectToken) {
+                [weakSelf.allSRPAspectToken addObject:SRPAspectToken];
             }
         }];
     }
 }
 
-- (void)handleHook:(id<AspectInfo>)info plan:(CAISPlan *)plan{
+- (void)handleHook:(id<SRPAspectInfo>)info plan:(CAISPlan *)plan{
     if (plan.type == CAISPlanTypeLog) {
         NSLog(@"%ld,%@,%@",plan.type,plan.className,plan.selectorName);
         if (plan.keyPaths && plan.keyPaths.count) {

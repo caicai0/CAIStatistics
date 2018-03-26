@@ -8,10 +8,11 @@
 
 #import "CAISLocalLogger.h"
 #import "CAIStatistic.h"
+#import "SRPFMDatabaseQueue.h"
 
 @interface CAISLocalLogger()
 
-@property (strong, nonatomic)FMDatabaseQueue * queue;
+@property (strong, nonatomic)SRPFMDatabaseQueue * queue;
 
 @end
 
@@ -32,14 +33,14 @@
     self = [super init];
     if (self) {
         NSString * dbpath = [path stringByAppendingPathComponent:@"log.db"];
-        self.queue = [FMDatabaseQueue databaseQueueWithPath:dbpath];
+        self.queue = [SRPFMDatabaseQueue databaseQueueWithPath:dbpath];
         [self createAllTables];
     }
     return self;
 }
 
 - (void)createAllTables{
-    [self.queue inDatabase:^(FMDatabase * _Nonnull db) {
+    [self.queue inDatabase:^(SRPFMDatabase * _Nonnull db) {
         NSString * sql = @"CREATE TABLE IF NOT EXISTS logger(planId text,time date,values blob)";
         [db executeQuery:sql];
         sql = @"CREATE TABLE IF NOT EXISTS counter(planId text,number int(64))";
@@ -81,7 +82,7 @@
     if(log && [log isKindOfClass:[CAISLog class]]){
         if (log.plan && [log.plan isKindOfClass:[CAISPlan class]]) {
             if (log.plan.type == CAISPlanTypeLog) {
-                [self.queue inDatabase:^(FMDatabase * _Nonnull db) {
+                [self.queue inDatabase:^(SRPFMDatabase * _Nonnull db) {
                     NSString * sql = @"INSERT INTO logger(planId,time,values) VALUES(?,?,?)";
                     NSData * valuesData = [NSData data];
                     if (log.values) {
@@ -90,9 +91,9 @@
                     [db executeQuery:sql,log.plan.planId,log.date,valuesData];
                 }];
             }else if(log.plan.type == CAISPlanTypeCount){
-                [self.queue inTransaction:^(FMDatabase * _Nonnull db, BOOL * _Nonnull rollback) {
+                [self.queue inTransaction:^(SRPFMDatabase * _Nonnull db, BOOL * _Nonnull rollback) {
                     NSString * sql = @"select * from counter where planId = ?";
-                    FMResultSet * resultSet = [db executeQuery:sql,log.plan.planId];
+                    SRPFMResultSet * resultSet = [db executeQuery:sql,log.plan.planId];
                     NSUInteger number = 0;
                     if (resultSet.next) {
                         number = [resultSet intForColumn:@"number"];
@@ -115,10 +116,10 @@
 }
 
 - (void)getAllFinish:(void(^)(NSDictionary *dic))finish{
-    [self.queue inDatabase:^(FMDatabase * _Nonnull db) {
+    [self.queue inDatabase:^(SRPFMDatabase * _Nonnull db) {
         NSString * sql = @"select * from logger";
         NSDate * now = [NSDate date];
-        FMResultSet * result = [db executeQuery:sql];
+        SRPFMResultSet * result = [db executeQuery:sql];
         NSMutableArray * allLogs = [NSMutableArray array];
         while ([result next]) {
             NSString * planId = [result stringForColumn:@"planId"];

@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "CAISType.h"
-#import "Aspects.h"
+#import "SRPAspects.h"
 
 @interface CAISKeyPoint : NSObject
 
@@ -31,6 +31,6 @@
 
 //获取结果
 
-- (NSString *)stringValueForInfo:(id<AspectInfo>)info;
+- (NSString *)stringValueForInfo:(id<SRPAspectInfo>)info;
 
 @end
