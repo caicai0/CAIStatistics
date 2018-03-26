@@ -15,6 +15,7 @@
 
 + (instancetype)net;
 
-- (void)uploadReport:(CAISReport *)report finish:(void(^)(BOOL success))finish;
+- (void)loadPlistFileVersion:(NSString *)version Finish:(void(^)(NSError* error,NSDictionary * response))finish;
+- (void)uploadReport:(CAISReport *)report finish:(void(^)(NSError* error,NSDictionary * response))finish;
 
 @end

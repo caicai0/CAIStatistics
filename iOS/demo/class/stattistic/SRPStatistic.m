@@ -1,18 +1,18 @@
 //
-//  CAIStatistic.m
+//  SRPStatistic.m
 //  demo
 //
 //  Created by 李玉峰 on 2017/12/20.
 //  Copyright © 2017年 李玉峰. All rights reserved.
 //
 
-#import "CAIStatistic.h"
+#import "SRPStatistic.h"
 #import "CAISPlan.h"
 #import "SRPAspects.h"
 #import "CAISUtils.h"
 #import "CAISLocalLogger.h"
 
-@interface CAIStatistic()
+@interface SRPStatistic()
 
 @property (nonatomic, assign)NSInteger version; //统计版本默认为0
 @property (nonatomic, strong)NSMutableArray<id<SRPAspectToken>> *allSRPAspectToken;
@@ -20,28 +20,25 @@
 
 @end
 
-@implementation CAIStatistic
-
-+ (void)initialize{
-    
-}
+@implementation SRPStatistic
 
 + (instancetype)shareStatistic{
-    static CAIStatistic * shareInstance;
+    static SRPStatistic * shareInstance;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        shareInstance = [[CAIStatistic alloc]init];
+        shareInstance = [[SRPStatistic alloc]init];
     });
     return shareInstance;
 }
 
-+ (void)startInLocalPath:(NSString *)path{
-    NSString * filePath = [[NSBundle mainBundle]pathForResource:@"Statistic" ofType:@"plist"];
-    NSDictionary * dic = [NSDictionary dictionaryWithContentsOfFile:filePath];
-    [[CAIStatistic shareStatistic]updateFromDictionary:dic];
-    [[CAIStatistic shareStatistic]analysisAllPlans];
-    [CAIStatistic shareStatistic].localLogger = [CAISLocalLogger loggerInPath:path];
-    [[CAIStatistic shareStatistic]updateBaseInfo];
+- (void)loadPlistPath:(NSString *)plistPath{
+    NSDictionary * dic = [NSDictionary dictionaryWithContentsOfFile:plistPath];
+    [[SRPStatistic shareStatistic]loadDictionary:dic];
+}
+
+- (void)loadDictionary:(NSDictionary *)dic{
+    [[SRPStatistic shareStatistic]updateFromDictionary:dic];
+    [[SRPStatistic shareStatistic]analysisAllPlans];
 }
 
 - (instancetype)init
@@ -122,21 +119,35 @@
 }
 
 - (void)handleHook:(id<SRPAspectInfo>)info plan:(CAISPlan *)plan{
+    CAISLog * log = [[CAISLog alloc]init];
+    log.date = [NSDate date];
+    log.plan = plan;
     if (plan.type == CAISPlanTypeLog) {
-        NSLog(@"%ld,%@,%@",plan.type,plan.className,plan.selectorName);
+        NSMutableArray * values = [NSMutableArray array];
         if (plan.keyPaths && plan.keyPaths.count) {
             for (NSInteger i=0; i<plan.keyPaths.count; i++) {
                 CAISKeyPoint * keyPath = plan.keyPaths[i];
                 NSString *value = [keyPath stringValueForInfo:info];
-                NSLog(@"%@",value);
+                if (value) {
+                    [values addObject:value];
+                }else{
+                    [values addObject:@"NULL"];
+                }
             }
         }
+        log.values = [NSArray arrayWithArray:values];
+        
     }else if(plan.type == CAISPlanTypeCount){
         NSLog(@"%ld,%@,%@",plan.type,plan.className,plan.selectorName);
+    }else{
+        log = nil;
+    }
+    if (self.hookPlant) {
+        self.hookPlant(log);
     }
 }
 
-- (void)updateBaseInfo{
+- (NSDictionary *)baseInfo{
     if (self.baseInfos && self.baseInfos.count) {
         NSMutableDictionary * result = [NSMutableDictionary dictionary];
         @try {
@@ -148,7 +159,7 @@
         } @catch (NSException *exception) {
             [result setObject:exception.description forKey:@"exception"];
         } @finally {
-            [self.localLogger updateBaseInfo:result];
+            return result;
         }
     }
 }

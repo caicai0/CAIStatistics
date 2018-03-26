@@ -7,9 +7,10 @@
 //
 
 #import "ViewController.h"
-#import "CAIStatistic.h"
+#import "SRPStatistic.h"
 #import "SRPAspects.h"
 #import "CAISUtils.h"
+#import "SRPS.h"
 
 @interface TestClass:NSObject
 
@@ -40,7 +41,6 @@
     self.title = @"ViewController.title";
     NSArray *paths=NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
-    [CAIStatistic startInLocalPath:documentsDirectory];
     // Do any additional setup after loading the view, typically from a nib.
 }
 

@@ -7,7 +7,7 @@
 //
 
 #import "CAISLocalLogger.h"
-#import "CAIStatistic.h"
+#import "SRPStatistic.h"
 #import "SRPFMDatabaseQueue.h"
 
 @interface CAISLocalLogger()
@@ -50,7 +50,7 @@
 
 - (void)updateBaseInfo:(NSDictionary*)baseInfo{
     if (baseInfo && [baseInfo isKindOfClass:[NSDictionary class]]) {
-        NSUserDefaults * userDefaults = [[NSUserDefaults alloc]initWithSuiteName:@"CAIStatistic_baseInfo"];
+        NSUserDefaults * userDefaults = [[NSUserDefaults alloc]initWithSuiteName:@"SRPStatistic_baseInfo"];
         NSDictionary * localBaseInfo = [userDefaults objectForKey:@"baseInfo"];
         BOOL same = NO;
         if ([baseInfo isEqual:localBaseInfo]) {
@@ -67,13 +67,13 @@
 }
 
 - (BOOL)baseInfoIsNew{
-    NSUserDefaults * userDefaults = [[NSUserDefaults alloc]initWithSuiteName:@"CAIStatistic_baseInfo"];
+    NSUserDefaults * userDefaults = [[NSUserDefaults alloc]initWithSuiteName:@"SRPStatistic_baseInfo"];
     BOOL isNew = [userDefaults boolForKey:@"baseInfoIsNew"];
     return isNew;
 }
 
 - (void)resetInfoIsNew{
-    NSUserDefaults * userDefaults = [[NSUserDefaults alloc]initWithSuiteName:@"CAIStatistic_baseInfo"];
+    NSUserDefaults * userDefaults = [[NSUserDefaults alloc]initWithSuiteName:@"SRPStatistic_baseInfo"];
     [userDefaults setBool:NO forKey:@"baseInfoIsNew"];
     [userDefaults synchronize];
 }
@@ -127,7 +127,7 @@
             NSData * values = [result dataForColumn:@"values"];
             if (planId && date ) {
                 CAISLog * log = [[CAISLog alloc]init];
-                log.plan = [CAIStatistic shareStatistic].plans[planId];
+                log.plan = [SRPStatistic shareStatistic].plans[planId];
                 log.date = date;
                 if (values) {
                     log.values = [NSKeyedUnarchiver unarchiveObjectWithData:values];
@@ -144,7 +144,7 @@
             long long number = [result longLongIntForColumn:@"number"];
             if (planId) {
                 CAISLog * log = [[CAISLog alloc]init];
-                log.plan = [CAIStatistic shareStatistic].plans[planId];
+                log.plan = [SRPStatistic shareStatistic].plans[planId];
                 log.number = number;
                 [allCounters addObject:log];
             }
