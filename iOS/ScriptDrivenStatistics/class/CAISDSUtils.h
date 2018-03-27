@@ -12,5 +12,7 @@
 
 + (id)objectForClass:(Class)aclass selector:(SEL)selector keyPath:(NSString *)keyPath;
 + (id)objectForInstance:(id)instance keyPath:(NSString *)keyPath;
++ (NSString *)urlEncodeString:(NSString *)str;
++ (void)createFilePath:(NSString *)path;
 
 @end

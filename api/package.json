@@ -12,14 +12,14 @@
   "author": "liyufeng",
   "license": "GPL-3.0",
   "dependencies": {
+    "blueimp-md5": "*",
     "koa": "^2.4.1",
     "koa-bodyparser": "^4.2.0",
     "koa-router": "^7.4.0",
     "koa-static": "^4.0.2",
     "mysql2": "^1.5.1",
-    "sequelize": "^4.32.2",
-    "sqlite3": "^3.1.13",
     "nodemailer": "*",
-    "blueimp-md5": "*"
+    "sequelize": "^4.32.2",
+    "sqlite3": "^3.1.13"
   }
 }

@@ -8,6 +8,7 @@
 
 #import "CAISDSNet.h"
 #import <UIKit/UIKit.h>
+#import "CAISDSUtils.h"
 
 @interface CAISDSNet()
 
@@ -30,6 +31,7 @@
 {
     self = [super init];
     if (self) {
+        self.baseUrlString = @"http://localhost:3000";
         [self makeBaseInfo];
     }
     return self;
@@ -50,13 +52,18 @@
     self.baseInfo = [NSDictionary dictionaryWithDictionary:dic];
 }
 
+- (void)fixHeaderForRequest:(NSMutableURLRequest *)request{
+    request.allHTTPHeaderFields = self.baseInfo;
+    [request addValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+}
+
 - (void)loadPlistFileVersion:(NSString *)version Finish:(void(^)(NSError* error,NSDictionary * response))finish{
-    NSString * reportUrl = [NSString stringWithFormat:@"%@/statistic/download",self.baseUrlString];
+    NSString * reportUrl = [NSString stringWithFormat:@"%@/app/download",self.baseUrlString];
     NSURLSession * session = [NSURLSession sharedSession];
     NSURL * url = [NSURL URLWithString:reportUrl];
     NSMutableURLRequest * request = [NSMutableURLRequest requestWithURL:url];
     request.HTTPMethod = @"POST";
-    request.allHTTPHeaderFields = self.baseInfo;
+    [self fixHeaderForRequest:request];
     NSDictionary * params = [NSMutableDictionary dictionary];
     if (version) {
         [params setValue:version forKey:@"version"];

@@ -30,6 +30,7 @@
 		337F9E4C2069DBF700C0B047 /* CAISDSNet.m in Sources */ = {isa = PBXBuildFile; fileRef = 337F9E3D2069DBF700C0B047 /* CAISDSNet.m */; };
 		337F9E4D2069DBF700C0B047 /* CAISDS.m in Sources */ = {isa = PBXBuildFile; fileRef = 337F9E3E2069DBF700C0B047 /* CAISDS.m */; };
 		337F9E532069DDE500C0B047 /* CAISDSLocalStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 337F9E522069DDE500C0B047 /* CAISDSLocalStore.m */; };
+		337F9E57206A3EB900C0B047 /* CAISDSRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 337F9E56206A3EB900C0B047 /* CAISDSRecord.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -98,6 +99,8 @@
 		337F9E512069DDE500C0B047 /* CAISDSLocalStore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CAISDSLocalStore.h; sourceTree = "<group>"; };
 		337F9E522069DDE500C0B047 /* CAISDSLocalStore.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CAISDSLocalStore.m; sourceTree = "<group>"; };
 		337F9E542069DE8100C0B047 /* CAISDSStatisticDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CAISDSStatisticDelegate.h; sourceTree = "<group>"; };
+		337F9E55206A3EB900C0B047 /* CAISDSRecord.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CAISDSRecord.h; sourceTree = "<group>"; };
+		337F9E56206A3EB900C0B047 /* CAISDSRecord.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CAISDSRecord.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -260,6 +263,8 @@
 				337F9E322069DBF700C0B047 /* CAISDSReport.h */,
 				337F9E332069DBF700C0B047 /* CAISDSReport.m */,
 				337F9E342069DBF700C0B047 /* CAISDSType.h */,
+				337F9E55206A3EB900C0B047 /* CAISDSRecord.h */,
+				337F9E56206A3EB900C0B047 /* CAISDSRecord.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -433,6 +438,7 @@
 				337F9E4A2069DBF700C0B047 /* CAISDSUtils.m in Sources */,
 				337F9DF12069D91500C0B047 /* main.m in Sources */,
 				337F9DE32069D91500C0B047 /* AppDelegate.m in Sources */,
+				337F9E57206A3EB900C0B047 /* CAISDSRecord.m in Sources */,
 				337F9E242069D9BC00C0B047 /* CAISDSFMDatabasePool.m in Sources */,
 				337F9E232069D9BC00C0B047 /* CAISDSFMDatabase.m in Sources */,
 				337F9E4D2069DBF700C0B047 /* CAISDS.m in Sources */,

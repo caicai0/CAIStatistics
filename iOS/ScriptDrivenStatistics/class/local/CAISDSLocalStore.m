@@ -30,41 +30,40 @@
 - (void)createTables{
     [self.queue inTransaction:^(CAISDSFMDatabase * _Nonnull db, BOOL * _Nonnull rollback) {
         NSString * sql1 = @"create table if not exists CAISDSPlans (id integer primary key autoincrement,json text)";
-        NSString * sql2 = @"create table if not exists CAISDSPlanCount (id integer primary key autoincrement,version text,plantId text,timeStemp int(128))";
         [db executeUpdate:sql1];
-        [db executeUpdate:sql2];
     }];
 }
 
 - (void)saveLog:(CAISDSLog *)log{
-    if (!log) {
-        return;
-    }
-    if (log.plan.type == CAISDSPlanTypeLog) {
-        [self saveLogTypeLog:log];
-    }else if(log.plan.type == CAISDSPlanTypeCount){
-        [self saveCounterTypeLog:log];
-    }else{
-        NSLog(@"新类型的log");
-    }
-}
-
-- (void)saveLogTypeLog:(CAISDSLog *)log {
     if (log && (log.plan.type == CAISDSPlanTypeLog)) {
-        
+        [self.queue inTransaction:^(CAISDSFMDatabase * _Nonnull db, BOOL * _Nonnull rollback) {
+            NSString * sql = @"insert into CAISDSPlans (json) values (?)";
+            BOOL success = [db executeUpdate:sql,[log jsonString]];
+            if (!success) {
+                NSLog(@"数据存储失败");
+                NSInteger errorCode = [db lastErrorCode];
+                if (errorCode == 284) {//index 爆满
+                    NSString * sql1 = @"drop table if exists CAISDSPlans";
+                    NSString * sql2 = @"create table if not exists CAISDSPlans (id integer primary key autoincrement,json text)";
+                    [db executeUpdate:sql1];
+                    [db executeUpdate:sql2];
+                }
+            }
+        }];
     }else{
         NSLog(@"log 类型错误");
     }
 }
 
-- (void)saveCounterTypeLog:(CAISDSLog *)log {
-    if (log && (log.plan.type == CAISDSPlanTypeCount)) {
+- (void)uploadLogs:(BOOL(^)(NSArray *logs))upload{
+    [self.queue inTransaction:^(CAISDSFMDatabase * _Nonnull db, BOOL * _Nonnull rollback) {
+        NSString * sql = @"select * from CAISDSPlans limit 1000";
+        CAISDSFMResultSet * set = [db executeQuery:sql];
+        while ([set next]) {
+            
+        }
         
-    }else{
-        NSLog(@"log 类型错误");
-    }
+    }];
 }
-
-
 
 @end

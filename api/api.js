@@ -17,6 +17,7 @@ app.use(bodyParser());
 
 //  路由
 app.use(require('./routers/user.js').routes());
+app.use(require('./routers/app.js').routes());
 
 app.on('error',function(err,ctx){
   ctx.body = JSON.stringify(err);

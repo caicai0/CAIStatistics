@@ -67,4 +67,22 @@
     }
 }
 
++ (NSString *)urlEncodeString:(NSString *)str{
+    return (__bridge_transfer NSString *)CFURLCreateStringByAddingPercentEscapes(NULL,
+                                                                                 (__bridge CFStringRef)str,
+                                                                                 NULL,
+                                                                                 (CFStringRef)@"!*'\"();:@&=+$,/?%#[]% ",
+                                                                                 CFStringConvertNSStringEncodingToEncoding(NSUTF8StringEncoding));
+}
+
++ (void)createFilePath:(NSString *)path{
+    if (path && [path isKindOfClass:[NSString class]] && path.length) {
+        BOOL isDir = NO;
+        if ([[NSFileManager defaultManager]fileExistsAtPath:path isDirectory:&isDir] && !isDir) {
+        }else{
+            [[NSFileManager defaultManager]createFileAtPath:path contents:nil attributes:nil];
+        }
+    }
+}
+
 @end

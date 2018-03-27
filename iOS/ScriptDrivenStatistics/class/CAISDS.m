@@ -10,11 +10,13 @@
 #import "CAISDSNet.h"
 #import "CAISDSStatistic.h"
 #import "CAISDSLocalStore.h"
+#import "CAISDSUtils.h"
+#import "CAISDSStatisticDelegate.h"
 
 #define CACHE_DIRECTORY srps
 #define PLIST_FILE_NAME srps.plist
 
-@interface CAISDS()
+@interface CAISDS() <CAISDSStatisticDelegate>
 
 @property (strong, nonatomic)CAISDSLocalStore * localStore;
 
@@ -24,7 +26,7 @@
 
 + (void)load
 {
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [[CAISDS share]start];
     });
 }
@@ -57,16 +59,20 @@
 - (void)start{
     __weak typeof(self) weakSelf = self;
     [self updateLocalPlistFinish:^(NSError *error) {
-        NSString * cachePath = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES).firstObject;
-        NSString * plistPath = [[cachePath stringByAppendingPathComponent:@"srps"]stringByAppendingPathComponent:@"srps.plist"];
-        [weakSelf statisticLoad:plistPath];
+        if (error) {
+            NSLog(@"%@",error);
+        }else{
+            NSString * cachePath = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES).firstObject;
+            NSString * plistPath = [cachePath stringByAppendingPathComponent:@"srps.plist"];
+            [weakSelf statisticLoad:plistPath];
+        }
     }];
     
 }
 
 - (void)updateLocalPlistFinish:(void(^)(NSError * error))finish{
     NSString * cachePath = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES).firstObject;
-    NSString * plistPath = [[cachePath stringByAppendingPathComponent:@"srps"]stringByAppendingPathComponent:@"srps.plist"];
+    NSString * plistPath = [cachePath stringByAppendingPathComponent:@"srps.plist"];
     BOOL isDirectory = NO;
     NSString * localVersion = nil;
     if ([[NSFileManager defaultManager]fileExistsAtPath:plistPath isDirectory:&isDirectory] && !isDirectory) {
@@ -93,6 +99,7 @@
                 NSString *plistString = response[@"plist"];
                 if (plistString && [plistString isKindOfClass:[NSString class]] && plistString.length) {
                     NSError * fileWriteError = nil;
+                    [CAISDSUtils createFilePath:plistPath];
                     [plistString writeToFile:plistPath atomically:YES encoding:NSUTF8StringEncoding error:&fileWriteError];
                     if (fileWriteError) {
                         error = fileWriteError;
@@ -114,7 +121,13 @@
 
 - (void)statisticLoad:(NSString *)plistPath{
     [[CAISDSStatistic shareStatistic]loadPlistPath:plistPath];
-    
+    [CAISDSStatistic shareStatistic].delegate = self;
+}
+
+#pragma mark - CAISDSStatisticDelegate
+
+- (void)onReceiveLog:(CAISDSLog *)log{
+    [self.localStore saveLog:log];
 }
 
 @end

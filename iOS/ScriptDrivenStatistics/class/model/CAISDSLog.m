@@ -11,7 +11,7 @@
 @implementation CAISDSLog
 
 - (NSString *)jsonString{
-    if (self.plan && self.plan.type == CAISDSPlanTypeLog) {
+    if (self.plan) {
         NSMutableDictionary * dic = [NSMutableDictionary dictionary];
         if (self.plan.version) {
             [dic setObject:self.plan.version forKey:@"version"];
@@ -23,7 +23,8 @@
             [dic setObject:self.values forKey:@"values"];
         }
         if (self.date) {
-            [dic setObject:self.date forKey:@"date"];
+            NSTimeInterval timeStamp = [self.date timeIntervalSince1970];
+            [dic setObject:@(timeStamp) forKey:@"date"];
         }
         NSError * error = nil;
         NSData * jsonData = [NSJSONSerialization dataWithJSONObject:dic options:NSJSONWritingPrettyPrinted error:&error];
