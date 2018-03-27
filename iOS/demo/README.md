@@ -1,4 +1,4 @@
-#  开放统计
+#  脚本驱动统计（Script Driven Statistics）
 1. 统计计划文件标准
 	1. version:统计文件版本号
 	2. baseInfo:基本信息

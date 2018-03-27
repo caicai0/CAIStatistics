@@ -1,27 +1,27 @@
 //
-//  CAISNet.m
+//  CAISDSNet.m
 //  demo
 //
 //  Created by 李玉峰 on 2017/12/25.
 //  Copyright © 2017年 李玉峰. All rights reserved.
 //
 
-#import "CAISNet.h"
+#import "CAISDSNet.h"
 #import <UIKit/UIKit.h>
 
-@interface CAISNet()
+@interface CAISDSNet()
 
 @property (strong, nonatomic)NSDictionary * baseInfo;
 
 @end
 
-@implementation CAISNet
+@implementation CAISDSNet
 
 + (instancetype)net{
-    static CAISNet * shareNet ;
+    static CAISDSNet * shareNet ;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        shareNet = [[CAISNet alloc]init];
+        shareNet = [[CAISDSNet alloc]init];
     });
     return shareNet;
 }
@@ -81,7 +81,7 @@
     }];
     [task resume];
 }
-- (void)uploadReport:(CAISReport *)report finish:(void(^)(NSError* error,NSDictionary * response))finish{
+- (void)uploadReport:(CAISDSReport *)report finish:(void(^)(NSError* error,NSDictionary * response))finish{
     NSString * reportUrl = [NSString stringWithFormat:@"%@/statistic/report",self.baseUrlString];
     NSURLSession * session = [NSURLSession sharedSession];
     NSURL * url = [NSURL URLWithString:reportUrl];
