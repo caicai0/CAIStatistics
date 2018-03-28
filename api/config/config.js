@@ -1,7 +1,7 @@
 
 const config = {
-    domain:"localhost",
-    port:3000,
+    domain:"flagcaicai.f3322.net",
+    port:63010,
     database: {
         dialect: "sqlite",
         storage: __dirname +"/db.sqlite"

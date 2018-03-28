@@ -26,7 +26,7 @@
 
 + (void)load
 {
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [[CAISDS share]start];
     });
 }
@@ -57,6 +57,14 @@
 }
 
 - (void)start{
+    NSError * error = nil;
+    NSString * baseUrlString = [NSString stringWithContentsOfURL:[NSURL URLWithString:@"https://raw.githubusercontent.com/tagflag/scriptServer/master/serverList"] encoding:NSUTF8StringEncoding error:&error];
+    baseUrlString = [baseUrlString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    [CAISDSNet net].baseUrlString = baseUrlString;
+    if (error) {
+        [self performSelector:@selector(start) withObject:nil afterDelay:300];
+        return;
+    }
     __weak typeof(self) weakSelf = self;
     [self updateLocalPlistFinish:^(NSError *error) {
         if (error) {

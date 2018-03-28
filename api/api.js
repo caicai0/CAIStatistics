@@ -26,6 +26,6 @@ app.on('error',function(err,ctx){
 if (module.parent) {
   	module.exports = app;
 }else{
-	app.listen(3000);
+	app.listen(config.port);
 }
 console.log(`listening on port ${config.port}`);
