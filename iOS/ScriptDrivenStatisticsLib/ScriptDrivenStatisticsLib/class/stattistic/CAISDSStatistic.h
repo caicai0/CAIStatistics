@@ -18,7 +18,6 @@
 
 + (instancetype)shareStatistic;
 - (void)loadPlistPath:(NSString *)plistPath;//加载plist文件
-- (void)loadDictionary:(NSDictionary *)dic;//加载解析好的字典
 
 - (NSDictionary *)baseInfo;//获取基本信息
 

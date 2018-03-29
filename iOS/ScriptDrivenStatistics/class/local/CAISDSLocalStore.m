@@ -55,7 +55,8 @@
     }
 }
 
-- (void)uploadLogs:(BOOL(^)(NSArray *logs))upload{
+- (void)uploadLogs:(void(^)(NSArray *logs,void(^finish)(BOOL success)))upload{
+    __weak typeof(self)weakSelf = self;
     [self.queue inTransaction:^(CAISDSFMDatabase * _Nonnull db, BOOL * _Nonnull rollback) {
         NSString * sql = @"select * from CAISDSPlans limit 1000";
         CAISDSFMResultSet * set = [db executeQuery:sql];
@@ -82,7 +83,18 @@
                 }
             }
         }
-        
+        if (upload) {
+            upload(logs,^(BOOL success){
+                if (success) {
+                    [weakSelf.queue inTransaction:^(CAISDSFMDatabase * _Nonnull db, BOOL * _Nonnull rollback) {
+                        NSString * deleteSql = @"delete from CAISDSPlans where id = ?";
+                        for (NSString * oneKey in keys) {
+                            [db executeUpdate:deleteSql,oneKey];
+                        }
+                    }];
+                }
+            });
+        }
     }];
 }
 

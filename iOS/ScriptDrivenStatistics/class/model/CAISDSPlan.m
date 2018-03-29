@@ -51,6 +51,7 @@
                         NSLog(@"ERROR %@,%@",key,obj);
                     }
                 }];
+                plan.keyPaths = allPath;
             }
             return plan;
         }else{

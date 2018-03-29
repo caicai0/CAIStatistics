@@ -13,7 +13,6 @@
 
 @interface CAISDSStatistic()
 
-@property (nonatomic, strong)NSString * version; //统计版本默认为0
 @property (nonatomic, strong)NSMutableArray<id<CAISDSAspectToken>> *allCAISDSAspectToken;
 
 @end

@@ -31,6 +31,7 @@
 
 - (void)loadPlistPath:(NSString *)plistPath{
     NSDictionary * dic = [NSDictionary dictionaryWithContentsOfFile:plistPath];
+    [CAISDSStatistic shareStatistic].planFileMd5 = [CAISDSUtils md5ForPath:plistPath];
     [[CAISDSStatistic shareStatistic]loadDictionary:dic];
 }
 

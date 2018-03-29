@@ -12,6 +12,7 @@
 #import "CAISDSLocalStore.h"
 #import "CAISDSUtils.h"
 #import "CAISDSStatisticDelegate.h"
+#import "CAISDSReport.h"
 
 #define CACHE_DIRECTORY srps
 #define PLIST_FILE_NAME srps.plist
@@ -142,7 +143,29 @@
 }
 
 - (void)uploadRecords{
-    [self.localStore ]
+    __weak typeof(self)weakSelf = self;
+    [self.localStore uploadLogs:^(NSArray *logs, void (^finish)(BOOL success)) {
+        CAISDSReport * report = [[CAISDSReport alloc]init];
+        report.planVersion = [CAISDSStatistic shareStatistic].version;
+        report.planFileMd5 = [CAISDSStatistic shareStatistic].planFileMd5;
+        report.baseInfo = [CAISDSStatistic shareStatistic].baseInfo;
+        report.logs = logs;
+        [[CAISDSNet net]uploadReport:report finish:^(NSError *error, NSDictionary *response) {
+            if (!error && response && [response isKindOfClass:[NSDictionary class]]) {
+                NSNumber * code = response[@"code"];
+                if (code && [code isKindOfClass:[NSNumber class]]) {
+                    if ([code integerValue]==0) {
+                        
+                    }else if ([code integerValue]==1) {
+                        [weakSelf start];
+                    }
+                    if (finish) {
+                        finish(YES);
+                    }
+                }
+            }
+        }];
+    }];
 }
 
 @end

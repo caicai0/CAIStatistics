@@ -12,6 +12,9 @@
 
 @interface CAISDSStatistic : NSObject
 
+@property (nonatomic, strong)NSString * version;
+@property (nonatomic, strong)NSString * planFileMd5;
+
 @property (nonatomic, strong)NSDictionary *baseInfos;
 @property (nonatomic, strong)NSDictionary *plans;
 @property (nonatomic, weak)id<CAISDSStatisticDelegate> delegate;
