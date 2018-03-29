@@ -13,7 +13,6 @@
 
 @interface CAISDSStatistic()
 
-@property (nonatomic, strong)NSString * version; //统计版本默认为0
 @property (nonatomic, strong)NSMutableArray<id<CAISDSAspectToken>> *allCAISDSAspectToken;
 
 @end
@@ -31,7 +30,6 @@
 
 - (void)loadPlistPath:(NSString *)plistPath{
     NSDictionary * dic = [NSDictionary dictionaryWithContentsOfFile:plistPath];
-    [CAISDSStatistic shareStatistic].planFileMd5 = [CAISDSUtils md5ForPath:plistPath];
     [[CAISDSStatistic shareStatistic]loadDictionary:dic];
 }
 
@@ -149,7 +147,10 @@
         log = nil;
     }
     if (self.delegate && [self.delegate conformsToProtocol:@protocol(CAISDSStatisticDelegate)] && [self.delegate respondsToSelector:@selector(onReceiveLog:)]) {
-        [self.delegate onReceiveLog:log];
+        __weak typeof(self)weakSelf = self;
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            [weakSelf.delegate onReceiveLog:log];
+        });
     }
 }
 

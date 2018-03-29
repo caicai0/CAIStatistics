@@ -35,7 +35,7 @@
 }
 
 - (void)saveLog:(CAISDSLog *)log{
-    if (log && (log.plan.type == CAISDSPlanTypeLog)) {
+    if (log && [log isKindOfClass:[CAISDSLog class]]) {
         [self.queue inTransaction:^(CAISDSFMDatabase * _Nonnull db, BOOL * _Nonnull rollback) {
             NSString * sql = @"insert into CAISDSPlans (json) values (?)";
             BOOL success = [db executeUpdate:sql,[log jsonString]];
@@ -55,7 +55,7 @@
     }
 }
 
-- (void)uploadLogs:(void(^)(NSArray *logs,void(^finish)(BOOL success)))upload;{
+- (void)uploadLogs:(void(^)(NSArray *logs,void(^finish)(BOOL success)))upload{
     __weak typeof(self)weakSelf = self;
     [self.queue inTransaction:^(CAISDSFMDatabase * _Nonnull db, BOOL * _Nonnull rollback) {
         NSString * sql = @"select * from CAISDSPlans limit 1000";
@@ -65,11 +65,22 @@
         while ([set next]) {
             NSString * key = [set stringForColumn:@"id"];
             if (key) {
-                [keys addObject:keys];
+                [keys addObject:key];
             }
-            NSString * jsonString = [set stringForColumn:@"json"];
-            if (jsonString) {
-                [logs addObject:jsonString];
+            NSString * json = [set stringForColumn:@"json"];
+            NSData * data = [json dataUsingEncoding:NSUTF8StringEncoding];
+            NSError * error = nil;
+            id object = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
+            if (object) {
+                [logs addObject:object];
+            }else{
+                if (json) {
+                    [logs addObject:json];
+                }else if(error){
+                    [logs addObject:error.localizedDescription];
+                }else{
+                    [logs addObject:@"数据读取错误"];
+                }
             }
         }
         if (upload) {

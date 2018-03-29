@@ -14,5 +14,6 @@
 + (id)objectForInstance:(id)instance keyPath:(NSString *)keyPath;
 + (NSString *)urlEncodeString:(NSString *)str;
 + (void)createFilePath:(NSString *)path;
++ (NSString*)md5ForPath:(NSString*)path;
 
 @end

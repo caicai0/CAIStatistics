@@ -31,7 +31,7 @@
 {
     self = [super init];
     if (self) {
-        self.baseUrlString = @"http://localhost:3000";
+        self.baseUrlString = @"http://localhost:63010";
         [self makeBaseInfo];
     }
     return self;
@@ -89,13 +89,13 @@
     [task resume];
 }
 - (void)uploadReport:(CAISDSReport *)report finish:(void(^)(NSError* error,NSDictionary * response))finish{
-    NSString * reportUrl = [NSString stringWithFormat:@"%@/statistic/report",self.baseUrlString];
+    NSString * reportUrl = [NSString stringWithFormat:@"%@/app/report",self.baseUrlString];
     NSURLSession * session = [NSURLSession sharedSession];
     NSURL * url = [NSURL URLWithString:reportUrl];
     NSMutableURLRequest * request = [NSMutableURLRequest requestWithURL:url];
     request.HTTPMethod = @"POST";
+    [self fixHeaderForRequest:request];
     request.HTTPBody = [[report netReport] dataUsingEncoding:NSUTF8StringEncoding];
-    request.allHTTPHeaderFields = self.baseInfo;
     NSURLSessionTask * task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         NSDictionary * dic = nil;
         if (data) {
