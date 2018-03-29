@@ -61,9 +61,7 @@
     NSError * error = nil;
     NSString * baseUrlString = [NSString stringWithContentsOfURL:[NSURL URLWithString:@"https://raw.githubusercontent.com/tagflag/scriptServer/master/serverList"] encoding:NSUTF8StringEncoding error:&error];
     baseUrlString = [baseUrlString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    if (!DEBUG) {
-        [CAISDSNet net].baseUrlString = baseUrlString;
-    }
+    [CAISDSNet net].baseUrlString = baseUrlString;
     if (error) {
         [self performSelector:@selector(start) withObject:nil afterDelay:300];
         return;
@@ -93,7 +91,7 @@
             if (version && [version isKindOfClass:[NSNumber class]]) {
                 NSNumber * versionNuber = version;
                 if ([versionNuber integerValue]) {
-                    localVersion = [NSString stringWithFormat:@"%ld",[versionNuber integerValue]];
+                    localVersion = [NSString stringWithFormat:@"%ld",(long)[versionNuber integerValue]];
                 }
             }else if (version && [version isKindOfClass:[NSString class]]){
                 NSString * versionString = version;
