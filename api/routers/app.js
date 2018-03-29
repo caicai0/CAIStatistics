@@ -30,13 +30,9 @@ router.post('/app/report', async(ctx, next) => {
         CFBundleShortVersionString:ctx.request.headers.cfbundleshortversionstring,
         CFBundleVersion:ctx.request.headers.cfbundleversion
     };
-    const post = {
-        version: ctx.request.body.version
-    };
-    console.log(header,post);
-    const plist = fs.readFileSync(__dirname+'/../public/Statistic.plist','utf8');
-    console.log(plist);
-    ctx.body = JSON.stringify({code:0,plist:plist});
+    const post = ctx.request.body;
+    console.log(header,ctx.request.body);
+    ctx.body = JSON.stringify({code:0});
 });
 
 module.exports = router;

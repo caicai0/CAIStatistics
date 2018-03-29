@@ -89,7 +89,7 @@
     [task resume];
 }
 - (void)uploadReport:(CAISDSReport *)report finish:(void(^)(NSError* error,NSDictionary * response))finish{
-    NSString * reportUrl = [NSString stringWithFormat:@"%@/statistic/report",self.baseUrlString];
+    NSString * reportUrl = [NSString stringWithFormat:@"%@/app/report",self.baseUrlString];
     NSURLSession * session = [NSURLSession sharedSession];
     NSURL * url = [NSURL URLWithString:reportUrl];
     NSMutableURLRequest * request = [NSMutableURLRequest requestWithURL:url];
@@ -99,6 +99,7 @@
     NSURLSessionTask * task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         NSDictionary * dic = nil;
         if (data) {
+            NSString * json = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
              dic = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
         }
         if (finish) {

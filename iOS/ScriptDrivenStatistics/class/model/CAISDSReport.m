@@ -31,6 +31,7 @@
     NSData * data = [NSJSONSerialization dataWithJSONObject:dic options:NSJSONWritingPrettyPrinted error:&error];
     NSString * json = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
     if (json && json.length) {
+        NSLog(@"%@",json);
         return json;
     }else{
         if (error) {

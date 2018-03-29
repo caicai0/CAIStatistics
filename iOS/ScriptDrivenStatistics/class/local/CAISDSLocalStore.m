@@ -35,7 +35,7 @@
 }
 
 - (void)saveLog:(CAISDSLog *)log{
-    if (log && (log.plan.type == CAISDSPlanTypeLog)) {
+    if (log && [log isKindOfClass:[CAISDSLog class]]) {
         [self.queue inTransaction:^(CAISDSFMDatabase * _Nonnull db, BOOL * _Nonnull rollback) {
             NSString * sql = @"insert into CAISDSPlans (json) values (?)";
             BOOL success = [db executeUpdate:sql,[log jsonString]];
