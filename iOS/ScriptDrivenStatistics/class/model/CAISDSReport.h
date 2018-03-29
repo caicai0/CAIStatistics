@@ -12,11 +12,10 @@
 
 @property (strong, nonatomic)NSString * planVersion;
 @property (strong, nonatomic)NSString * planFileMd5;
-@property (strong, nonatomic)NSString * deviceId;
+@property (strong, nonatomic)NSString * deviceId;//暂时没有用
 @property (strong, nonatomic)NSDictionary * baseInfo;
 @property (strong, nonatomic)NSArray * logs;
-@property (strong, nonatomic)NSDate * createDate;
-@property (strong, nonatomic)NSDictionary * userInfo;//用户自定义数据
+
 
 - (NSString *)netReport;
 
