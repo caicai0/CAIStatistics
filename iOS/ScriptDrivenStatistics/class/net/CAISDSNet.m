@@ -94,12 +94,11 @@
     NSURL * url = [NSURL URLWithString:reportUrl];
     NSMutableURLRequest * request = [NSMutableURLRequest requestWithURL:url];
     request.HTTPMethod = @"POST";
+    [self fixHeaderForRequest:request];
     request.HTTPBody = [[report netReport] dataUsingEncoding:NSUTF8StringEncoding];
-    request.allHTTPHeaderFields = self.baseInfo;
     NSURLSessionTask * task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         NSDictionary * dic = nil;
         if (data) {
-            NSString * json = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
              dic = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
         }
         if (finish) {

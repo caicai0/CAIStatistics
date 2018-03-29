@@ -35,9 +35,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"ViewController.title";
-    NSArray *paths=NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    [NSBundle mainBundle].infoDictionary;
     // Do any additional setup after loading the view, typically from a nib.
 }
 

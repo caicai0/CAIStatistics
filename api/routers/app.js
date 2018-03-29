@@ -31,7 +31,7 @@ router.post('/app/report', async(ctx, next) => {
         CFBundleVersion:ctx.request.headers.cfbundleversion
     };
     const post = ctx.request.body;
-    console.log(header,ctx.request.body);
+    console.log(header,ctx.request.body.logs);
     ctx.body = JSON.stringify({code:0});
 });
 
