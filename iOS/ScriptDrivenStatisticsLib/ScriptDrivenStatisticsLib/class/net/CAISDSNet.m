@@ -31,7 +31,7 @@
 {
     self = [super init];
     if (self) {
-        self.baseUrlString = @"http://localhost:63010";
+        self.baseUrlString = @"http://localhost:3000";
         [self makeBaseInfo];
     }
     return self;

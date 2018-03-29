@@ -9,11 +9,11 @@
 		<key>bundleVersion</key>
 		<dict>
 			<key>class</key>
-			<string>UIBundle</string>
+			<string>NSBundle</string>
 			<key>selector</key>
-			<string>currentBundle</string>
+			<string>mainBundle</string>
 			<key>keyPath</key>
-			<string>CFBundleVersion</string>
+			<string>infoDictionary.CFBundleVersion</string>
 		</dict>
 	</dict>
 	<key>plans</key>

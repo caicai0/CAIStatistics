@@ -60,9 +60,7 @@
     NSError * error = nil;
     NSString * baseUrlString = [NSString stringWithContentsOfURL:[NSURL URLWithString:@"https://raw.githubusercontent.com/tagflag/scriptServer/master/serverList"] encoding:NSUTF8StringEncoding error:&error];
     baseUrlString = [baseUrlString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    if (!DEBUG) {
-        [CAISDSNet net].baseUrlString = baseUrlString;
-    }
+    [CAISDSNet net].baseUrlString = baseUrlString;
     if (error) {
         [self performSelector:@selector(start) withObject:nil afterDelay:300];
         return;
@@ -138,11 +136,6 @@
 
 - (void)onReceiveLog:(CAISDSLog *)log{
     [self.localStore saveLog:log];
-    [self uploadRecords];
-}
-
-- (void)uploadRecords{
-    [self.localStore ]
 }
 
 @end
