@@ -6,11 +6,13 @@ const fs = require('fs');
 router.post('/app/download', async(ctx, next) => {
     const header = {
         model:ctx.request.headers.model,
+        openUDID:ctx.request.headers.openudid,
+        UUID:ctx.request.headers.uuid,
         systemVersion:ctx.request.headers.systemversion,
         CFBundleIdentifier:ctx.request.headers.cfbundleidentifier,
-        CFBundleName:ctx.request.headers.cfbundlename,
-        CFBundleShortVersionString:ctx.request.headers.cfbundleshortversionstring,
-        CFBundleVersion:ctx.request.headers.cfbundleversion
+        // CFBundleName:ctx.request.headers.cfbundlename,
+        // CFBundleShortVersionString:ctx.request.headers.cfbundleshortversionstring,
+        // CFBundleVersion:ctx.request.headers.cfbundleversion
     };
     const post = {
         version: ctx.request.body.version
@@ -24,11 +26,13 @@ router.post('/app/download', async(ctx, next) => {
 router.post('/app/report', async(ctx, next) => {
     const header = {
         model:ctx.request.headers.model,
+        openUDID:ctx.request.headers.openudid,
+        UUID:ctx.request.headers.uuid,
         systemVersion:ctx.request.headers.systemversion,
         CFBundleIdentifier:ctx.request.headers.cfbundleidentifier,
-        CFBundleName:ctx.request.headers.cfbundlename,
-        CFBundleShortVersionString:ctx.request.headers.cfbundleshortversionstring,
-        CFBundleVersion:ctx.request.headers.cfbundleversion
+        // CFBundleName:ctx.request.headers.cfbundlename,
+        // CFBundleShortVersionString:ctx.request.headers.cfbundleshortversionstring,
+        // CFBundleVersion:ctx.request.headers.cfbundleversion
     };
     const post = ctx.request.body;
     console.log(header,ctx.request.body.logs);

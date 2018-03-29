@@ -21,8 +21,6 @@
 @interface CAISDS() <CAISDSStatisticDelegate>
 
 @property (strong, nonatomic)CAISDSLocalStore * localStore;
-@property (strong, nonatomic)NSString * openUDID;
-@property (strong, nonatomic)NSString * uuid;
 
 @end
 
@@ -48,8 +46,6 @@
 {
     self = [super init];
     if (self) {
-        self.openUDID = [CAISDSOpenUDID value];
-        self.uuid = [NSUUID UUID].UUIDString;
         [self prepareStore];
     }
     return self;
@@ -85,7 +81,6 @@
             [weakSelf statisticLoad:[weakSelf plistPath]];
         }
     }];
-    
 }
 
 - (void)updateLocalPlistFinish:(void(^)(NSError * error))finish{

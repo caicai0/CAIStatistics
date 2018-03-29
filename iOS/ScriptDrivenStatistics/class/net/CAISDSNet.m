@@ -9,10 +9,13 @@
 #import "CAISDSNet.h"
 #import <UIKit/UIKit.h>
 #import "CAISDSUtils.h"
+#import "CAISDSOpenUDID.h"
 
 @interface CAISDSNet()
 
 @property (strong, nonatomic)NSDictionary * baseInfo;
+@property (strong, nonatomic)NSString * openUDID;
+@property (strong, nonatomic)NSString * UUID;
 
 @end
 
@@ -32,6 +35,8 @@
     self = [super init];
     if (self) {
         self.baseUrlString = @"http://localhost:63010";
+        self.openUDID = [CAISDSOpenUDID value];
+        self.UUID = [NSUUID UUID].UUIDString;
         [self makeBaseInfo];
     }
     return self;
@@ -39,15 +44,21 @@
 
 - (void)makeBaseInfo{
     NSMutableDictionary * dic = [NSMutableDictionary dictionary];
+    if (self.openUDID) {
+        [dic setObject:self.openUDID forKey:@"openUDID"];
+    }
+    if (self.UUID) {
+        [dic setObject:self.UUID forKey:@"UUID"];
+    }
     UIDevice * device = [UIDevice currentDevice];
     [dic setObject:device.model forKey:@"model"];
     [dic setObject:device.systemVersion forKey:@"systemVersion"];
     
     NSDictionary *info = [[NSBundle mainBundle]infoDictionary];
     [dic setObject:info[@"CFBundleIdentifier"] forKey:@"CFBundleIdentifier"];
-    [dic setObject:info[@"CFBundleName"] forKey:@"CFBundleName"];
-    [dic setObject:info[@"CFBundleShortVersionString"] forKey:@"CFBundleShortVersionString"];
-    [dic setObject:info[@"CFBundleVersion"] forKey:@"CFBundleVersion"];
+//    [dic setObject:info[@"CFBundleName"] forKey:@"CFBundleName"];
+//    [dic setObject:info[@"CFBundleShortVersionString"] forKey:@"CFBundleShortVersionString"];
+//    [dic setObject:info[@"CFBundleVersion"] forKey:@"CFBundleVersion"];
     
     self.baseInfo = [NSDictionary dictionaryWithDictionary:dic];
 }
