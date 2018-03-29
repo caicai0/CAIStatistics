@@ -7,7 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3312DB95206CBF8F0089E8C4 /* libScriptDrivenStatisticsLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3312DB96206CBF8F0089E8C4 /* libScriptDrivenStatisticsLib.a */; };
+		3312DBC8206CD1410089E8C4 /* CAISDSAspects.m in Sources */ = {isa = PBXBuildFile; fileRef = 3312DB9E206CD1400089E8C4 /* CAISDSAspects.m */; };
+		3312DBC9206CD1410089E8C4 /* CAISDSFMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 3312DBA2206CD1400089E8C4 /* CAISDSFMDatabase.m */; };
+		3312DBCA206CD1410089E8C4 /* CAISDSFMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = 3312DBA4206CD1400089E8C4 /* CAISDSFMDatabasePool.m */; };
+		3312DBCB206CD1410089E8C4 /* CAISDSFMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 3312DBA6206CD1400089E8C4 /* CAISDSFMDatabaseQueue.m */; };
+		3312DBCC206CD1410089E8C4 /* CAISDSFMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 3312DBA9206CD1400089E8C4 /* CAISDSFMResultSet.m */; };
+		3312DBCD206CD1410089E8C4 /* CAISDSOpenUDID.m in Sources */ = {isa = PBXBuildFile; fileRef = 3312DBAC206CD1400089E8C4 /* CAISDSOpenUDID.m */; };
+		3312DBCE206CD1410089E8C4 /* CAISDS.m in Sources */ = {isa = PBXBuildFile; fileRef = 3312DBAF206CD1410089E8C4 /* CAISDS.m */; };
+		3312DBCF206CD1410089E8C4 /* CAISDSUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 3312DBB1206CD1410089E8C4 /* CAISDSUtils.m */; };
+		3312DBD0206CD1410089E8C4 /* CAISDSLocalStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 3312DBB4206CD1410089E8C4 /* CAISDSLocalStore.m */; };
+		3312DBD1206CD1410089E8C4 /* CAISDSKeyPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 3312DBB7206CD1410089E8C4 /* CAISDSKeyPoint.m */; };
+		3312DBD2206CD1410089E8C4 /* CAISDSLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 3312DBB9206CD1410089E8C4 /* CAISDSLog.m */; };
+		3312DBD3206CD1410089E8C4 /* CAISDSPlan.m in Sources */ = {isa = PBXBuildFile; fileRef = 3312DBBB206CD1410089E8C4 /* CAISDSPlan.m */; };
+		3312DBD4206CD1410089E8C4 /* CAISDSRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 3312DBBD206CD1410089E8C4 /* CAISDSRecord.m */; };
+		3312DBD5206CD1410089E8C4 /* CAISDSReport.m in Sources */ = {isa = PBXBuildFile; fileRef = 3312DBBF206CD1410089E8C4 /* CAISDSReport.m */; };
+		3312DBD6206CD1410089E8C4 /* CAISDSNet.m in Sources */ = {isa = PBXBuildFile; fileRef = 3312DBC3206CD1410089E8C4 /* CAISDSNet.m */; };
+		3312DBD7206CD1410089E8C4 /* CAISDSStatistic.m in Sources */ = {isa = PBXBuildFile; fileRef = 3312DBC6206CD1410089E8C4 /* CAISDSStatistic.m */; };
 		337F9DE32069D91500C0B047 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 337F9DE22069D91500C0B047 /* AppDelegate.m */; };
 		337F9DE62069D91500C0B047 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 337F9DE52069D91500C0B047 /* ViewController.m */; };
 		337F9DE92069D91500C0B047 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 337F9DE72069D91500C0B047 /* Main.storyboard */; };
@@ -38,6 +53,41 @@
 
 /* Begin PBXFileReference section */
 		3312DB96206CBF8F0089E8C4 /* libScriptDrivenStatisticsLib.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libScriptDrivenStatisticsLib.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		3312DB9D206CD1400089E8C4 /* CAISDSAspects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CAISDSAspects.h; sourceTree = "<group>"; };
+		3312DB9E206CD1400089E8C4 /* CAISDSAspects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CAISDSAspects.m; sourceTree = "<group>"; };
+		3312DBA1206CD1400089E8C4 /* CAISDSFMDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CAISDSFMDatabase.h; sourceTree = "<group>"; };
+		3312DBA2206CD1400089E8C4 /* CAISDSFMDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CAISDSFMDatabase.m; sourceTree = "<group>"; };
+		3312DBA3206CD1400089E8C4 /* CAISDSFMDatabasePool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CAISDSFMDatabasePool.h; sourceTree = "<group>"; };
+		3312DBA4206CD1400089E8C4 /* CAISDSFMDatabasePool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CAISDSFMDatabasePool.m; sourceTree = "<group>"; };
+		3312DBA5206CD1400089E8C4 /* CAISDSFMDatabaseQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CAISDSFMDatabaseQueue.h; sourceTree = "<group>"; };
+		3312DBA6206CD1400089E8C4 /* CAISDSFMDatabaseQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CAISDSFMDatabaseQueue.m; sourceTree = "<group>"; };
+		3312DBA7206CD1400089E8C4 /* CAISDSFMDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CAISDSFMDB.h; sourceTree = "<group>"; };
+		3312DBA8206CD1400089E8C4 /* CAISDSFMResultSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CAISDSFMResultSet.h; sourceTree = "<group>"; };
+		3312DBA9206CD1400089E8C4 /* CAISDSFMResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CAISDSFMResultSet.m; sourceTree = "<group>"; };
+		3312DBAB206CD1400089E8C4 /* CAISDSOpenUDID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CAISDSOpenUDID.h; sourceTree = "<group>"; };
+		3312DBAC206CD1400089E8C4 /* CAISDSOpenUDID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CAISDSOpenUDID.m; sourceTree = "<group>"; };
+		3312DBAE206CD1410089E8C4 /* CAISDS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CAISDS.h; sourceTree = "<group>"; };
+		3312DBAF206CD1410089E8C4 /* CAISDS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CAISDS.m; sourceTree = "<group>"; };
+		3312DBB0206CD1410089E8C4 /* CAISDSUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CAISDSUtils.h; sourceTree = "<group>"; };
+		3312DBB1206CD1410089E8C4 /* CAISDSUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CAISDSUtils.m; sourceTree = "<group>"; };
+		3312DBB3206CD1410089E8C4 /* CAISDSLocalStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CAISDSLocalStore.h; sourceTree = "<group>"; };
+		3312DBB4206CD1410089E8C4 /* CAISDSLocalStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CAISDSLocalStore.m; sourceTree = "<group>"; };
+		3312DBB6206CD1410089E8C4 /* CAISDSKeyPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CAISDSKeyPoint.h; sourceTree = "<group>"; };
+		3312DBB7206CD1410089E8C4 /* CAISDSKeyPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CAISDSKeyPoint.m; sourceTree = "<group>"; };
+		3312DBB8206CD1410089E8C4 /* CAISDSLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CAISDSLog.h; sourceTree = "<group>"; };
+		3312DBB9206CD1410089E8C4 /* CAISDSLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CAISDSLog.m; sourceTree = "<group>"; };
+		3312DBBA206CD1410089E8C4 /* CAISDSPlan.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CAISDSPlan.h; sourceTree = "<group>"; };
+		3312DBBB206CD1410089E8C4 /* CAISDSPlan.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CAISDSPlan.m; sourceTree = "<group>"; };
+		3312DBBC206CD1410089E8C4 /* CAISDSRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CAISDSRecord.h; sourceTree = "<group>"; };
+		3312DBBD206CD1410089E8C4 /* CAISDSRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CAISDSRecord.m; sourceTree = "<group>"; };
+		3312DBBE206CD1410089E8C4 /* CAISDSReport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CAISDSReport.h; sourceTree = "<group>"; };
+		3312DBBF206CD1410089E8C4 /* CAISDSReport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CAISDSReport.m; sourceTree = "<group>"; };
+		3312DBC0206CD1410089E8C4 /* CAISDSType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CAISDSType.h; sourceTree = "<group>"; };
+		3312DBC2206CD1410089E8C4 /* CAISDSNet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CAISDSNet.h; sourceTree = "<group>"; };
+		3312DBC3206CD1410089E8C4 /* CAISDSNet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CAISDSNet.m; sourceTree = "<group>"; };
+		3312DBC5206CD1410089E8C4 /* CAISDSStatistic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CAISDSStatistic.h; sourceTree = "<group>"; };
+		3312DBC6206CD1410089E8C4 /* CAISDSStatistic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CAISDSStatistic.m; sourceTree = "<group>"; };
+		3312DBC7206CD1410089E8C4 /* CAISDSStatisticDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CAISDSStatisticDelegate.h; sourceTree = "<group>"; };
 		337F9DDE2069D91500C0B047 /* ScriptDrivenStatistics.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ScriptDrivenStatistics.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		337F9DE12069D91500C0B047 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		337F9DE22069D91500C0B047 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -62,7 +112,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3312DB95206CBF8F0089E8C4 /* libScriptDrivenStatisticsLib.a in Frameworks */,
 				337F9E2A2069DB5500C0B047 /* libsqlite3.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -84,9 +133,124 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3312DB9B206CD1400089E8C4 /* thirdPart */ = {
+			isa = PBXGroup;
+			children = (
+				3312DB9C206CD1400089E8C4 /* aspects */,
+				3312DB9F206CD1400089E8C4 /* fmdb */,
+				3312DBAA206CD1400089E8C4 /* openUDID */,
+			);
+			path = thirdPart;
+			sourceTree = "<group>";
+		};
+		3312DB9C206CD1400089E8C4 /* aspects */ = {
+			isa = PBXGroup;
+			children = (
+				3312DB9D206CD1400089E8C4 /* CAISDSAspects.h */,
+				3312DB9E206CD1400089E8C4 /* CAISDSAspects.m */,
+			);
+			path = aspects;
+			sourceTree = "<group>";
+		};
+		3312DB9F206CD1400089E8C4 /* fmdb */ = {
+			isa = PBXGroup;
+			children = (
+				3312DBA0206CD1400089E8C4 /* fmdb */,
+			);
+			path = fmdb;
+			sourceTree = "<group>";
+		};
+		3312DBA0206CD1400089E8C4 /* fmdb */ = {
+			isa = PBXGroup;
+			children = (
+				3312DBA1206CD1400089E8C4 /* CAISDSFMDatabase.h */,
+				3312DBA2206CD1400089E8C4 /* CAISDSFMDatabase.m */,
+				3312DBA3206CD1400089E8C4 /* CAISDSFMDatabasePool.h */,
+				3312DBA4206CD1400089E8C4 /* CAISDSFMDatabasePool.m */,
+				3312DBA5206CD1400089E8C4 /* CAISDSFMDatabaseQueue.h */,
+				3312DBA6206CD1400089E8C4 /* CAISDSFMDatabaseQueue.m */,
+				3312DBA7206CD1400089E8C4 /* CAISDSFMDB.h */,
+				3312DBA8206CD1400089E8C4 /* CAISDSFMResultSet.h */,
+				3312DBA9206CD1400089E8C4 /* CAISDSFMResultSet.m */,
+			);
+			path = fmdb;
+			sourceTree = "<group>";
+		};
+		3312DBAA206CD1400089E8C4 /* openUDID */ = {
+			isa = PBXGroup;
+			children = (
+				3312DBAB206CD1400089E8C4 /* CAISDSOpenUDID.h */,
+				3312DBAC206CD1400089E8C4 /* CAISDSOpenUDID.m */,
+			);
+			path = openUDID;
+			sourceTree = "<group>";
+		};
+		3312DBAD206CD1410089E8C4 /* class */ = {
+			isa = PBXGroup;
+			children = (
+				3312DBAE206CD1410089E8C4 /* CAISDS.h */,
+				3312DBAF206CD1410089E8C4 /* CAISDS.m */,
+				3312DBB0206CD1410089E8C4 /* CAISDSUtils.h */,
+				3312DBB1206CD1410089E8C4 /* CAISDSUtils.m */,
+				3312DBB2206CD1410089E8C4 /* local */,
+				3312DBB5206CD1410089E8C4 /* model */,
+				3312DBC1206CD1410089E8C4 /* net */,
+				3312DBC4206CD1410089E8C4 /* stattistic */,
+			);
+			path = class;
+			sourceTree = "<group>";
+		};
+		3312DBB2206CD1410089E8C4 /* local */ = {
+			isa = PBXGroup;
+			children = (
+				3312DBB3206CD1410089E8C4 /* CAISDSLocalStore.h */,
+				3312DBB4206CD1410089E8C4 /* CAISDSLocalStore.m */,
+			);
+			path = local;
+			sourceTree = "<group>";
+		};
+		3312DBB5206CD1410089E8C4 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				3312DBB6206CD1410089E8C4 /* CAISDSKeyPoint.h */,
+				3312DBB7206CD1410089E8C4 /* CAISDSKeyPoint.m */,
+				3312DBB8206CD1410089E8C4 /* CAISDSLog.h */,
+				3312DBB9206CD1410089E8C4 /* CAISDSLog.m */,
+				3312DBBA206CD1410089E8C4 /* CAISDSPlan.h */,
+				3312DBBB206CD1410089E8C4 /* CAISDSPlan.m */,
+				3312DBBC206CD1410089E8C4 /* CAISDSRecord.h */,
+				3312DBBD206CD1410089E8C4 /* CAISDSRecord.m */,
+				3312DBBE206CD1410089E8C4 /* CAISDSReport.h */,
+				3312DBBF206CD1410089E8C4 /* CAISDSReport.m */,
+				3312DBC0206CD1410089E8C4 /* CAISDSType.h */,
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
+		3312DBC1206CD1410089E8C4 /* net */ = {
+			isa = PBXGroup;
+			children = (
+				3312DBC2206CD1410089E8C4 /* CAISDSNet.h */,
+				3312DBC3206CD1410089E8C4 /* CAISDSNet.m */,
+			);
+			path = net;
+			sourceTree = "<group>";
+		};
+		3312DBC4206CD1410089E8C4 /* stattistic */ = {
+			isa = PBXGroup;
+			children = (
+				3312DBC5206CD1410089E8C4 /* CAISDSStatistic.h */,
+				3312DBC6206CD1410089E8C4 /* CAISDSStatistic.m */,
+				3312DBC7206CD1410089E8C4 /* CAISDSStatisticDelegate.h */,
+			);
+			path = stattistic;
+			sourceTree = "<group>";
+		};
 		337F9DD52069D91500C0B047 = {
 			isa = PBXGroup;
 			children = (
+				3312DBAD206CD1410089E8C4 /* class */,
+				3312DB9B206CD1400089E8C4 /* thirdPart */,
 				337F9DE02069D91500C0B047 /* ScriptDrivenStatistics */,
 				337F9DF92069D91500C0B047 /* ScriptDrivenStatisticsTests */,
 				337F9E042069D91500C0B047 /* ScriptDrivenStatisticsUITests */,
@@ -282,9 +446,25 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3312DBD0206CD1410089E8C4 /* CAISDSLocalStore.m in Sources */,
+				3312DBD3206CD1410089E8C4 /* CAISDSPlan.m in Sources */,
+				3312DBCB206CD1410089E8C4 /* CAISDSFMDatabaseQueue.m in Sources */,
+				3312DBD7206CD1410089E8C4 /* CAISDSStatistic.m in Sources */,
+				3312DBC8206CD1410089E8C4 /* CAISDSAspects.m in Sources */,
+				3312DBD5206CD1410089E8C4 /* CAISDSReport.m in Sources */,
+				3312DBC9206CD1410089E8C4 /* CAISDSFMDatabase.m in Sources */,
+				3312DBCC206CD1410089E8C4 /* CAISDSFMResultSet.m in Sources */,
+				3312DBCF206CD1410089E8C4 /* CAISDSUtils.m in Sources */,
+				3312DBD6206CD1410089E8C4 /* CAISDSNet.m in Sources */,
+				3312DBCA206CD1410089E8C4 /* CAISDSFMDatabasePool.m in Sources */,
 				337F9DE62069D91500C0B047 /* ViewController.m in Sources */,
 				337F9DF12069D91500C0B047 /* main.m in Sources */,
+				3312DBD2206CD1410089E8C4 /* CAISDSLog.m in Sources */,
+				3312DBCD206CD1410089E8C4 /* CAISDSOpenUDID.m in Sources */,
+				3312DBCE206CD1410089E8C4 /* CAISDS.m in Sources */,
 				337F9DE32069D91500C0B047 /* AppDelegate.m in Sources */,
+				3312DBD1206CD1410089E8C4 /* CAISDSKeyPoint.m in Sources */,
+				3312DBD4206CD1410089E8C4 /* CAISDSRecord.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

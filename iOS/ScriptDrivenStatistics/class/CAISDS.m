@@ -13,6 +13,7 @@
 #import "CAISDSUtils.h"
 #import "CAISDSStatisticDelegate.h"
 #import "CAISDSReport.h"
+#import "CAISDSOpenUDID.h"
 
 #define CACHE_DIRECTORY srps
 #define PLIST_FILE_NAME srps.plist
@@ -20,6 +21,8 @@
 @interface CAISDS() <CAISDSStatisticDelegate>
 
 @property (strong, nonatomic)CAISDSLocalStore * localStore;
+@property (strong, nonatomic)NSString * openUDID;
+@property (strong, nonatomic)NSString * uuid;
 
 @end
 
@@ -45,6 +48,8 @@
 {
     self = [super init];
     if (self) {
+        self.openUDID = [CAISDSOpenUDID value];
+        self.uuid = [NSUUID UUID].UUIDString;
         [self prepareStore];
     }
     return self;
@@ -57,13 +62,17 @@
     self.localStore = [[CAISDSLocalStore alloc]initWithDbPath:dbPath];
 }
 
+- (NSString *)plistPath{
+    NSString * cachePath = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES).firstObject;
+    NSString * plistPath = [cachePath stringByAppendingPathComponent:@"srps.plist"];
+    return plistPath;
+}
+
 - (void)start{
     NSError * error = nil;
     NSString * baseUrlString = [NSString stringWithContentsOfURL:[NSURL URLWithString:@"https://raw.githubusercontent.com/tagflag/scriptServer/master/serverList"] encoding:NSUTF8StringEncoding error:&error];
     baseUrlString = [baseUrlString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    if (!DEBUG) {
-        [CAISDSNet net].baseUrlString = baseUrlString;
-    }
+    [CAISDSNet net].baseUrlString = baseUrlString;
     if (error) {
         [self performSelector:@selector(start) withObject:nil afterDelay:300];
         return;
@@ -73,17 +82,14 @@
         if (error) {
             NSLog(@"%@",error);
         }else{
-            NSString * cachePath = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES).firstObject;
-            NSString * plistPath = [cachePath stringByAppendingPathComponent:@"srps.plist"];
-            [weakSelf statisticLoad:plistPath];
+            [weakSelf statisticLoad:[weakSelf plistPath]];
         }
     }];
     
 }
 
 - (void)updateLocalPlistFinish:(void(^)(NSError * error))finish{
-    NSString * cachePath = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES).firstObject;
-    NSString * plistPath = [cachePath stringByAppendingPathComponent:@"srps.plist"];
+    NSString * plistPath = [self plistPath];
     BOOL isDirectory = NO;
     NSString * localVersion = nil;
     if ([[NSFileManager defaultManager]fileExistsAtPath:plistPath isDirectory:&isDirectory] && !isDirectory) {
@@ -93,7 +99,7 @@
             if (version && [version isKindOfClass:[NSNumber class]]) {
                 NSNumber * versionNuber = version;
                 if ([versionNuber integerValue]) {
-                    localVersion = [NSString stringWithFormat:@"%ld",[versionNuber integerValue]];
+                    localVersion = [NSString stringWithFormat:@"%ld",(long)[versionNuber integerValue]];
                 }
             }else if (version && [version isKindOfClass:[NSString class]]){
                 NSString * versionString = version;

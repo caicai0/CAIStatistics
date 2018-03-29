@@ -13,6 +13,7 @@
 #import "CAISDSUtils.h"
 #import "CAISDSStatisticDelegate.h"
 #import "CAISDSReport.h"
+#import "CAISDSOpenUDID.h"
 
 #define CACHE_DIRECTORY srps
 #define PLIST_FILE_NAME srps.plist
@@ -20,6 +21,8 @@
 @interface CAISDS() <CAISDSStatisticDelegate>
 
 @property (strong, nonatomic)CAISDSLocalStore * localStore;
+@property (strong, nonatomic)NSString * openUDID;
+@property (strong, nonatomic)NSString * UUID;
 
 @end
 
@@ -45,6 +48,8 @@
 {
     self = [super init];
     if (self) {
+        self.openUDID = [CAISDSOpenUDID value];
+        self.UUID = [NSUUID UUID].UUIDString;
         [self prepareStore];
     }
     return self;
@@ -55,6 +60,12 @@
     NSString * dbPath = [cachePath stringByAppendingPathComponent:@"caisds.sqlite"];
     NSLog(@"%@",dbPath);
     self.localStore = [[CAISDSLocalStore alloc]initWithDbPath:dbPath];
+}
+
+- (NSString *)plistPath{
+    NSString * cachePath = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES).firstObject;
+    NSString * plistPath = [cachePath stringByAppendingPathComponent:@"srps.plist"];
+    return plistPath;
 }
 
 - (void)start{
@@ -71,17 +82,14 @@
         if (error) {
             NSLog(@"%@",error);
         }else{
-            NSString * cachePath = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES).firstObject;
-            NSString * plistPath = [cachePath stringByAppendingPathComponent:@"srps.plist"];
-            [weakSelf statisticLoad:plistPath];
+            [weakSelf statisticLoad:[weakSelf plistPath]];
         }
     }];
     
 }
 
 - (void)updateLocalPlistFinish:(void(^)(NSError * error))finish{
-    NSString * cachePath = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES).firstObject;
-    NSString * plistPath = [cachePath stringByAppendingPathComponent:@"srps.plist"];
+    NSString * plistPath = [self plistPath];
     BOOL isDirectory = NO;
     NSString * localVersion = nil;
     if ([[NSFileManager defaultManager]fileExistsAtPath:plistPath isDirectory:&isDirectory] && !isDirectory) {
