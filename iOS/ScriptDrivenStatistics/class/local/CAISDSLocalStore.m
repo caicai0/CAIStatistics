@@ -59,8 +59,28 @@
     [self.queue inTransaction:^(CAISDSFMDatabase * _Nonnull db, BOOL * _Nonnull rollback) {
         NSString * sql = @"select * from CAISDSPlans limit 1000";
         CAISDSFMResultSet * set = [db executeQuery:sql];
+        NSMutableArray * keys = [NSMutableArray array];
+        NSMutableArray * logs = [NSMutableArray array];
         while ([set next]) {
-            
+            NSString * key = [set stringForColumn:@"id"];
+            if (key) {
+                [keys addObject:key];
+            }
+            NSString * json = [set stringForColumn:@"json"];
+            NSData * data = [json dataUsingEncoding:NSUTF8StringEncoding];
+            NSError * error = nil;
+            id object = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
+            if (object) {
+                [logs addObject:object];
+            }else{
+                if (json) {
+                    [logs addObject:json];
+                }else if(error){
+                    [logs addObject:error.localizedDescription];
+                }else{
+                    [logs addObject:@"数据读取错误"];
+                }
+            }
         }
         
     }];
