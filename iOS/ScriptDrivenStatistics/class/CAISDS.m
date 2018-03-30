@@ -21,6 +21,8 @@
 @interface CAISDS() <CAISDSStatisticDelegate>
 
 @property (strong, nonatomic)CAISDSLocalStore * localStore;
+@property (strong, nonatomic)NSDate * uploadStartTime;
+@property (assign, nonatomic)BOOL isUploading;
 
 @end
 
@@ -46,6 +48,7 @@
 {
     self = [super init];
     if (self) {
+        self.uploadStartTime = [NSDate date];
         [self prepareStore];
     }
     return self;
@@ -144,29 +147,42 @@
 }
 
 - (void)uploadRecords{
-    __weak typeof(self)weakSelf = self;
-    [self.localStore uploadLogs:^(NSArray *logs, void (^finish)(BOOL success)) {
-        CAISDSReport * report = [[CAISDSReport alloc]init];
-        report.planVersion = [CAISDSStatistic shareStatistic].version;
-        report.planFileMd5 = [CAISDSStatistic shareStatistic].planFileMd5;
-        report.baseInfo = [CAISDSStatistic shareStatistic].baseInfo;
-        report.logs = logs;
-        [[CAISDSNet net]uploadReport:report finish:^(NSError *error, NSDictionary *response) {
-            if (!error && response && [response isKindOfClass:[NSDictionary class]]) {
-                NSNumber * code = response[@"code"];
-                if (code && [code isKindOfClass:[NSNumber class]]) {
-                    if ([code integerValue]==0) {
-                        
-                    }else if ([code integerValue]==1) {
-                        [weakSelf start];
-                    }
-                    if (finish) {
-                        finish(YES);
-                    }
-                }
+    if ([self shouldUpload] && !self.isUploading) {
+        __weak typeof(self)weakSelf = self;
+        self.isUploading = YES;
+        [self.localStore uploadLogs:^(NSArray *logs,BOOL residue, void (^finish)(BOOL success)) {
+            CAISDSReport * report = [[CAISDSReport alloc]init];
+            report.planVersion = [CAISDSStatistic shareStatistic].version;
+            report.planFileMd5 = [CAISDSStatistic shareStatistic].planFileMd5;
+            report.baseInfo = [CAISDSStatistic shareStatistic].baseInfo;
+            report.logs = logs;
+            if (!residue) {
+                weakSelf.uploadStartTime = [NSDate date];
             }
+            [[CAISDSNet net]uploadReport:report finish:^(NSError *error, NSDictionary *response) {
+                if (!error && response && [response isKindOfClass:[NSDictionary class]]) {
+                    NSNumber * code = response[@"code"];
+                    if (code && [code isKindOfClass:[NSNumber class]]) {
+                        if ([code integerValue]==0) {
+                            
+                        }else if ([code integerValue]==1) {
+                            [weakSelf start];
+                        }
+                        if (finish) {
+                            finish(YES);
+                        }
+                    }
+                    weakSelf.isUploading = NO;
+                }
+            }];
         }];
-    }];
+    }
+}
+
+- (BOOL)shouldUpload{
+    NSDate * now = [NSDate date];
+    NSTimeInterval time = [now timeIntervalSinceDate:self.uploadStartTime];
+    return time>60;
 }
 
 @end

@@ -55,7 +55,7 @@
     }
 }
 
-- (void)uploadLogs:(void(^)(NSArray *logs,void(^finish)(BOOL success)))upload{
+- (void)uploadLogs:(void(^)(NSArray *logs,BOOL residue,void(^finish)(BOOL success)))upload{
     __weak typeof(self)weakSelf = self;
     [self.queue inTransaction:^(CAISDSFMDatabase * _Nonnull db, BOOL * _Nonnull rollback) {
         NSString * sql = @"select * from CAISDSPlans limit 1000";
@@ -84,7 +84,8 @@
             }
         }
         if (upload) {
-            upload(logs,^(BOOL success){
+            BOOL residue = (logs.count>=1000);
+            upload(logs,residue,^(BOOL success){
                 if (success) {
                     [weakSelf.queue inTransaction:^(CAISDSFMDatabase * _Nonnull db, BOOL * _Nonnull rollback) {
                         NSString * deleteSql = @"delete from CAISDSPlans where id = ?";

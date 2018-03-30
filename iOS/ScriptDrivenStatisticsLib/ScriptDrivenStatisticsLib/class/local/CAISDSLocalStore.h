@@ -16,6 +16,6 @@
 //存储类方法  log 会相应提取关键信息Json化存储  或是计数统计叠加
 - (void)saveLog:(CAISDSLog *)log;
 
-- (void)uploadLogs:(void(^)(NSArray *logs,void(^finish)(BOOL success)))upload;
+- (void)uploadLogs:(void(^)(NSArray *logs,BOOL residue,void(^finish)(BOOL success)))upload;
 
 @end
