@@ -1,21 +1,21 @@
 //
-//  CAISDSOpenUDID.h
+//  OpenUDID.h
 //  openudid
 //
 //  initiated by Yann Lechelle (cofounder @Appsfire) on 8/28/11.
-//  Copyright 2011 CAISDSOpenUDID.org
+//  Copyright 2011 OpenUDID.org
 //
 //  Main branches
-//      iOS code: https://github.com/ylechelle/CAISDSOpenUDID
+//      iOS code: https://github.com/ylechelle/OpenUDID
 //
 
 /*
     !!! IMPORTANT !!!
 
-    IF YOU ARE GOING TO INTEGRATE CAISDSOpenUDID INSIDE A (STATIC) LIBRARY,
-    PLEASE MAKE SURE YOU REFACTOR THE CAISDSOpenUDID CLASS WITH A PREFIX OF YOUR OWN,
-    E.G. ACME_CAISDSOpenUDID. THIS WILL AVOID CONFUSION BY DEVELOPERS WHO ARE ALSO
-    USING CAISDSOpenUDID IN THEIR OWN CODE. 
+    IF YOU ARE GOING TO INTEGRATE OpenUDID INSIDE A (STATIC) LIBRARY,
+    PLEASE MAKE SURE YOU REFACTOR THE OpenUDID CLASS WITH A PREFIX OF YOUR OWN,
+    E.G. ACME_OpenUDID. THIS WILL AVOID CONFUSION BY DEVELOPERS WHO ARE ALSO
+    USING OpenUDID IN THEIR OWN CODE. 
 
     !!! IMPORTANT !!!
 
@@ -48,15 +48,15 @@
 
 //
 // Usage:
-//    #include "CAISDSOpenUDID.h"
-//    NSString* openUDID = [CAISDSOpenUDID value];
+//    #include "OpenUDID.h"
+//    NSString* openUDID = [OpenUDID value];
 //
 
-#define kCAISDSOpenUDIDErrorNone          0
-#define kCAISDSOpenUDIDErrorOptedOut      1
-#define kCAISDSOpenUDIDErrorCompromised   2
+#define kOpenUDIDErrorNone          0
+#define kOpenUDIDErrorOptedOut      1
+#define kOpenUDIDErrorCompromised   2
 
-@interface CAISDSOpenUDID : NSObject {
+@interface OpenUDID : NSObject {
 }
 + (NSString*) value;
 + (NSString*) valueWithError:(NSError**)error;

@@ -1,5 +1,5 @@
 //
-//  CAISDSFMDatabasePool.m
+//  FMDatabasePool.m
 //  fmdb
 //
 //  Created by August Mueller on 6/22/11.
@@ -12,8 +12,8 @@
 #import <sqlite3.h>
 #endif
 
-#import "CAISDSFMDatabasePool.h"
-#import "CAISDSFMDatabase.h"
+#import "FMDatabasePool.h"
+#import "FMDatabase.h"
 
 typedef NS_ENUM(NSInteger, FMDBTransaction) {
     FMDBTransactionExclusive,
@@ -21,20 +21,20 @@ typedef NS_ENUM(NSInteger, FMDBTransaction) {
     FMDBTransactionImmediate,
 };
 
-@interface CAISDSFMDatabasePool () {
+@interface FMDatabasePool () {
     dispatch_queue_t    _lockQueue;
     
     NSMutableArray      *_databaseInPool;
     NSMutableArray      *_databaseOutPool;
 }
 
-- (void)pushDatabaseBackInPool:(CAISDSFMDatabase*)db;
-- (CAISDSFMDatabase*)db;
+- (void)pushDatabaseBackInPool:(FMDatabase*)db;
+- (FMDatabase*)db;
 
 @end
 
 
-@implementation CAISDSFMDatabasePool
+@implementation FMDatabasePool
 @synthesize path=_path;
 @synthesize delegate=_delegate;
 @synthesize maximumNumberOfDatabasesToCreate=_maximumNumberOfDatabasesToCreate;
@@ -99,7 +99,7 @@ typedef NS_ENUM(NSInteger, FMDBTransaction) {
 }
 
 + (Class)databaseClass {
-    return [CAISDSFMDatabase class];
+    return [FMDatabase class];
 }
 
 - (void)dealloc {
@@ -124,7 +124,7 @@ typedef NS_ENUM(NSInteger, FMDBTransaction) {
     dispatch_sync(_lockQueue, aBlock);
 }
 
-- (void)pushDatabaseBackInPool:(CAISDSFMDatabase*)db {
+- (void)pushDatabaseBackInPool:(FMDatabase*)db {
     
     if (!db) { // db can be null if we set an upper bound on the # of databases to create.
         return;
@@ -133,7 +133,7 @@ typedef NS_ENUM(NSInteger, FMDBTransaction) {
     [self executeLocked:^() {
         
         if ([self->_databaseInPool containsObject:db]) {
-            [[NSException exceptionWithName:@"Database already in pool" reason:@"The CAISDSFMDatabase being put back into the pool is already present in the pool" userInfo:nil] raise];
+            [[NSException exceptionWithName:@"Database already in pool" reason:@"The FMDatabase being put back into the pool is already present in the pool" userInfo:nil] raise];
         }
         
         [self->_databaseInPool addObject:db];
@@ -142,9 +142,9 @@ typedef NS_ENUM(NSInteger, FMDBTransaction) {
     }];
 }
 
-- (CAISDSFMDatabase*)db {
+- (FMDatabase*)db {
     
-    __block CAISDSFMDatabase *db;
+    __block FMDatabase *db;
     
     
     [self executeLocked:^() {
@@ -241,20 +241,20 @@ typedef NS_ENUM(NSInteger, FMDBTransaction) {
     }];
 }
 
-- (void)inDatabase:(void (^)(CAISDSFMDatabase *db))block {
+- (void)inDatabase:(void (^)(FMDatabase *db))block {
     
-    CAISDSFMDatabase *db = [self db];
+    FMDatabase *db = [self db];
     
     block(db);
     
     [self pushDatabaseBackInPool:db];
 }
 
-- (void)beginTransaction:(FMDBTransaction)transaction withBlock:(void (^)(CAISDSFMDatabase *db, BOOL *rollback))block {
+- (void)beginTransaction:(FMDBTransaction)transaction withBlock:(void (^)(FMDatabase *db, BOOL *rollback))block {
     
     BOOL shouldRollback = NO;
     
-    CAISDSFMDatabase *db = [self db];
+    FMDatabase *db = [self db];
     
     switch (transaction) {
         case FMDBTransactionExclusive:
@@ -281,23 +281,23 @@ typedef NS_ENUM(NSInteger, FMDBTransaction) {
     [self pushDatabaseBackInPool:db];
 }
 
-- (void)inTransaction:(void (^)(CAISDSFMDatabase *db, BOOL *rollback))block {
+- (void)inTransaction:(void (^)(FMDatabase *db, BOOL *rollback))block {
     [self beginTransaction:FMDBTransactionExclusive withBlock:block];
 }
 
-- (void)inDeferredTransaction:(void (^)(CAISDSFMDatabase *db, BOOL *rollback))block {
+- (void)inDeferredTransaction:(void (^)(FMDatabase *db, BOOL *rollback))block {
     [self beginTransaction:FMDBTransactionDeferred withBlock:block];
 }
 
-- (void)inExclusiveTransaction:(void (^)(CAISDSFMDatabase *db, BOOL *rollback))block {
+- (void)inExclusiveTransaction:(void (^)(FMDatabase *db, BOOL *rollback))block {
     [self beginTransaction:FMDBTransactionExclusive withBlock:block];
 }
 
-- (void)inImmediateTransaction:(__attribute__((noescape)) void (^)(CAISDSFMDatabase *db, BOOL *rollback))block {
+- (void)inImmediateTransaction:(__attribute__((noescape)) void (^)(FMDatabase *db, BOOL *rollback))block {
     [self beginTransaction:FMDBTransactionImmediate withBlock:block];
 }
 
-- (NSError*)inSavePoint:(void (^)(CAISDSFMDatabase *db, BOOL *rollback))block {
+- (NSError*)inSavePoint:(void (^)(FMDatabase *db, BOOL *rollback))block {
 #if SQLITE_VERSION_NUMBER >= 3007000
     static unsigned long savePointIdx = 0;
     
@@ -305,7 +305,7 @@ typedef NS_ENUM(NSInteger, FMDBTransaction) {
     
     BOOL shouldRollback = NO;
     
-    CAISDSFMDatabase *db = [self db];
+    FMDatabase *db = [self db];
     
     NSError *err = 0x00;
     
@@ -328,7 +328,7 @@ typedef NS_ENUM(NSInteger, FMDBTransaction) {
 #else
     NSString *errorMessage = NSLocalizedString(@"Save point functions require SQLite 3.7", nil);
     if (self.logsErrors) NSLog(@"%@", errorMessage);
-    return [NSError errorWithDomain:@"CAISDSFMDatabase" code:0 userInfo:@{NSLocalizedDescriptionKey : errorMessage}];
+    return [NSError errorWithDomain:@"FMDatabase" code:0 userInfo:@{NSLocalizedDescriptionKey : errorMessage}];
 #endif
 }
 

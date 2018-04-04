@@ -1,5 +1,5 @@
-#import "CAISDSFMResultSet.h"
-#import "CAISDSFMDatabase.h"
+#import "FMResultSet.h"
+#import "FMDatabase.h"
 #import <unistd.h>
 
 #if FMDB_SQLITE_STANDALONE
@@ -8,20 +8,20 @@
 #import <sqlite3.h>
 #endif
 
-@interface CAISDSFMDatabase ()
-- (void)resultSetDidClose:(CAISDSFMResultSet *)resultSet;
+@interface FMDatabase ()
+- (void)resultSetDidClose:(FMResultSet *)resultSet;
 @end
 
-@interface CAISDSFMResultSet () {
+@interface FMResultSet () {
     NSMutableDictionary *_columnNameToIndexMap;
 }
 @end
 
-@implementation CAISDSFMResultSet
+@implementation FMResultSet
 
-+ (instancetype)resultSetWithStatement:(FMStatement *)statement usingParentDatabase:(CAISDSFMDatabase*)aDB {
++ (instancetype)resultSetWithStatement:(FMStatement *)statement usingParentDatabase:(FMDatabase*)aDB {
     
-    CAISDSFMResultSet *rs = [[CAISDSFMResultSet alloc] init];
+    FMResultSet *rs = [[FMResultSet alloc] init];
     
     [rs setStatement:statement];
     [rs setParentDB:aDB];
@@ -191,7 +191,7 @@
                 // If 'next' or 'nextWithError' is called after the result set is closed,
                 // we need to return the appropriate error.
                 NSDictionary* errorMessage = [NSDictionary dictionaryWithObject:@"parentDB does not exist" forKey:NSLocalizedDescriptionKey];
-                *outErr = [NSError errorWithDomain:@"CAISDSFMDatabase" code:SQLITE_MISUSE userInfo:errorMessage];
+                *outErr = [NSError errorWithDomain:@"FMDatabase" code:SQLITE_MISUSE userInfo:errorMessage];
             }
             
         }

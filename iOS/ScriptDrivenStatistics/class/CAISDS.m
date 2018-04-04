@@ -57,7 +57,6 @@
 - (void)prepareStore{
     NSString * cachePath = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES).firstObject;
     NSString * dbPath = [cachePath stringByAppendingPathComponent:@"caisds.sqlite"];
-    NSLog(@"%@",dbPath);
     self.localStore = [[CAISDSLocalStore alloc]initWithDbPath:dbPath];
 }
 

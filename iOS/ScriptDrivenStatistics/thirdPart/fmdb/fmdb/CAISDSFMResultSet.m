@@ -19,7 +19,7 @@
 
 @implementation CAISDSFMResultSet
 
-+ (instancetype)resultSetWithStatement:(FMStatement *)statement usingParentDatabase:(CAISDSFMDatabase*)aDB {
++ (instancetype)resultSetWithStatement:(CAISDSFMStatement *)statement usingParentDatabase:(CAISDSFMDatabase*)aDB {
     
     CAISDSFMResultSet *rs = [[CAISDSFMResultSet alloc] init];
     

@@ -14,19 +14,19 @@ NS_ASSUME_NONNULL_BEGIN
 #endif
 #endif
 
-@class CAISDSFMDatabase;
+@class FMDatabase;
 @class FMStatement;
 
-/** Represents the results of executing a query on an `<CAISDSFMDatabase>`.
+/** Represents the results of executing a query on an `<FMDatabase>`.
  
  ### See also
  
- - `<CAISDSFMDatabase>`
+ - `<FMDatabase>`
  */
 
-@interface CAISDSFMResultSet : NSObject
+@interface FMResultSet : NSObject
 
-@property (nonatomic, retain, nullable) CAISDSFMDatabase *parentDB;
+@property (nonatomic, retain, nullable) FMDatabase *parentDB;
 
 ///-----------------
 /// @name Properties
@@ -52,12 +52,12 @@ NS_ASSUME_NONNULL_BEGIN
  
  @param statement A `<FMStatement>` to be performed
  
- @param aDB A `<CAISDSFMDatabase>` to be used
+ @param aDB A `<FMDatabase>` to be used
  
- @return A `CAISDSFMResultSet` on success; `nil` on failure
+ @return A `FMResultSet` on success; `nil` on failure
  */
 
-+ (instancetype)resultSetWithStatement:(FMStatement *)statement usingParentDatabase:(CAISDSFMDatabase*)aDB;
++ (instancetype)resultSetWithStatement:(FMStatement *)statement usingParentDatabase:(FMDatabase*)aDB;
 
 /** Close result set */
 

@@ -60,7 +60,7 @@ typedef NS_ENUM(int, FMDBCheckpointMode) {
  ### See also
  
  - `<CAISDSFMDatabasePool>` - A pool of `CAISDSFMDatabase` objects.
- - `<FMStatement>` - A wrapper for `sqlite_stmt`.
+ - `<CAISDSFMStatement>` - A wrapper for `sqlite_stmt`.
  
  ### External links
  
@@ -1378,7 +1378,7 @@ typedef NS_ENUM(int, SqliteValueType) {
 
 /** Objective-C wrapper for `sqlite3_stmt`
  
- This is a wrapper for a SQLite `sqlite3_stmt`. Generally when using FMDB you will not need to interact directly with `FMStatement`, but rather with `<CAISDSFMDatabase>` and `<CAISDSFMResultSet>` only.
+ This is a wrapper for a SQLite `sqlite3_stmt`. Generally when using FMDB you will not need to interact directly with `CAISDSFMStatement`, but rather with `<CAISDSFMDatabase>` and `<CAISDSFMResultSet>` only.
  
  ### See also
  
@@ -1387,7 +1387,7 @@ typedef NS_ENUM(int, SqliteValueType) {
  - [`sqlite3_stmt`](http://www.sqlite.org/c3ref/stmt.html)
  */
 
-@interface FMStatement : NSObject {
+@interface CAISDSFMStatement : NSObject {
     void *_statement;
     NSString *_query;
     long _useCount;

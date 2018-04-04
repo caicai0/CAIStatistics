@@ -8,24 +8,6 @@
 
 #import "ViewController.h"
 
-@interface TestClass:NSObject
-
-- (void)noArgFunction;
-- (void)argFunction:(id)arg;
-
-@end
-
-@implementation TestClass
-
-- (void)noArgFunction{
-    
-}
-- (void)argFunction:(id)arg{
-    
-}
-
-@end
-
 @interface ViewController ()
 
 @end
@@ -45,9 +27,6 @@
 }
 
 - (IBAction)testClicked:(id)sender {
-    TestClass * test = [[TestClass alloc]init];
-    [test noArgFunction];
-    [test argFunction:self];
     
 }
 

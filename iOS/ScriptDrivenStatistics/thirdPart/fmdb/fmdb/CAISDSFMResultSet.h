@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 #endif
 
 @class CAISDSFMDatabase;
-@class FMStatement;
+@class CAISDSFMStatement;
 
 /** Represents the results of executing a query on an `<CAISDSFMDatabase>`.
  
@@ -40,24 +40,24 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (readonly) NSMutableDictionary *columnNameToIndexMap;
 
-/** `FMStatement` used by result set. */
+/** `CAISDSFMStatement` used by result set. */
 
-@property (atomic, retain, nullable) FMStatement *statement;
+@property (atomic, retain, nullable) CAISDSFMStatement *statement;
 
 ///------------------------------------
 /// @name Creating and closing a result set
 ///------------------------------------
 
-/** Create result set from `<FMStatement>`
+/** Create result set from `<CAISDSFMStatement>`
  
- @param statement A `<FMStatement>` to be performed
+ @param statement A `<CAISDSFMStatement>` to be performed
  
  @param aDB A `<CAISDSFMDatabase>` to be used
  
  @return A `CAISDSFMResultSet` on success; `nil` on failure
  */
 
-+ (instancetype)resultSetWithStatement:(FMStatement *)statement usingParentDatabase:(CAISDSFMDatabase*)aDB;
++ (instancetype)resultSetWithStatement:(CAISDSFMStatement *)statement usingParentDatabase:(CAISDSFMDatabase*)aDB;
 
 /** Close result set */
 

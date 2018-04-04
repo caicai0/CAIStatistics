@@ -1,197 +1,197 @@
 //
-//  CAISDSAspects.m
-//  CAISDSAspects - A delightful, simple library for CAISDSAspect oriented programming.
+//  Aspects.m
+//  Aspects - A delightful, simple library for aspect oriented programming.
 //
 //  Copyright (c) 2014 Peter Steinberger. Licensed under the MIT license.
 //
 
-#import "CAISDSAspects.h"
+#import "Aspects.h"
 #import <libkern/OSAtomic.h>
 #import <objc/runtime.h>
 #import <objc/message.h>
 
-#define CAISDSAspectLog(...)
-//#define CAISDSAspectLog(...) do { NSLog(__VA_ARGS__); }while(0)
-#define CAISDSAspectLogError(...) do { NSLog(__VA_ARGS__); }while(0)
+#define AspectLog(...)
+//#define AspectLog(...) do { NSLog(__VA_ARGS__); }while(0)
+#define AspectLogError(...) do { NSLog(__VA_ARGS__); }while(0)
 
 // Block internals.
-typedef NS_OPTIONS(int, CAISDSAspectBlockFlags) {
-	CAISDSAspectBlockFlagsHasCopyDisposeHelpers = (1 << 25),
-	CAISDSAspectBlockFlagsHasSignature          = (1 << 30)
+typedef NS_OPTIONS(int, AspectBlockFlags) {
+	AspectBlockFlagsHasCopyDisposeHelpers = (1 << 25),
+	AspectBlockFlagsHasSignature          = (1 << 30)
 };
-typedef struct _CAISDSAspectBlock {
+typedef struct _AspectBlock {
 	__unused Class isa;
-	CAISDSAspectBlockFlags flags;
+	AspectBlockFlags flags;
 	__unused int reserved;
-	void (__unused *invoke)(struct _CAISDSAspectBlock *block, ...);
+	void (__unused *invoke)(struct _AspectBlock *block, ...);
 	struct {
 		unsigned long int reserved;
 		unsigned long int size;
-		// requires CAISDSAspectBlockFlagsHasCopyDisposeHelpers
+		// requires AspectBlockFlagsHasCopyDisposeHelpers
 		void (*copy)(void *dst, const void *src);
 		void (*dispose)(const void *);
-		// requires CAISDSAspectBlockFlagsHasSignature
+		// requires AspectBlockFlagsHasSignature
 		const char *signature;
 		const char *layout;
 	} *descriptor;
 	// imported variables
-} *CAISDSAspectBlockRef;
+} *AspectBlockRef;
 
-@interface CAISDSAspectInfo : NSObject <CAISDSAspectInfo>
+@interface AspectInfo : NSObject <AspectInfo>
 - (id)initWithInstance:(__unsafe_unretained id)instance invocation:(NSInvocation *)invocation;
 @property (nonatomic, unsafe_unretained, readonly) id instance;
 @property (nonatomic, strong, readonly) NSArray *arguments;
 @property (nonatomic, strong, readonly) NSInvocation *originalInvocation;
 @end
 
-// Tracks a single CAISDSAspect.
-@interface CAISDSAspectIdentifier : NSObject
-+ (instancetype)identifierWithSelector:(SEL)selector object:(id)object options:(CAISDSAspectOptions)options block:(id)block error:(NSError **)error;
-- (BOOL)invokeWithInfo:(id<CAISDSAspectInfo>)info;
+// Tracks a single aspect.
+@interface AspectIdentifier : NSObject
++ (instancetype)identifierWithSelector:(SEL)selector object:(id)object options:(AspectOptions)options block:(id)block error:(NSError **)error;
+- (BOOL)invokeWithInfo:(id<AspectInfo>)info;
 @property (nonatomic, assign) SEL selector;
 @property (nonatomic, strong) id block;
 @property (nonatomic, strong) NSMethodSignature *blockSignature;
 @property (nonatomic, weak) id object;
-@property (nonatomic, assign) CAISDSAspectOptions options;
+@property (nonatomic, assign) AspectOptions options;
 @end
 
-// Tracks all CAISDSAspects for an object/class.
-@interface CAISDSAspectsContainer : NSObject
-- (void)addCAISDSAspect:(CAISDSAspectIdentifier *)CAISDSAspect withOptions:(CAISDSAspectOptions)injectPosition;
-- (BOOL)removeCAISDSAspect:(id)CAISDSAspect;
-- (BOOL)hasCAISDSAspects;
-@property (atomic, copy) NSArray *beforeCAISDSAspects;
-@property (atomic, copy) NSArray *insteadCAISDSAspects;
-@property (atomic, copy) NSArray *afterCAISDSAspects;
+// Tracks all aspects for an object/class.
+@interface AspectsContainer : NSObject
+- (void)addAspect:(AspectIdentifier *)aspect withOptions:(AspectOptions)injectPosition;
+- (BOOL)removeAspect:(id)aspect;
+- (BOOL)hasAspects;
+@property (atomic, copy) NSArray *beforeAspects;
+@property (atomic, copy) NSArray *insteadAspects;
+@property (atomic, copy) NSArray *afterAspects;
 @end
 
-@interface CAISDSAspectTracker : NSObject
+@interface AspectTracker : NSObject
 - (id)initWithTrackedClass:(Class)trackedClass;
 @property (nonatomic, strong) Class trackedClass;
 @property (nonatomic, readonly) NSString *trackedClassName;
 @property (nonatomic, strong) NSMutableSet *selectorNames;
 @property (nonatomic, strong) NSMutableDictionary *selectorNamesToSubclassTrackers;
-- (void)addSubclassTracker:(CAISDSAspectTracker *)subclassTracker hookingSelectorName:(NSString *)selectorName;
-- (void)removeSubclassTracker:(CAISDSAspectTracker *)subclassTracker hookingSelectorName:(NSString *)selectorName;
+- (void)addSubclassTracker:(AspectTracker *)subclassTracker hookingSelectorName:(NSString *)selectorName;
+- (void)removeSubclassTracker:(AspectTracker *)subclassTracker hookingSelectorName:(NSString *)selectorName;
 - (BOOL)subclassHasHookedSelectorName:(NSString *)selectorName;
 - (NSSet *)subclassTrackersHookingSelectorName:(NSString *)selectorName;
 @end
 
-@interface NSInvocation (CAISDSAspects)
-- (NSArray *)CAISDSAspects_arguments;
+@interface NSInvocation (Aspects)
+- (NSArray *)aspects_arguments;
 @end
 
-#define CAISDSAspectPositionFilter 0x07
+#define AspectPositionFilter 0x07
 
-#define CAISDSAspectError(errorCode, errorDescription) do { \
-CAISDSAspectLogError(@"CAISDSAspects: %@", errorDescription); \
-if (error) { *error = [NSError errorWithDomain:CAISDSAspectErrorDomain code:errorCode userInfo:@{NSLocalizedDescriptionKey: errorDescription}]; }}while(0)
+#define AspectError(errorCode, errorDescription) do { \
+AspectLogError(@"Aspects: %@", errorDescription); \
+if (error) { *error = [NSError errorWithDomain:AspectErrorDomain code:errorCode userInfo:@{NSLocalizedDescriptionKey: errorDescription}]; }}while(0)
 
-NSString *const CAISDSAspectErrorDomain = @"CAISDSAspectErrorDomain";
-static NSString *const CAISDSAspectsSubclassSuffix = @"_CAISDSAspects_";
-static NSString *const CAISDSAspectsMessagePrefix = @"CAISDSAspects_";
+NSString *const AspectErrorDomain = @"AspectErrorDomain";
+static NSString *const AspectsSubclassSuffix = @"_Aspects_";
+static NSString *const AspectsMessagePrefix = @"aspects_";
 
-@implementation NSObject (CAISDSAspects)
+@implementation NSObject (Aspects)
 
 ///////////////////////////////////////////////////////////////////////////////////////////
-#pragma mark - Public CAISDSAspects API
+#pragma mark - Public Aspects API
 
-+ (id<CAISDSAspectToken>)CAISDSAspect_hookSelector:(SEL)selector
-                      withOptions:(CAISDSAspectOptions)options
++ (id<AspectToken>)aspect_hookSelector:(SEL)selector
+                      withOptions:(AspectOptions)options
                        usingBlock:(id)block
                             error:(NSError **)error {
-    return CAISDSAspect_add((id)self, selector, options, block, error);
+    return aspect_add((id)self, selector, options, block, error);
 }
 
-/// @return A token which allows to later deregister the CAISDSAspect.
-- (id<CAISDSAspectToken>)CAISDSAspect_hookSelector:(SEL)selector
-                      withOptions:(CAISDSAspectOptions)options
+/// @return A token which allows to later deregister the aspect.
+- (id<AspectToken>)aspect_hookSelector:(SEL)selector
+                      withOptions:(AspectOptions)options
                        usingBlock:(id)block
                             error:(NSError **)error {
-    return CAISDSAspect_add(self, selector, options, block, error);
+    return aspect_add(self, selector, options, block, error);
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 #pragma mark - Private Helper
 
-static id CAISDSAspect_add(id self, SEL selector, CAISDSAspectOptions options, id block, NSError * __autoreleasing *error) {
+static id aspect_add(id self, SEL selector, AspectOptions options, id block, NSError **error) {
     NSCParameterAssert(self);
     NSCParameterAssert(selector);
     NSCParameterAssert(block);
 
-    __block CAISDSAspectIdentifier *identifier = nil;
-    CAISDSAspect_performLocked(^{
-        if (CAISDSAspect_isSelectorAllowedAndTrack(self, selector, options, error)) {
-            CAISDSAspectsContainer *CAISDSAspectContainer = CAISDSAspect_getContainerForObject(self, selector);
-            identifier = [CAISDSAspectIdentifier identifierWithSelector:selector object:self options:options block:block error:error];
+    __block AspectIdentifier *identifier = nil;
+    aspect_performLocked(^{
+        if (aspect_isSelectorAllowedAndTrack(self, selector, options, error)) {
+            AspectsContainer *aspectContainer = aspect_getContainerForObject(self, selector);
+            identifier = [AspectIdentifier identifierWithSelector:selector object:self options:options block:block error:error];
             if (identifier) {
-                [CAISDSAspectContainer addCAISDSAspect:identifier withOptions:options];
+                [aspectContainer addAspect:identifier withOptions:options];
 
                 // Modify the class to allow message interception.
-                CAISDSAspect_prepareClassAndHookSelector(self, selector, error);
+                aspect_prepareClassAndHookSelector(self, selector, error);
             }
         }
     });
     return identifier;
 }
 
-static BOOL CAISDSAspect_remove(CAISDSAspectIdentifier *CAISDSAspect, NSError * __autoreleasing *error) {
-    NSCAssert([CAISDSAspect isKindOfClass:CAISDSAspectIdentifier.class], @"Must have correct type.");
+static BOOL aspect_remove(AspectIdentifier *aspect, NSError **error) {
+    NSCAssert([aspect isKindOfClass:AspectIdentifier.class], @"Must have correct type.");
 
     __block BOOL success = NO;
-    CAISDSAspect_performLocked(^{
-        id self = CAISDSAspect.object; // strongify
+    aspect_performLocked(^{
+        id self = aspect.object; // strongify
         if (self) {
-            CAISDSAspectsContainer *CAISDSAspectContainer = CAISDSAspect_getContainerForObject(self, CAISDSAspect.selector);
-            success = [CAISDSAspectContainer removeCAISDSAspect:CAISDSAspect];
+            AspectsContainer *aspectContainer = aspect_getContainerForObject(self, aspect.selector);
+            success = [aspectContainer removeAspect:aspect];
 
-            CAISDSAspect_cleanupHookedClassAndSelector(self, CAISDSAspect.selector);
+            aspect_cleanupHookedClassAndSelector(self, aspect.selector);
             // destroy token
-            CAISDSAspect.object = nil;
-            CAISDSAspect.block = nil;
-            CAISDSAspect.selector = NULL;
+            aspect.object = nil;
+            aspect.block = nil;
+            aspect.selector = NULL;
         }else {
-            NSString *errrorDesc = [NSString stringWithFormat:@"Unable to deregister hook. Object already deallocated: %@", CAISDSAspect];
-            CAISDSAspectError(CAISDSAspectErrorRemoveObjectAlreadyDeallocated, errrorDesc);
+            NSString *errrorDesc = [NSString stringWithFormat:@"Unable to deregister hook. Object already deallocated: %@", aspect];
+            AspectError(AspectErrorRemoveObjectAlreadyDeallocated, errrorDesc);
         }
     });
     return success;
 }
 
-static void CAISDSAspect_performLocked(dispatch_block_t block) {
-    static OSSpinLock CAISDSAspect_lock = OS_SPINLOCK_INIT;
-    OSSpinLockLock(&CAISDSAspect_lock);
+static void aspect_performLocked(dispatch_block_t block) {
+    static OSSpinLock aspect_lock = OS_SPINLOCK_INIT;
+    OSSpinLockLock(&aspect_lock);
     block();
-    OSSpinLockUnlock(&CAISDSAspect_lock);
+    OSSpinLockUnlock(&aspect_lock);
 }
 
-static SEL CAISDSAspect_aliasForSelector(SEL selector) {
+static SEL aspect_aliasForSelector(SEL selector) {
     NSCParameterAssert(selector);
-	return NSSelectorFromString([CAISDSAspectsMessagePrefix stringByAppendingFormat:@"_%@", NSStringFromSelector(selector)]);
+	return NSSelectorFromString([AspectsMessagePrefix stringByAppendingFormat:@"_%@", NSStringFromSelector(selector)]);
 }
 
-static NSMethodSignature *CAISDSAspect_blockMethodSignature(id block, NSError **error) {
-    CAISDSAspectBlockRef layout = (__bridge void *)block;
-	if (!(layout->flags & CAISDSAspectBlockFlagsHasSignature)) {
+static NSMethodSignature *aspect_blockMethodSignature(id block, NSError **error) {
+    AspectBlockRef layout = (__bridge void *)block;
+	if (!(layout->flags & AspectBlockFlagsHasSignature)) {
         NSString *description = [NSString stringWithFormat:@"The block %@ doesn't contain a type signature.", block];
-        CAISDSAspectError(CAISDSAspectErrorMissingBlockSignature, description);
+        AspectError(AspectErrorMissingBlockSignature, description);
         return nil;
     }
 	void *desc = layout->descriptor;
 	desc += 2 * sizeof(unsigned long int);
-	if (layout->flags & CAISDSAspectBlockFlagsHasCopyDisposeHelpers) {
+	if (layout->flags & AspectBlockFlagsHasCopyDisposeHelpers) {
 		desc += 2 * sizeof(void *);
     }
 	if (!desc) {
         NSString *description = [NSString stringWithFormat:@"The block %@ doesn't has a type signature.", block];
-        CAISDSAspectError(CAISDSAspectErrorMissingBlockSignature, description);
+        AspectError(AspectErrorMissingBlockSignature, description);
         return nil;
     }
 	const char *signature = (*(const char **)desc);
 	return [NSMethodSignature signatureWithObjCTypes:signature];
 }
 
-static BOOL CAISDSAspect_isCompatibleBlockSignature(NSMethodSignature *blockSignature, id object, SEL selector, NSError **error) {
+static BOOL aspect_isCompatibleBlockSignature(NSMethodSignature *blockSignature, id object, SEL selector, NSError **error) {
     NSCParameterAssert(blockSignature);
     NSCParameterAssert(object);
     NSCParameterAssert(selector);
@@ -207,7 +207,7 @@ static BOOL CAISDSAspect_isCompatibleBlockSignature(NSMethodSignature *blockSign
                 signaturesMatch = NO;
             }
         }
-        // Argument 0 is self/block, argument 1 is SEL or id<CAISDSAspectInfo>. We start comparing at argument 2.
+        // Argument 0 is self/block, argument 1 is SEL or id<AspectInfo>. We start comparing at argument 2.
         // The block can have less arguments than the method, that's ok.
         if (signaturesMatch) {
             for (NSUInteger idx = 2; idx < blockSignature.numberOfArguments; idx++) {
@@ -223,7 +223,7 @@ static BOOL CAISDSAspect_isCompatibleBlockSignature(NSMethodSignature *blockSign
 
     if (!signaturesMatch) {
         NSString *description = [NSString stringWithFormat:@"Block signature %@ doesn't match %@.", blockSignature, methodSignature];
-        CAISDSAspectError(CAISDSAspectErrorIncompatibleBlockSignature, description);
+        AspectError(AspectErrorIncompatibleBlockSignature, description);
         return NO;
     }
     return YES;
@@ -232,7 +232,7 @@ static BOOL CAISDSAspect_isCompatibleBlockSignature(NSMethodSignature *blockSign
 ///////////////////////////////////////////////////////////////////////////////////////////
 #pragma mark - Class + Selector Preparation
 
-static BOOL CAISDSAspect_isMsgForwardIMP(IMP impl) {
+static BOOL aspect_isMsgForwardIMP(IMP impl) {
     return impl == _objc_msgForward
 #if !defined(__arm64__)
     || impl == (IMP)_objc_msgForward_stret
@@ -240,7 +240,7 @@ static BOOL CAISDSAspect_isMsgForwardIMP(IMP impl) {
     ;
 }
 
-static IMP CAISDSAspect_getMsgForwardIMP(NSObject *self, SEL selector) {
+static IMP aspect_getMsgForwardIMP(NSObject *self, SEL selector) {
     IMP msgForwardIMP = _objc_msgForward;
 #if !defined(__arm64__)
     // As an ugly internal runtime implementation detail in the 32bit runtime, we need to determine of the method we hook returns a struct or anything larger than id.
@@ -267,28 +267,28 @@ static IMP CAISDSAspect_getMsgForwardIMP(NSObject *self, SEL selector) {
     return msgForwardIMP;
 }
 
-static void CAISDSAspect_prepareClassAndHookSelector(NSObject *self, SEL selector, NSError **error) {
+static void aspect_prepareClassAndHookSelector(NSObject *self, SEL selector, NSError **error) {
     NSCParameterAssert(selector);
-    Class klass = CAISDSAspect_hookClass(self, error);
+    Class klass = aspect_hookClass(self, error);
     Method targetMethod = class_getInstanceMethod(klass, selector);
     IMP targetMethodIMP = method_getImplementation(targetMethod);
-    if (!CAISDSAspect_isMsgForwardIMP(targetMethodIMP)) {
+    if (!aspect_isMsgForwardIMP(targetMethodIMP)) {
         // Make a method alias for the existing method implementation, it not already copied.
         const char *typeEncoding = method_getTypeEncoding(targetMethod);
-        SEL aliasSelector = CAISDSAspect_aliasForSelector(selector);
+        SEL aliasSelector = aspect_aliasForSelector(selector);
         if (![klass instancesRespondToSelector:aliasSelector]) {
             __unused BOOL addedAlias = class_addMethod(klass, aliasSelector, method_getImplementation(targetMethod), typeEncoding);
             NSCAssert(addedAlias, @"Original implementation for %@ is already copied to %@ on %@", NSStringFromSelector(selector), NSStringFromSelector(aliasSelector), klass);
         }
 
         // We use forwardInvocation to hook in.
-        class_replaceMethod(klass, selector, CAISDSAspect_getMsgForwardIMP(self, selector), typeEncoding);
-        CAISDSAspectLog(@"CAISDSAspects: Installed hook for -[%@ %@].", klass, NSStringFromSelector(selector));
+        class_replaceMethod(klass, selector, aspect_getMsgForwardIMP(self, selector), typeEncoding);
+        AspectLog(@"Aspects: Installed hook for -[%@ %@].", klass, NSStringFromSelector(selector));
     }
 }
 
 // Will undo the runtime changes made.
-static void CAISDSAspect_cleanupHookedClassAndSelector(NSObject *self, SEL selector) {
+static void aspect_cleanupHookedClassAndSelector(NSObject *self, SEL selector) {
     NSCParameterAssert(self);
     NSCParameterAssert(selector);
 
@@ -301,34 +301,34 @@ static void CAISDSAspect_cleanupHookedClassAndSelector(NSObject *self, SEL selec
     // Check if the method is marked as forwarded and undo that.
     Method targetMethod = class_getInstanceMethod(klass, selector);
     IMP targetMethodIMP = method_getImplementation(targetMethod);
-    if (CAISDSAspect_isMsgForwardIMP(targetMethodIMP)) {
+    if (aspect_isMsgForwardIMP(targetMethodIMP)) {
         // Restore the original method implementation.
         const char *typeEncoding = method_getTypeEncoding(targetMethod);
-        SEL aliasSelector = CAISDSAspect_aliasForSelector(selector);
+        SEL aliasSelector = aspect_aliasForSelector(selector);
         Method originalMethod = class_getInstanceMethod(klass, aliasSelector);
         IMP originalIMP = method_getImplementation(originalMethod);
         NSCAssert(originalMethod, @"Original implementation for %@ not found %@ on %@", NSStringFromSelector(selector), NSStringFromSelector(aliasSelector), klass);
 
         class_replaceMethod(klass, selector, originalIMP, typeEncoding);
-        CAISDSAspectLog(@"CAISDSAspects: Removed hook for -[%@ %@].", klass, NSStringFromSelector(selector));
+        AspectLog(@"Aspects: Removed hook for -[%@ %@].", klass, NSStringFromSelector(selector));
     }
 
     // Deregister global tracked selector
-    CAISDSAspect_deregisterTrackedSelector(self, selector);
+    aspect_deregisterTrackedSelector(self, selector);
 
-    // Get the CAISDSAspect container and check if there are any hooks remaining. Clean up if there are not.
-    CAISDSAspectsContainer *container = CAISDSAspect_getContainerForObject(self, selector);
-    if (!container.hasCAISDSAspects) {
+    // Get the aspect container and check if there are any hooks remaining. Clean up if there are not.
+    AspectsContainer *container = aspect_getContainerForObject(self, selector);
+    if (!container.hasAspects) {
         // Destroy the container
-        CAISDSAspect_destroyContainerForObject(self, selector);
+        aspect_destroyContainerForObject(self, selector);
 
         // Figure out how the class was modified to undo the changes.
         NSString *className = NSStringFromClass(klass);
-        if ([className hasSuffix:CAISDSAspectsSubclassSuffix]) {
-            Class originalClass = NSClassFromString([className stringByReplacingOccurrencesOfString:CAISDSAspectsSubclassSuffix withString:@""]);
+        if ([className hasSuffix:AspectsSubclassSuffix]) {
+            Class originalClass = NSClassFromString([className stringByReplacingOccurrencesOfString:AspectsSubclassSuffix withString:@""]);
             NSCAssert(originalClass != nil, @"Original class must exist");
             object_setClass(self, originalClass);
-            CAISDSAspectLog(@"CAISDSAspects: %@ has been restored.", NSStringFromClass(originalClass));
+            AspectLog(@"Aspects: %@ has been restored.", NSStringFromClass(originalClass));
 
             // We can only dispose the class pair if we can ensure that no instances exist using our subclass.
             // Since we don't globally track this, we can't ensure this - but there's also not much overhead in keeping it around.
@@ -336,9 +336,9 @@ static void CAISDSAspect_cleanupHookedClassAndSelector(NSObject *self, SEL selec
         }else {
             // Class is most likely swizzled in place. Undo that.
             if (isMetaClass) {
-                CAISDSAspect_undoSwizzleClassInPlace((Class)self);
+                aspect_undoSwizzleClassInPlace((Class)self);
             }else if (self.class != klass) {
-            	CAISDSAspect_undoSwizzleClassInPlace(klass);
+            	aspect_undoSwizzleClassInPlace(klass);
             }
         }
     }
@@ -347,39 +347,39 @@ static void CAISDSAspect_cleanupHookedClassAndSelector(NSObject *self, SEL selec
 ///////////////////////////////////////////////////////////////////////////////////////////
 #pragma mark - Hook Class
 
-static Class CAISDSAspect_hookClass(NSObject *self, NSError **error) {
+static Class aspect_hookClass(NSObject *self, NSError **error) {
     NSCParameterAssert(self);
 	Class statedClass = self.class;
 	Class baseClass = object_getClass(self);
 	NSString *className = NSStringFromClass(baseClass);
 
     // Already subclassed
-	if ([className hasSuffix:CAISDSAspectsSubclassSuffix]) {
+	if ([className hasSuffix:AspectsSubclassSuffix]) {
 		return baseClass;
 
         // We swizzle a class object, not a single object.
 	}else if (class_isMetaClass(baseClass)) {
-        return CAISDSAspect_swizzleClassInPlace((Class)self);
+        return aspect_swizzleClassInPlace((Class)self);
         // Probably a KVO'ed class. Swizzle in place. Also swizzle meta classes in place.
     }else if (statedClass != baseClass) {
-        return CAISDSAspect_swizzleClassInPlace(baseClass);
+        return aspect_swizzleClassInPlace(baseClass);
     }
 
     // Default case. Create dynamic subclass.
-	const char *subclassName = [className stringByAppendingString:CAISDSAspectsSubclassSuffix].UTF8String;
+	const char *subclassName = [className stringByAppendingString:AspectsSubclassSuffix].UTF8String;
 	Class subclass = objc_getClass(subclassName);
 
 	if (subclass == nil) {
 		subclass = objc_allocateClassPair(baseClass, subclassName, 0);
 		if (subclass == nil) {
             NSString *errrorDesc = [NSString stringWithFormat:@"objc_allocateClassPair failed to allocate class %s.", subclassName];
-            CAISDSAspectError(CAISDSAspectErrorFailedToAllocateClassPair, errrorDesc);
+            AspectError(AspectErrorFailedToAllocateClassPair, errrorDesc);
             return nil;
         }
 
-		CAISDSAspect_swizzleForwardInvocation(subclass);
-		CAISDSAspect_hookedGetClass(subclass, statedClass);
-		CAISDSAspect_hookedGetClass(object_getClass(subclass), statedClass);
+		aspect_swizzleForwardInvocation(subclass);
+		aspect_hookedGetClass(subclass, statedClass);
+		aspect_hookedGetClass(object_getClass(subclass), statedClass);
 		objc_registerClassPair(subclass);
 	}
 
@@ -387,29 +387,29 @@ static Class CAISDSAspect_hookClass(NSObject *self, NSError **error) {
 	return subclass;
 }
 
-static NSString *const CAISDSAspectsForwardInvocationSelectorName = @"__CAISDSAspects_forwardInvocation:";
-static void CAISDSAspect_swizzleForwardInvocation(Class klass) {
+static NSString *const AspectsForwardInvocationSelectorName = @"__aspects_forwardInvocation:";
+static void aspect_swizzleForwardInvocation(Class klass) {
     NSCParameterAssert(klass);
     // If there is no method, replace will act like class_addMethod.
-    IMP originalImplementation = class_replaceMethod(klass, @selector(forwardInvocation:), (IMP)__CAISDSAspectS_ARE_BEING_CALLED__, "v@:@");
+    IMP originalImplementation = class_replaceMethod(klass, @selector(forwardInvocation:), (IMP)__ASPECTS_ARE_BEING_CALLED__, "v@:@");
     if (originalImplementation) {
-        class_addMethod(klass, NSSelectorFromString(CAISDSAspectsForwardInvocationSelectorName), originalImplementation, "v@:@");
+        class_addMethod(klass, NSSelectorFromString(AspectsForwardInvocationSelectorName), originalImplementation, "v@:@");
     }
-    CAISDSAspectLog(@"CAISDSAspects: %@ is now CAISDSAspect aware.", NSStringFromClass(klass));
+    AspectLog(@"Aspects: %@ is now aspect aware.", NSStringFromClass(klass));
 }
 
-static void CAISDSAspect_undoSwizzleForwardInvocation(Class klass) {
+static void aspect_undoSwizzleForwardInvocation(Class klass) {
     NSCParameterAssert(klass);
-    Method originalMethod = class_getInstanceMethod(klass, NSSelectorFromString(CAISDSAspectsForwardInvocationSelectorName));
+    Method originalMethod = class_getInstanceMethod(klass, NSSelectorFromString(AspectsForwardInvocationSelectorName));
     Method objectMethod = class_getInstanceMethod(NSObject.class, @selector(forwardInvocation:));
     // There is no class_removeMethod, so the best we can do is to retore the original implementation, or use a dummy.
     IMP originalImplementation = method_getImplementation(originalMethod ?: objectMethod);
     class_replaceMethod(klass, @selector(forwardInvocation:), originalImplementation, "v@:@");
 
-    CAISDSAspectLog(@"CAISDSAspects: %@ has been restored.", NSStringFromClass(klass));
+    AspectLog(@"Aspects: %@ has been restored.", NSStringFromClass(klass));
 }
 
-static void CAISDSAspect_hookedGetClass(Class class, Class statedClass) {
+static void aspect_hookedGetClass(Class class, Class statedClass) {
     NSCParameterAssert(class);
     NSCParameterAssert(statedClass);
 	Method method = class_getInstanceMethod(class, @selector(class));
@@ -422,7 +422,7 @@ static void CAISDSAspect_hookedGetClass(Class class, Class statedClass) {
 ///////////////////////////////////////////////////////////////////////////////////////////
 #pragma mark - Swizzle Class In Place
 
-static void _CAISDSAspect_modifySwizzledClasses(void (^block)(NSMutableSet *swizzledClasses)) {
+static void _aspect_modifySwizzledClasses(void (^block)(NSMutableSet *swizzledClasses)) {
     static NSMutableSet *swizzledClasses;
     static dispatch_once_t pred;
     dispatch_once(&pred, ^{
@@ -433,64 +433,64 @@ static void _CAISDSAspect_modifySwizzledClasses(void (^block)(NSMutableSet *swiz
     }
 }
 
-static Class CAISDSAspect_swizzleClassInPlace(Class klass) {
+static Class aspect_swizzleClassInPlace(Class klass) {
     NSCParameterAssert(klass);
     NSString *className = NSStringFromClass(klass);
 
-    _CAISDSAspect_modifySwizzledClasses(^(NSMutableSet *swizzledClasses) {
+    _aspect_modifySwizzledClasses(^(NSMutableSet *swizzledClasses) {
         if (![swizzledClasses containsObject:className]) {
-            CAISDSAspect_swizzleForwardInvocation(klass);
+            aspect_swizzleForwardInvocation(klass);
             [swizzledClasses addObject:className];
         }
     });
     return klass;
 }
 
-static void CAISDSAspect_undoSwizzleClassInPlace(Class klass) {
+static void aspect_undoSwizzleClassInPlace(Class klass) {
     NSCParameterAssert(klass);
     NSString *className = NSStringFromClass(klass);
 
-    _CAISDSAspect_modifySwizzledClasses(^(NSMutableSet *swizzledClasses) {
+    _aspect_modifySwizzledClasses(^(NSMutableSet *swizzledClasses) {
         if ([swizzledClasses containsObject:className]) {
-            CAISDSAspect_undoSwizzleForwardInvocation(klass);
+            aspect_undoSwizzleForwardInvocation(klass);
             [swizzledClasses removeObject:className];
         }
     });
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////
-#pragma mark - CAISDSAspect Invoke Point
+#pragma mark - Aspect Invoke Point
 
 // This is a macro so we get a cleaner stack trace.
-#define CAISDSAspect_invoke(CAISDSAspects, info) \
-for (CAISDSAspectIdentifier *CAISDSAspect in CAISDSAspects) {\
-    [CAISDSAspect invokeWithInfo:info];\
-    if (CAISDSAspect.options & CAISDSAspectOptionAutomaticRemoval) { \
-        CAISDSAspectsToRemove = [CAISDSAspectsToRemove?:@[] arrayByAddingObject:CAISDSAspect]; \
+#define aspect_invoke(aspects, info) \
+for (AspectIdentifier *aspect in aspects) {\
+    [aspect invokeWithInfo:info];\
+    if (aspect.options & AspectOptionAutomaticRemoval) { \
+        aspectsToRemove = [aspectsToRemove?:@[] arrayByAddingObject:aspect]; \
     } \
 }
 
 // This is the swizzled forwardInvocation: method.
-static void __CAISDSAspectS_ARE_BEING_CALLED__(__unsafe_unretained NSObject *self, SEL selector, NSInvocation *invocation) {
+static void __ASPECTS_ARE_BEING_CALLED__(__unsafe_unretained NSObject *self, SEL selector, NSInvocation *invocation) {
     NSCParameterAssert(self);
     NSCParameterAssert(invocation);
     SEL originalSelector = invocation.selector;
-	SEL aliasSelector = CAISDSAspect_aliasForSelector(invocation.selector);
+	SEL aliasSelector = aspect_aliasForSelector(invocation.selector);
     invocation.selector = aliasSelector;
-    CAISDSAspectsContainer *objectContainer = objc_getAssociatedObject(self, aliasSelector);
-    CAISDSAspectsContainer *classContainer = CAISDSAspect_getContainerForClass(object_getClass(self), aliasSelector);
-    CAISDSAspectInfo *info = [[CAISDSAspectInfo alloc] initWithInstance:self invocation:invocation];
-    NSArray *CAISDSAspectsToRemove = nil;
+    AspectsContainer *objectContainer = objc_getAssociatedObject(self, aliasSelector);
+    AspectsContainer *classContainer = aspect_getContainerForClass(object_getClass(self), aliasSelector);
+    AspectInfo *info = [[AspectInfo alloc] initWithInstance:self invocation:invocation];
+    NSArray *aspectsToRemove = nil;
 
     // Before hooks.
-    CAISDSAspect_invoke(classContainer.beforeCAISDSAspects, info);
-    CAISDSAspect_invoke(objectContainer.beforeCAISDSAspects, info);
+    aspect_invoke(classContainer.beforeAspects, info);
+    aspect_invoke(objectContainer.beforeAspects, info);
 
     // Instead hooks.
     BOOL respondsToAlias = YES;
-    if (objectContainer.insteadCAISDSAspects.count || classContainer.insteadCAISDSAspects.count) {
-        CAISDSAspect_invoke(classContainer.insteadCAISDSAspects, info);
-        CAISDSAspect_invoke(objectContainer.insteadCAISDSAspects, info);
+    if (objectContainer.insteadAspects.count || classContainer.insteadAspects.count) {
+        aspect_invoke(classContainer.insteadAspects, info);
+        aspect_invoke(objectContainer.insteadAspects, info);
     }else {
         Class klass = object_getClass(invocation.target);
         do {
@@ -502,13 +502,13 @@ static void __CAISDSAspectS_ARE_BEING_CALLED__(__unsafe_unretained NSObject *sel
     }
 
     // After hooks.
-    CAISDSAspect_invoke(classContainer.afterCAISDSAspects, info);
-    CAISDSAspect_invoke(objectContainer.afterCAISDSAspects, info);
+    aspect_invoke(classContainer.afterAspects, info);
+    aspect_invoke(objectContainer.afterAspects, info);
 
     // If no hooks are installed, call original implementation (usually to throw an exception)
     if (!respondsToAlias) {
         invocation.selector = originalSelector;
-        SEL originalForwardInvocationSEL = NSSelectorFromString(CAISDSAspectsForwardInvocationSelectorName);
+        SEL originalForwardInvocationSEL = NSSelectorFromString(AspectsForwardInvocationSelectorName);
         if ([self respondsToSelector:originalForwardInvocationSEL]) {
             ((void( *)(id, SEL, NSInvocation *))objc_msgSend)(self, originalForwardInvocationSEL, invocation);
         }else {
@@ -517,46 +517,46 @@ static void __CAISDSAspectS_ARE_BEING_CALLED__(__unsafe_unretained NSObject *sel
     }
 
     // Remove any hooks that are queued for deregistration.
-    [CAISDSAspectsToRemove makeObjectsPerformSelector:@selector(remove)];
+    [aspectsToRemove makeObjectsPerformSelector:@selector(remove)];
 }
-#undef CAISDSAspect_invoke
+#undef aspect_invoke
 
 ///////////////////////////////////////////////////////////////////////////////////////////
-#pragma mark - CAISDSAspect Container Management
+#pragma mark - Aspect Container Management
 
-// Loads or creates the CAISDSAspect container.
-static CAISDSAspectsContainer *CAISDSAspect_getContainerForObject(NSObject *self, SEL selector) {
+// Loads or creates the aspect container.
+static AspectsContainer *aspect_getContainerForObject(NSObject *self, SEL selector) {
     NSCParameterAssert(self);
-    SEL aliasSelector = CAISDSAspect_aliasForSelector(selector);
-    CAISDSAspectsContainer *CAISDSAspectContainer = objc_getAssociatedObject(self, aliasSelector);
-    if (!CAISDSAspectContainer) {
-        CAISDSAspectContainer = [CAISDSAspectsContainer new];
-        objc_setAssociatedObject(self, aliasSelector, CAISDSAspectContainer, OBJC_ASSOCIATION_RETAIN);
+    SEL aliasSelector = aspect_aliasForSelector(selector);
+    AspectsContainer *aspectContainer = objc_getAssociatedObject(self, aliasSelector);
+    if (!aspectContainer) {
+        aspectContainer = [AspectsContainer new];
+        objc_setAssociatedObject(self, aliasSelector, aspectContainer, OBJC_ASSOCIATION_RETAIN);
     }
-    return CAISDSAspectContainer;
+    return aspectContainer;
 }
 
-static CAISDSAspectsContainer *CAISDSAspect_getContainerForClass(Class klass, SEL selector) {
+static AspectsContainer *aspect_getContainerForClass(Class klass, SEL selector) {
     NSCParameterAssert(klass);
-    CAISDSAspectsContainer *classContainer = nil;
+    AspectsContainer *classContainer = nil;
     do {
         classContainer = objc_getAssociatedObject(klass, selector);
-        if (classContainer.hasCAISDSAspects) break;
+        if (classContainer.hasAspects) break;
     }while ((klass = class_getSuperclass(klass)));
 
     return classContainer;
 }
 
-static void CAISDSAspect_destroyContainerForObject(id<NSObject> self, SEL selector) {
+static void aspect_destroyContainerForObject(id<NSObject> self, SEL selector) {
     NSCParameterAssert(self);
-    SEL aliasSelector = CAISDSAspect_aliasForSelector(selector);
+    SEL aliasSelector = aspect_aliasForSelector(selector);
     objc_setAssociatedObject(self, aliasSelector, nil, OBJC_ASSOCIATION_RETAIN);
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 #pragma mark - Selector Blacklist Checking
 
-static NSMutableDictionary *CAISDSAspect_getSwizzledClassesDict() {
+static NSMutableDictionary *aspect_getSwizzledClassesDict() {
     static NSMutableDictionary *swizzledClassesDict;
     static dispatch_once_t pred;
     dispatch_once(&pred, ^{
@@ -565,7 +565,7 @@ static NSMutableDictionary *CAISDSAspect_getSwizzledClassesDict() {
     return swizzledClassesDict;
 }
 
-static BOOL CAISDSAspect_isSelectorAllowedAndTrack(NSObject *self, SEL selector, CAISDSAspectOptions options, NSError **error) {
+static BOOL aspect_isSelectorAllowedAndTrack(NSObject *self, SEL selector, AspectOptions options, NSError **error) {
     static NSSet *disallowedSelectorList;
     static dispatch_once_t pred;
     dispatch_once(&pred, ^{
@@ -576,36 +576,36 @@ static BOOL CAISDSAspect_isSelectorAllowedAndTrack(NSObject *self, SEL selector,
     NSString *selectorName = NSStringFromSelector(selector);
     if ([disallowedSelectorList containsObject:selectorName]) {
         NSString *errorDescription = [NSString stringWithFormat:@"Selector %@ is blacklisted.", selectorName];
-        CAISDSAspectError(CAISDSAspectErrorSelectorBlacklisted, errorDescription);
+        AspectError(AspectErrorSelectorBlacklisted, errorDescription);
         return NO;
     }
 
     // Additional checks.
-    CAISDSAspectOptions position = options&CAISDSAspectPositionFilter;
-    if ([selectorName isEqualToString:@"dealloc"] && position != CAISDSAspectPositionBefore) {
-        NSString *errorDesc = @"CAISDSAspectPositionBefore is the only valid position when hooking dealloc.";
-        CAISDSAspectError(CAISDSAspectErrorSelectorDeallocPosition, errorDesc);
+    AspectOptions position = options&AspectPositionFilter;
+    if ([selectorName isEqualToString:@"dealloc"] && position != AspectPositionBefore) {
+        NSString *errorDesc = @"AspectPositionBefore is the only valid position when hooking dealloc.";
+        AspectError(AspectErrorSelectorDeallocPosition, errorDesc);
         return NO;
     }
 
     if (![self respondsToSelector:selector] && ![self.class instancesRespondToSelector:selector]) {
         NSString *errorDesc = [NSString stringWithFormat:@"Unable to find selector -[%@ %@].", NSStringFromClass(self.class), selectorName];
-        CAISDSAspectError(CAISDSAspectErrorDoesNotRespondToSelector, errorDesc);
+        AspectError(AspectErrorDoesNotRespondToSelector, errorDesc);
         return NO;
     }
 
     // Search for the current class and the class hierarchy IF we are modifying a class object
     if (class_isMetaClass(object_getClass(self))) {
         Class klass = [self class];
-        NSMutableDictionary *swizzledClassesDict = CAISDSAspect_getSwizzledClassesDict();
+        NSMutableDictionary *swizzledClassesDict = aspect_getSwizzledClassesDict();
         Class currentClass = [self class];
 
-        CAISDSAspectTracker *tracker = swizzledClassesDict[currentClass];
+        AspectTracker *tracker = swizzledClassesDict[currentClass];
         if ([tracker subclassHasHookedSelectorName:selectorName]) {
             NSSet *subclassTracker = [tracker subclassTrackersHookingSelectorName:selectorName];
             NSSet *subclassNames = [subclassTracker valueForKey:@"trackedClassName"];
             NSString *errorDescription = [NSString stringWithFormat:@"Error: %@ already hooked subclasses: %@. A method can only be hooked once per class hierarchy.", selectorName, subclassNames];
-            CAISDSAspectError(CAISDSAspectErrorSelectorAlreadyHookedInClassHierarchy, errorDescription);
+            AspectError(AspectErrorSelectorAlreadyHookedInClassHierarchy, errorDescription);
             return NO;
         }
 
@@ -617,18 +617,18 @@ static BOOL CAISDSAspect_isSelectorAllowedAndTrack(NSObject *self, SEL selector,
                     return YES;
                 }
                 NSString *errorDescription = [NSString stringWithFormat:@"Error: %@ already hooked in %@. A method can only be hooked once per class hierarchy.", selectorName, NSStringFromClass(currentClass)];
-                CAISDSAspectError(CAISDSAspectErrorSelectorAlreadyHookedInClassHierarchy, errorDescription);
+                AspectError(AspectErrorSelectorAlreadyHookedInClassHierarchy, errorDescription);
                 return NO;
             }
         } while ((currentClass = class_getSuperclass(currentClass)));
 
         // Add the selector as being modified.
         currentClass = klass;
-        CAISDSAspectTracker *subclassTracker = nil;
+        AspectTracker *subclassTracker = nil;
         do {
             tracker = swizzledClassesDict[currentClass];
             if (!tracker) {
-                tracker = [[CAISDSAspectTracker alloc] initWithTrackedClass:currentClass];
+                tracker = [[AspectTracker alloc] initWithTrackedClass:currentClass];
                 swizzledClassesDict[(id<NSCopying>)currentClass] = tracker;
             }
             if (subclassTracker) {
@@ -647,15 +647,15 @@ static BOOL CAISDSAspect_isSelectorAllowedAndTrack(NSObject *self, SEL selector,
     return YES;
 }
 
-static void CAISDSAspect_deregisterTrackedSelector(id self, SEL selector) {
+static void aspect_deregisterTrackedSelector(id self, SEL selector) {
     if (!class_isMetaClass(object_getClass(self))) return;
 
-    NSMutableDictionary *swizzledClassesDict = CAISDSAspect_getSwizzledClassesDict();
+    NSMutableDictionary *swizzledClassesDict = aspect_getSwizzledClassesDict();
     NSString *selectorName = NSStringFromSelector(selector);
     Class currentClass = [self class];
-    CAISDSAspectTracker *subclassTracker = nil;
+    AspectTracker *subclassTracker = nil;
     do {
-        CAISDSAspectTracker *tracker = swizzledClassesDict[currentClass];
+        AspectTracker *tracker = swizzledClassesDict[currentClass];
         if (subclassTracker) {
             [tracker removeSubclassTracker:subclassTracker hookingSelectorName:selectorName];
         } else {
@@ -670,7 +670,7 @@ static void CAISDSAspect_deregisterTrackedSelector(id self, SEL selector) {
 
 @end
 
-@implementation CAISDSAspectTracker
+@implementation AspectTracker
 
 - (id)initWithTrackedClass:(Class)trackedClass {
     if (self = [super init]) {
@@ -685,7 +685,7 @@ static void CAISDSAspect_deregisterTrackedSelector(id self, SEL selector) {
     return self.selectorNamesToSubclassTrackers[selectorName] != nil;
 }
 
-- (void)addSubclassTracker:(CAISDSAspectTracker *)subclassTracker hookingSelectorName:(NSString *)selectorName {
+- (void)addSubclassTracker:(AspectTracker *)subclassTracker hookingSelectorName:(NSString *)selectorName {
     NSMutableSet *trackerSet = self.selectorNamesToSubclassTrackers[selectorName];
     if (!trackerSet) {
         trackerSet = [NSMutableSet new];
@@ -693,7 +693,7 @@ static void CAISDSAspect_deregisterTrackedSelector(id self, SEL selector) {
     }
     [trackerSet addObject:subclassTracker];
 }
-- (void)removeSubclassTracker:(CAISDSAspectTracker *)subclassTracker hookingSelectorName:(NSString *)selectorName {
+- (void)removeSubclassTracker:(AspectTracker *)subclassTracker hookingSelectorName:(NSString *)selectorName {
     NSMutableSet *trackerSet = self.selectorNamesToSubclassTrackers[selectorName];
     [trackerSet removeObject:subclassTracker];
     if (trackerSet.count == 0) {
@@ -702,7 +702,7 @@ static void CAISDSAspect_deregisterTrackedSelector(id self, SEL selector) {
 }
 - (NSSet *)subclassTrackersHookingSelectorName:(NSString *)selectorName {
     NSMutableSet *hookingSubclassTrackers = [NSMutableSet new];
-    for (CAISDSAspectTracker *tracker in self.selectorNamesToSubclassTrackers[selectorName]) {
+    for (AspectTracker *tracker in self.selectorNamesToSubclassTrackers[selectorName]) {
         if ([tracker.selectorNames containsObject:selectorName]) {
             [hookingSubclassTrackers addObject:tracker];
         }
@@ -721,12 +721,12 @@ static void CAISDSAspect_deregisterTrackedSelector(id self, SEL selector) {
 @end
 
 ///////////////////////////////////////////////////////////////////////////////////////////
-#pragma mark - NSInvocation (CAISDSAspects)
+#pragma mark - NSInvocation (Aspects)
 
-@implementation NSInvocation (CAISDSAspects)
+@implementation NSInvocation (Aspects)
 
 // Thanks to the ReactiveCocoa team for providing a generic solution for this.
-- (id)CAISDSAspect_argumentAtIndex:(NSUInteger)index {
+- (id)aspect_argumentAtIndex:(NSUInteger)index {
 	const char *argType = [self.methodSignature getArgumentTypeAtIndex:index];
 	// Skip const type qualifier.
 	if (argType[0] == _C_CONST) argType++;
@@ -792,10 +792,10 @@ static void CAISDSAspect_deregisterTrackedSelector(id self, SEL selector) {
 #undef WRAP_AND_RETURN
 }
 
-- (NSArray *)CAISDSAspects_arguments {
+- (NSArray *)aspects_arguments {
 	NSMutableArray *argumentsArray = [NSMutableArray array];
 	for (NSUInteger idx = 2; idx < self.methodSignature.numberOfArguments; idx++) {
-		[argumentsArray addObject:[self CAISDSAspect_argumentAtIndex:idx] ?: NSNull.null];
+		[argumentsArray addObject:[self aspect_argumentAtIndex:idx] ?: NSNull.null];
 	}
 	return [argumentsArray copy];
 }
@@ -803,21 +803,21 @@ static void CAISDSAspect_deregisterTrackedSelector(id self, SEL selector) {
 @end
 
 ///////////////////////////////////////////////////////////////////////////////////////////
-#pragma mark - CAISDSAspectIdentifier
+#pragma mark - AspectIdentifier
 
-@implementation CAISDSAspectIdentifier
+@implementation AspectIdentifier
 
-+ (instancetype)identifierWithSelector:(SEL)selector object:(id)object options:(CAISDSAspectOptions)options block:(id)block error:(NSError **)error {
++ (instancetype)identifierWithSelector:(SEL)selector object:(id)object options:(AspectOptions)options block:(id)block error:(NSError **)error {
     NSCParameterAssert(block);
     NSCParameterAssert(selector);
-    NSMethodSignature *blockSignature = CAISDSAspect_blockMethodSignature(block, error); // TODO: check signature compatibility, etc.
-    if (!CAISDSAspect_isCompatibleBlockSignature(blockSignature, object, selector, error)) {
+    NSMethodSignature *blockSignature = aspect_blockMethodSignature(block, error); // TODO: check signature compatibility, etc.
+    if (!aspect_isCompatibleBlockSignature(blockSignature, object, selector, error)) {
         return nil;
     }
 
-    CAISDSAspectIdentifier *identifier = nil;
+    AspectIdentifier *identifier = nil;
     if (blockSignature) {
-        identifier = [CAISDSAspectIdentifier new];
+        identifier = [AspectIdentifier new];
         identifier.selector = selector;
         identifier.block = block;
         identifier.blockSignature = blockSignature;
@@ -827,18 +827,18 @@ static void CAISDSAspect_deregisterTrackedSelector(id self, SEL selector) {
     return identifier;
 }
 
-- (BOOL)invokeWithInfo:(id<CAISDSAspectInfo>)info {
+- (BOOL)invokeWithInfo:(id<AspectInfo>)info {
     NSInvocation *blockInvocation = [NSInvocation invocationWithMethodSignature:self.blockSignature];
     NSInvocation *originalInvocation = info.originalInvocation;
     NSUInteger numberOfArguments = self.blockSignature.numberOfArguments;
 
     // Be extra paranoid. We already check that on hook registration.
     if (numberOfArguments > originalInvocation.methodSignature.numberOfArguments) {
-        CAISDSAspectLogError(@"Block has too many arguments. Not calling %@", info);
+        AspectLogError(@"Block has too many arguments. Not calling %@", info);
         return NO;
     }
 
-    // The `self` of the block will be the CAISDSAspectInfo. Optional.
+    // The `self` of the block will be the AspectInfo. Optional.
     if (numberOfArguments > 1) {
         [blockInvocation setArgument:&info atIndex:1];
     }
@@ -850,7 +850,7 @@ static void CAISDSAspect_deregisterTrackedSelector(id self, SEL selector) {
 		NSGetSizeAndAlignment(type, &argSize, NULL);
         
 		if (!(argBuf = reallocf(argBuf, argSize))) {
-            CAISDSAspectLogError(@"Failed to allocate memory for block invocation.");
+            AspectLogError(@"Failed to allocate memory for block invocation.");
 			return NO;
 		}
         
@@ -871,40 +871,40 @@ static void CAISDSAspect_deregisterTrackedSelector(id self, SEL selector) {
 }
 
 - (BOOL)remove {
-    return CAISDSAspect_remove(self, NULL);
+    return aspect_remove(self, NULL);
 }
 
 @end
 
 ///////////////////////////////////////////////////////////////////////////////////////////
-#pragma mark - CAISDSAspectsContainer
+#pragma mark - AspectsContainer
 
-@implementation CAISDSAspectsContainer
+@implementation AspectsContainer
 
-- (BOOL)hasCAISDSAspects {
-    return self.beforeCAISDSAspects.count > 0 || self.insteadCAISDSAspects.count > 0 || self.afterCAISDSAspects.count > 0;
+- (BOOL)hasAspects {
+    return self.beforeAspects.count > 0 || self.insteadAspects.count > 0 || self.afterAspects.count > 0;
 }
 
-- (void)addCAISDSAspect:(CAISDSAspectIdentifier *)CAISDSAspect withOptions:(CAISDSAspectOptions)options {
-    NSParameterAssert(CAISDSAspect);
-    NSUInteger position = options&CAISDSAspectPositionFilter;
+- (void)addAspect:(AspectIdentifier *)aspect withOptions:(AspectOptions)options {
+    NSParameterAssert(aspect);
+    NSUInteger position = options&AspectPositionFilter;
     switch (position) {
-        case CAISDSAspectPositionBefore:  self.beforeCAISDSAspects  = [(self.beforeCAISDSAspects ?:@[]) arrayByAddingObject:CAISDSAspect]; break;
-        case CAISDSAspectPositionInstead: self.insteadCAISDSAspects = [(self.insteadCAISDSAspects?:@[]) arrayByAddingObject:CAISDSAspect]; break;
-        case CAISDSAspectPositionAfter:   self.afterCAISDSAspects   = [(self.afterCAISDSAspects  ?:@[]) arrayByAddingObject:CAISDSAspect]; break;
+        case AspectPositionBefore:  self.beforeAspects  = [(self.beforeAspects ?:@[]) arrayByAddingObject:aspect]; break;
+        case AspectPositionInstead: self.insteadAspects = [(self.insteadAspects?:@[]) arrayByAddingObject:aspect]; break;
+        case AspectPositionAfter:   self.afterAspects   = [(self.afterAspects  ?:@[]) arrayByAddingObject:aspect]; break;
     }
 }
 
-- (BOOL)removeCAISDSAspect:(id)CAISDSAspect {
-    for (NSString *CAISDSAspectArrayName in @[NSStringFromSelector(@selector(beforeCAISDSAspects)),
-                                        NSStringFromSelector(@selector(insteadCAISDSAspects)),
-                                        NSStringFromSelector(@selector(afterCAISDSAspects))]) {
-        NSArray *array = [self valueForKey:CAISDSAspectArrayName];
-        NSUInteger index = [array indexOfObjectIdenticalTo:CAISDSAspect];
+- (BOOL)removeAspect:(id)aspect {
+    for (NSString *aspectArrayName in @[NSStringFromSelector(@selector(beforeAspects)),
+                                        NSStringFromSelector(@selector(insteadAspects)),
+                                        NSStringFromSelector(@selector(afterAspects))]) {
+        NSArray *array = [self valueForKey:aspectArrayName];
+        NSUInteger index = [array indexOfObjectIdenticalTo:aspect];
         if (array && index != NSNotFound) {
             NSMutableArray *newArray = [NSMutableArray arrayWithArray:array];
             [newArray removeObjectAtIndex:index];
-            [self setValue:newArray forKey:CAISDSAspectArrayName];
+            [self setValue:newArray forKey:aspectArrayName];
             return YES;
         }
     }
@@ -912,15 +912,15 @@ static void CAISDSAspect_deregisterTrackedSelector(id self, SEL selector) {
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"<%@: %p, before:%@, instead:%@, after:%@>", self.class, self, self.beforeCAISDSAspects, self.insteadCAISDSAspects, self.afterCAISDSAspects];
+    return [NSString stringWithFormat:@"<%@: %p, before:%@, instead:%@, after:%@>", self.class, self, self.beforeAspects, self.insteadAspects, self.afterAspects];
 }
 
 @end
 
 ///////////////////////////////////////////////////////////////////////////////////////////
-#pragma mark - CAISDSAspectInfo
+#pragma mark - AspectInfo
 
-@implementation CAISDSAspectInfo
+@implementation AspectInfo
 
 @synthesize arguments = _arguments;
 
@@ -937,7 +937,7 @@ static void CAISDSAspect_deregisterTrackedSelector(id self, SEL selector) {
 - (NSArray *)arguments {
     // Lazily evaluate arguments, boxing is expensive.
     if (!_arguments) {
-        _arguments = self.originalInvocation.CAISDSAspects_arguments;
+        _arguments = self.originalInvocation.aspects_arguments;
     }
     return _arguments;
 }
