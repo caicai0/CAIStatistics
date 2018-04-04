@@ -1,0 +1,32 @@
+@startuml
+
+(*) --> "user register (email, password)"
+If "email ,password" then
+    --> [Yes] "生成验证url"
+    --> "保存 email password verification"
+    --> "发送验证邮件"
+    --> "返回成功"
+else
+    --> "返回错误"
+
+(*) --> "user verifaction"
+If "verification" then
+    --> [Yes] If "db 中查找数据" then
+        --> [Yes] "删除verification表中的数据"
+        --> "user表中插入用户信息"
+        If "插入结果" then
+            --> [Yes] "返回验证成功"
+        else
+            --> "已经验证成功"
+        endif
+    else
+        --> "验证失败"
+    endif
+else
+    --> "验证失败"
+endif
+
+
+
+
+@enduml

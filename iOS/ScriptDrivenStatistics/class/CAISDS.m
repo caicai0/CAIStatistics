@@ -30,7 +30,7 @@
 
 + (void)load
 {
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_MSEC)), dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [[CAISDS share]start];
     });
 }
@@ -68,22 +68,31 @@
 }
 
 - (void)start{
+    //先加载本地的文件
+    [self statisticLoad:[self plistPath]];
+    
     NSError * error = nil;
-    NSString * baseUrlString = [NSString stringWithContentsOfURL:[NSURL URLWithString:@"https://raw.githubusercontent.com/tagflag/scriptServer/master/serverList"] encoding:NSUTF8StringEncoding error:&error];
+    NSString * remoteUrl = @"https://raw.githubusercontent.com/tagflag/scriptServer/master/release";
+#ifdef DEBUG
+    remoteUrl = @"https://raw.githubusercontent.com/tagflag/scriptServer/master/debug";
+#endif
+    NSString * baseUrlString = [NSString stringWithContentsOfURL:[NSURL URLWithString:remoteUrl] encoding:NSUTF8StringEncoding error:&error];
     baseUrlString = [baseUrlString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    [CAISDSNet net].baseUrlString = baseUrlString;
-    if (error) {
-        [self performSelector:@selector(start) withObject:nil afterDelay:300];
-        return;
-    }
-    __weak typeof(self) weakSelf = self;
-    [self updateLocalPlistFinish:^(NSError *error) {
+    if (baseUrlString && baseUrlString.length) {
+        [CAISDSNet net].baseUrlString = baseUrlString;
         if (error) {
-            NSLog(@"%@",error);
-        }else{
-            [weakSelf statisticLoad:[weakSelf plistPath]];
+            [self performSelector:@selector(start) withObject:nil afterDelay:300];
+            return;
         }
-    }];
+        __weak typeof(self) weakSelf = self;
+        [self updateLocalPlistFinish:^(NSError *error) {
+            if (error) {
+                NSLog(@"%@",error);
+            }else{
+                [weakSelf statisticLoad:[weakSelf plistPath]];
+            }
+        }];
+    }
 }
 
 - (void)updateLocalPlistFinish:(void(^)(NSError * error))finish{

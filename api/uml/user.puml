@@ -1,0 +1,64 @@
+@startuml
+==register==
+"user" as u -> "api_server" as a: register(email,password)
+a-> "server_db" as db :save(verification)
+a -> a:sendEmail(verification)
+u <- a : success
+
+u -> a : verification
+a -> db: getVerification
+a <- db
+u <- a : success
+
+==login==
+u -> a : login(email,password)
+a -> db : save(token,timestamp)
+a <- db :
+u <- a : token
+
+==logout==
+
+u -> a : logout(token)
+a -> db : delete(token)
+a <- db
+u <- a : success
+
+==applist==
+u -> a : getappList(token,page)
+
+a -> db: gettoken
+a <- db: token,timestamp
+a -> db: getUser(token)
+a <- db: userInfo
+
+a -> db: getappList(userId,page)
+a <- db: appList
+u <- a : appList(id,bundle,icon,name)
+
+==app==
+u -> a : getapp(token,appId)
+
+a -> db: gettoken
+a <- db: token,timestamp
+a -> db: getUser(token)
+a <- db: userInfo
+
+a -> db : getapp(userId,appId)
+a <- db : appInfo
+u <- a : appInfo
+
+==createApp==
+
+u -> a : createApp(name,bundle,icon)
+
+a -> db : gettoken
+a <- db : token,timestamp
+a -> db : getUser(token)
+a <- db : userInfo
+
+a -> db : insert(userId,name,bundle,icon)
+a <- db
+
+u <- a : success
+
+@enduml

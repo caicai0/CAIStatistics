@@ -1,0 +1,27 @@
+@startuml
+
+left to right direction
+
+User --> (Use)
+
+User --> (AA)
+
+User --> (CC)
+
+User --> (dd)
+
+(ee) -up-|> (dd) : "继承"
+(se) -up-|> (dd): "继承"
+
+(ue) -up-|> (Use): "继承"
+(uc) -up-|> (Use): "继承"
+
+(ae) -up-|> (AA): "继承"
+(ac) -up-|> (AA): "继承"
+
+(ce) -up-|> (CC): "继承"
+(cc) -up-|> (CC): "继承"
+
+User --> (cc)
+
+@enduml

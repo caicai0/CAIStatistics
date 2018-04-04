@@ -1,0 +1,14 @@
+@startuml
+
+==register==
+"user" as u -> "api_server" as a: register(email,password)
+a-> "server_db" as db :save(verification)
+a -> a:sendEmail(verification)
+u <- a : success
+
+u -> a : verification
+a -> db : getVerification
+a <- db
+u <- a : success
+
+@enduml

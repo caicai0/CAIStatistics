@@ -34,8 +34,10 @@
 }
 
 - (void)loadDictionary:(NSDictionary *)dic{
-    [[CAISDSStatistic shareStatistic]updateFromDictionary:dic];
-    [[CAISDSStatistic shareStatistic]analysisAllPlans];
+    if (dic && [dic isKindOfClass:[NSDictionary class]] && dic.count) {
+        [[CAISDSStatistic shareStatistic]updateFromDictionary:dic];
+        [[CAISDSStatistic shareStatistic]analysisAllPlans];
+    }
 }
 
 - (instancetype)init
