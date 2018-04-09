@@ -11,11 +11,6 @@
 
 @interface CAISDSLog : NSObject
 
-@property (strong, nonatomic)CAISDSPlan * plan;
-@property (strong, nonatomic)NSArray * values;//可选
-@property (assign, nonatomic)long long number;
-@property (strong, nonatomic)NSDate * date;//时间
-
 - (NSString *)jsonString;
 
 @end

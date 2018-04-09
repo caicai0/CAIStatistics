@@ -9,6 +9,8 @@
 #ifndef CAISType_h
 #define CAISType_h
 
+#define CURRENT_PATH [NSString stringWithFormat:@"%s,%s,%d",__FILE__,__FUNCTION__,__LINE__]
+
 typedef NS_ENUM(NSUInteger, CAISDSPlanType) {
     CAISDSPlanTypeLog,
     CAISDSPlanTypeCount
