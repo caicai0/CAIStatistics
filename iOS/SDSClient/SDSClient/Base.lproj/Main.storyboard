@@ -13,7 +13,7 @@
         <!--登录-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="SDSClient" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LoginViewController" id="BYZ-38-t0r" customClass="LoginViewController" customModule="SDSClient" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="rfF-BP-6iJ"/>
                         <viewControllerLayoutGuide type="bottom" id="oea-32-Dk7"/>
@@ -53,6 +53,9 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KFp-RQ-biC">
                                         <rect key="frame" x="176.5" y="0.0" width="166.5" height="30"/>
                                         <state key="normal" title="登录"/>
+                                        <connections>
+                                            <action selector="login:" destination="BYZ-38-t0r" eventType="touchUpInside" id="QWy-2o-Rl7"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -86,12 +89,15 @@
                     </view>
                     <navigationItem key="navigationItem" title="登录" id="QoT-5Q-GJR"/>
                     <connections>
+                        <outlet property="passwordTfd" destination="Igj-3d-ctl" id="F9j-1F-Rbq"/>
+                        <outlet property="serverTfd" destination="BS4-dT-sSH" id="Nh7-5p-TsR"/>
+                        <outlet property="userNameTfd" destination="8n9-aM-ePE" id="3gK-2M-vv8"/>
                         <segue destination="sEW-Wg-Azm" kind="show" identifier="login" id="9hA-vu-c9g"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="398" y="242"/>
+            <point key="canvasLocation" x="240.80000000000001" y="241.52923538230885"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="scx-QV-4nc">
@@ -207,7 +213,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aZE-um-jXn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-115" y="242"/>
+            <point key="canvasLocation" x="-396" y="242"/>
         </scene>
     </scenes>
 </document>
