@@ -197,7 +197,6 @@
 		3312DBAD206CD1410089E8C4 /* class */ = {
 			isa = PBXGroup;
 			children = (
-				4B78D863207B535E002EB95A /* error */,
 				3312DBAE206CD1410089E8C4 /* CAISDS.h */,
 				3312DBAF206CD1410089E8C4 /* CAISDS.m */,
 				3312DBB0206CD1410089E8C4 /* CAISDSUtils.h */,
@@ -326,13 +325,6 @@
 				337F9E292069DB5500C0B047 /* libsqlite3.tbd */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		4B78D863207B535E002EB95A /* error */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = error;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

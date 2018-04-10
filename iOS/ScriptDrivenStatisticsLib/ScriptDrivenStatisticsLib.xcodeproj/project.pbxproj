@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2225D993207C48F60001B83C /* CAISDSExceptionLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 2225D98F207C48F60001B83C /* CAISDSExceptionLog.m */; };
+		2225D994207C48F60001B83C /* CAISDSPlanLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 2225D990207C48F60001B83C /* CAISDSPlanLog.m */; };
+		2225D995207C48F60001B83C /* CAISDSErrorLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 2225D992207C48F60001B83C /* CAISDSErrorLog.m */; };
 		22D450DD2074A2850052520D /* CAISDSNet.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D450B22074A2850052520D /* CAISDSNet.m */; };
 		22D450DE2074A2850052520D /* CAISDSUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D450B42074A2850052520D /* CAISDSUtils.m */; };
 		22D450DF2074A2850052520D /* CAISDS.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D450B52074A2850052520D /* CAISDS.m */; };
@@ -38,6 +41,12 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2225D98D207C48F50001B83C /* CAISDSPlanLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CAISDSPlanLog.h; sourceTree = "<group>"; };
+		2225D98E207C48F60001B83C /* CAISDSExceptionLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CAISDSExceptionLog.h; sourceTree = "<group>"; };
+		2225D98F207C48F60001B83C /* CAISDSExceptionLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CAISDSExceptionLog.m; sourceTree = "<group>"; };
+		2225D990207C48F60001B83C /* CAISDSPlanLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CAISDSPlanLog.m; sourceTree = "<group>"; };
+		2225D991207C48F60001B83C /* CAISDSErrorLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CAISDSErrorLog.h; sourceTree = "<group>"; };
+		2225D992207C48F60001B83C /* CAISDSErrorLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CAISDSErrorLog.m; sourceTree = "<group>"; };
 		22D450B22074A2850052520D /* CAISDSNet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CAISDSNet.m; sourceTree = "<group>"; };
 		22D450B32074A2850052520D /* CAISDSNet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CAISDSNet.h; sourceTree = "<group>"; };
 		22D450B42074A2850052520D /* CAISDSUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CAISDSUtils.m; sourceTree = "<group>"; };
@@ -124,6 +133,12 @@
 		22D450BB2074A2850052520D /* model */ = {
 			isa = PBXGroup;
 			children = (
+				2225D991207C48F60001B83C /* CAISDSErrorLog.h */,
+				2225D992207C48F60001B83C /* CAISDSErrorLog.m */,
+				2225D98E207C48F60001B83C /* CAISDSExceptionLog.h */,
+				2225D98F207C48F60001B83C /* CAISDSExceptionLog.m */,
+				2225D98D207C48F50001B83C /* CAISDSPlanLog.h */,
+				2225D990207C48F60001B83C /* CAISDSPlanLog.m */,
 				22D450BC2074A2850052520D /* CAISDSReport.h */,
 				22D450BD2074A2850052520D /* CAISDSKeyPoint.h */,
 				22D450BE2074A2850052520D /* CAISDSRecord.m */,
@@ -285,6 +300,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				22D450E12074A2850052520D /* CAISDSRecord.m in Sources */,
+				2225D995207C48F60001B83C /* CAISDSErrorLog.m in Sources */,
+				2225D993207C48F60001B83C /* CAISDSExceptionLog.m in Sources */,
 				22D450E02074A2850052520D /* CAISDSLocalStore.m in Sources */,
 				22D450DE2074A2850052520D /* CAISDSUtils.m in Sources */,
 				22D450DD2074A2850052520D /* CAISDSNet.m in Sources */,
@@ -295,6 +312,7 @@
 				22D450E82074A2850052520D /* CAISDSFMResultSet.m in Sources */,
 				22D450EB2074A2850052520D /* CAISDSFMDatabaseQueue.m in Sources */,
 				22D450EA2074A2850052520D /* CAISDSFMDatabasePool.m in Sources */,
+				2225D994207C48F60001B83C /* CAISDSPlanLog.m in Sources */,
 				22D450E62074A2850052520D /* CAISDSStatistic.m in Sources */,
 				22D450E72074A2850052520D /* CAISDSOpenUDID.m in Sources */,
 				22D450E92074A2850052520D /* CAISDSFMDatabase.m in Sources */,

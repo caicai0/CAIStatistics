@@ -204,7 +204,7 @@
     
 }
 + (void)storageException:(NSException *)exception inPath:(NSString *)path{
-    CAISDSExcetionLog * exceptionLog = [[CAISDSExcetionLog alloc]init];
+    CAISDSExceptionLog * exceptionLog = [[CAISDSExceptionLog alloc]init];
     exceptionLog.path = path;
     exceptionLog.exception = exception;
     [[CAISDS share].localStore saveLog:exceptionLog];
