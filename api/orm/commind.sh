@@ -23,3 +23,5 @@ node_modules/.bin/sequelize db:migrate:undo
 
 sequelize model:generate --name userRegist --attribute userName:string,password:string,verification:string
 sequelize model:generate --name user --attributes userName:string,password:string
+
+
