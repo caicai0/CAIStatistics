@@ -10,6 +10,9 @@
 #import "CAISDSPlan.h"
 #import "CAISDSAspects.h"
 #import "CAISDSUtils.h"
+#import "CAISDSPlanLog.h"
+#import "CAISDS.h"
+#import "CAISDSType.h"
 
 @interface CAISDSStatistic()
 
@@ -125,7 +128,7 @@
 }
 
 - (void)handleHook:(id<CAISDSAspectInfo>)info plan:(CAISDSPlan *)plan{
-    CAISDSLog * log = [[CAISDSLog alloc]init];
+    CAISDSPlanLog * log = [[CAISDSPlanLog alloc]init];
     log.date = [NSDate date];
     log.plan = plan;
     if (plan.type == CAISDSPlanTypeLog) {
@@ -142,7 +145,6 @@
             }
         }
         log.values = [NSArray arrayWithArray:values];
-        
     }else if(plan.type == CAISDSPlanTypeCount){
         log.number = 1;
     }else{
@@ -151,7 +153,15 @@
     if (self.delegate && [self.delegate conformsToProtocol:@protocol(CAISDSStatisticDelegate)] && [self.delegate respondsToSelector:@selector(onReceiveLog:)]) {
         __weak typeof(self)weakSelf = self;
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            [weakSelf.delegate onReceiveLog:log];
+            @try {
+                [weakSelf.delegate onReceiveLog:log];
+            } @catch (NSException *exception) {
+                if (exception) {
+                    [CAISDS storageException:exception inPath:CURRENT_PATH];
+                }
+            } @finally {
+                
+            }
         });
     }
 }
@@ -167,6 +177,7 @@
             }];
         } @catch (NSException *exception) {
             [result setObject:exception.description forKey:@"exception"];
+            [CAISDS storageException:exception inPath:CURRENT_PATH];
         } @finally {
             return result;
         }

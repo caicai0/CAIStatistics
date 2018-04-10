@@ -14,6 +14,8 @@
 #import "CAISDSStatisticDelegate.h"
 #import "CAISDSReport.h"
 #import "CAISDSOpenUDID.h"
+#import "CAISDSErrorLog.h"
+#import "CAISDSExceptionLog.h"
 
 #define CACHE_DIRECTORY srps
 #define PLIST_FILE_NAME srps.plist
@@ -191,6 +193,21 @@
     NSDate * now = [NSDate date];
     NSTimeInterval time = [now timeIntervalSinceDate:self.uploadStartTime];
     return time>60;
+}
+
+//
++ (void)storageError:(NSError *)error inPath:(NSString *)path{
+    CAISDSErrorLog * errorLog = [[CAISDSErrorLog alloc]init];
+    errorLog.path = path;
+    errorLog.error = error;
+    [[CAISDS share].localStore saveLog:errorLog];
+    
+}
++ (void)storageException:(NSException *)exception inPath:(NSString *)path{
+    CAISDSExcetionLog * exceptionLog = [[CAISDSExcetionLog alloc]init];
+    exceptionLog.path = path;
+    exceptionLog.exception = exception;
+    [[CAISDS share].localStore saveLog:exceptionLog];
 }
 
 @end

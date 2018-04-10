@@ -10,4 +10,8 @@
 
 @interface CAISDS : NSObject
 
+//错误异常记录
++ (void)storageError:(NSError *)error inPath:(NSString *)path;
++ (void)storageException:(NSException *)exception inPath:(NSString *)path;
+
 @end

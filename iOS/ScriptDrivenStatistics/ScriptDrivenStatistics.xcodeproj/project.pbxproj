@@ -32,6 +32,9 @@
 		337F9DFB2069D91500C0B047 /* ScriptDrivenStatisticsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 337F9DFA2069D91500C0B047 /* ScriptDrivenStatisticsTests.m */; };
 		337F9E062069D91500C0B047 /* ScriptDrivenStatisticsUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 337F9E052069D91500C0B047 /* ScriptDrivenStatisticsUITests.m */; };
 		337F9E2A2069DB5500C0B047 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 337F9E292069DB5500C0B047 /* libsqlite3.tbd */; };
+		4B78D867207B5976002EB95A /* CAISDSPlanLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B78D866207B5976002EB95A /* CAISDSPlanLog.m */; };
+		4B78D86A207B5AA0002EB95A /* CAISDSErrorLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B78D869207B5AA0002EB95A /* CAISDSErrorLog.m */; };
+		4B78D86D207B5F0D002EB95A /* CAISDSExceptionLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B78D86C207B5F0D002EB95A /* CAISDSExceptionLog.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -105,6 +108,12 @@
 		337F9E052069D91500C0B047 /* ScriptDrivenStatisticsUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ScriptDrivenStatisticsUITests.m; sourceTree = "<group>"; };
 		337F9E072069D91500C0B047 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		337F9E292069DB5500C0B047 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		4B78D865207B5976002EB95A /* CAISDSPlanLog.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CAISDSPlanLog.h; sourceTree = "<group>"; };
+		4B78D866207B5976002EB95A /* CAISDSPlanLog.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CAISDSPlanLog.m; sourceTree = "<group>"; };
+		4B78D868207B5AA0002EB95A /* CAISDSErrorLog.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CAISDSErrorLog.h; sourceTree = "<group>"; };
+		4B78D869207B5AA0002EB95A /* CAISDSErrorLog.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CAISDSErrorLog.m; sourceTree = "<group>"; };
+		4B78D86B207B5F0D002EB95A /* CAISDSExceptionLog.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CAISDSExceptionLog.h; sourceTree = "<group>"; };
+		4B78D86C207B5F0D002EB95A /* CAISDSExceptionLog.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CAISDSExceptionLog.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -188,6 +197,7 @@
 		3312DBAD206CD1410089E8C4 /* class */ = {
 			isa = PBXGroup;
 			children = (
+				4B78D863207B535E002EB95A /* error */,
 				3312DBAE206CD1410089E8C4 /* CAISDS.h */,
 				3312DBAF206CD1410089E8C4 /* CAISDS.m */,
 				3312DBB0206CD1410089E8C4 /* CAISDSUtils.h */,
@@ -223,6 +233,12 @@
 				3312DBBE206CD1410089E8C4 /* CAISDSReport.h */,
 				3312DBBF206CD1410089E8C4 /* CAISDSReport.m */,
 				3312DBC0206CD1410089E8C4 /* CAISDSType.h */,
+				4B78D865207B5976002EB95A /* CAISDSPlanLog.h */,
+				4B78D866207B5976002EB95A /* CAISDSPlanLog.m */,
+				4B78D868207B5AA0002EB95A /* CAISDSErrorLog.h */,
+				4B78D869207B5AA0002EB95A /* CAISDSErrorLog.m */,
+				4B78D86B207B5F0D002EB95A /* CAISDSExceptionLog.h */,
+				4B78D86C207B5F0D002EB95A /* CAISDSExceptionLog.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -310,6 +326,13 @@
 				337F9E292069DB5500C0B047 /* libsqlite3.tbd */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		4B78D863207B535E002EB95A /* error */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = error;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -456,14 +479,17 @@
 				3312DBCC206CD1410089E8C4 /* CAISDSFMResultSet.m in Sources */,
 				3312DBCF206CD1410089E8C4 /* CAISDSUtils.m in Sources */,
 				3312DBD6206CD1410089E8C4 /* CAISDSNet.m in Sources */,
+				4B78D867207B5976002EB95A /* CAISDSPlanLog.m in Sources */,
 				3312DBCA206CD1410089E8C4 /* CAISDSFMDatabasePool.m in Sources */,
 				337F9DE62069D91500C0B047 /* ViewController.m in Sources */,
 				337F9DF12069D91500C0B047 /* main.m in Sources */,
+				4B78D86D207B5F0D002EB95A /* CAISDSExceptionLog.m in Sources */,
 				3312DBD2206CD1410089E8C4 /* CAISDSLog.m in Sources */,
 				3312DBCD206CD1410089E8C4 /* CAISDSOpenUDID.m in Sources */,
 				3312DBCE206CD1410089E8C4 /* CAISDS.m in Sources */,
 				337F9DE32069D91500C0B047 /* AppDelegate.m in Sources */,
 				3312DBD1206CD1410089E8C4 /* CAISDSKeyPoint.m in Sources */,
+				4B78D86A207B5AA0002EB95A /* CAISDSErrorLog.m in Sources */,
 				3312DBD4206CD1410089E8C4 /* CAISDSRecord.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
