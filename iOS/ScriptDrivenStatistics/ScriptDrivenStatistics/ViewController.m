@@ -8,6 +8,24 @@
 
 #import "ViewController.h"
 
+@interface TestClass:NSObject
+
+- (void)noArgFunction;
+- (void)argFunction:(id)arg;
+
+@end
+
+@implementation TestClass
+
+- (void)noArgFunction{
+
+}
+- (void)argFunction:(id)arg{
+
+}
+
+@end
+
 @interface ViewController ()
 
 @end
@@ -17,6 +35,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"ViewController.title";
+    ;
+    NSString * cachePath = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES).firstObject;
+    NSLog(@"%@",cachePath);
     // Do any additional setup after loading the view, typically from a nib.
 }
 
@@ -27,6 +48,9 @@
 }
 
 - (IBAction)testClicked:(id)sender {
+    TestClass * test = [[TestClass alloc]init];
+    [test noArgFunction];
+    [test argFunction:self];
     
 }
 

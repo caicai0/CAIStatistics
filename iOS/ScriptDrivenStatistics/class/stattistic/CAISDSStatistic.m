@@ -13,7 +13,7 @@
 
 @interface CAISDSStatistic()
 
-@property (nonatomic, strong)NSMutableArray<id<CAISDSAspectToken>> *allCAISDSAspectToken;
+@property (nonatomic, strong)NSMutableArray<id<CAISDSAspectToken>> *allAspectToken;
 
 @end
 
@@ -44,7 +44,7 @@
 {
     self = [super init];
     if (self) {
-        self.allCAISDSAspectToken = [NSMutableArray array];
+        self.allAspectToken = [NSMutableArray array];
     }
     return self;
 }
@@ -104,21 +104,21 @@
 - (void)analysisAllPlans{
     if (self.plans && self.plans.count) {
         //删除原有的钩子
-        for (id<CAISDSAspectToken> CAISDSAspectToken in self.allCAISDSAspectToken) {
-            [CAISDSAspectToken remove];
-            [self.allCAISDSAspectToken removeObject:CAISDSAspectToken];
+        for (id<CAISDSAspectToken> aspectToken in self.allAspectToken) {
+            [aspectToken remove];
         }
+        [self.allAspectToken removeAllObjects];
         //开始解析
         __weak typeof(self)weakSelf = self;
         [self.plans enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
             CAISDSPlan * plan = obj;
             Class aclass = NSClassFromString(plan.className);
             SEL selector = NSSelectorFromString(plan.selectorName);
-            id<CAISDSAspectToken> CAISDSAspectToken = [aclass CAISDSAspect_hookSelector:selector withOptions:CAISDSAspectPositionAfter usingBlock:^(id<CAISDSAspectInfo> info) {
+            id<CAISDSAspectToken> aspectToken = [aclass CAISDSAspect_hookSelector:selector withOptions:CAISDSAspectPositionAfter usingBlock:^(id<CAISDSAspectInfo> info) {
                 [weakSelf handleHook:info plan:plan];
             } error:NULL];
-            if (CAISDSAspectToken) {
-                [weakSelf.allCAISDSAspectToken addObject:CAISDSAspectToken];
+            if (aspectToken) {
+                [weakSelf.allAspectToken addObject:aspectToken];
             }
         }];
     }
