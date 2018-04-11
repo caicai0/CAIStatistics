@@ -2,6 +2,7 @@
 module.exports = (sequelize, DataTypes) => {
     var application = sequelize.define('application', {
         deviceId:DataTypes.INTEGER,
+        UUID: DataTypes.STRING,
         bundleIdentifier:DataTypes.STRING,
     }, {});
     application.associate = function(models) {

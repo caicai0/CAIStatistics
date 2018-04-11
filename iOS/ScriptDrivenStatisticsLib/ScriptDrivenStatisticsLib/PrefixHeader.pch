@@ -1,0 +1,17 @@
+//
+//  PrefixHeader.pch
+//  ScriptDrivenStatisticsLib
+//
+//  Created by cai on 2018/4/10.
+//  Copyright © 2018年 caicai. All rights reserved.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+
+#define NSLog(...){}
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+#endif /* PrefixHeader_pch */

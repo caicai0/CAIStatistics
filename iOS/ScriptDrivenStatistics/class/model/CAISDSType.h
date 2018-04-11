@@ -10,6 +10,7 @@
 #define CAISType_h
 
 #define CURRENT_PATH [NSString stringWithFormat:@"%s,%s,%d",__FILE__,__FUNCTION__,__LINE__]
+#define NSLog(...){}
 
 typedef NS_ENUM(NSUInteger, CAISDSPlanType) {
     CAISDSPlanTypeLog,

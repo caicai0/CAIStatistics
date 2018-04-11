@@ -56,10 +56,6 @@
     
     NSDictionary *info = [[NSBundle mainBundle]infoDictionary];
     [dic setObject:info[@"CFBundleIdentifier"] forKey:@"CFBundleIdentifier"];
-//    [dic setObject:info[@"CFBundleName"] forKey:@"CFBundleName"];
-//    [dic setObject:info[@"CFBundleShortVersionString"] forKey:@"CFBundleShortVersionString"];
-//    [dic setObject:info[@"CFBundleVersion"] forKey:@"CFBundleVersion"];
-    
     self.baseInfo = [NSDictionary dictionaryWithDictionary:dic];
 }
 

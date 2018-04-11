@@ -18,15 +18,19 @@ router.post('/app/download', async(ctx, next) => {
     console.log(header,post);
 
     //检查本地是否有此手机的记录
-    let [device,createdd] = await orm.device.findOrCreate({where:{model:header.model,openUDID:header.openUDID,UUID:header.UUID},
-        defaults:{model:header.model,openUDID:header.openUDID,UUID:header.UUID,systemVersion:header.systemVersion}});
-    let [application,createda] = await  orm.application.findOrCreate({where:{deviceId:device.id,bundleIdentifier:header.CFBundleIdentifier},
-        defaults:{deviceId:device.id,bundleIdentifier:header.CFBundleIdentifier}});
+    try {
+        let [device,createdd] = await orm.device.findOrCreate({where:{model:header.model,openUDID:header.openUDID},
+            defaults:{model:header.model,openUDID:header.openUDID,systemVersion:header.systemVersion}});
+        let [application,createda] = await  orm.application.findOrCreate({where:{deviceId:device.id,UUID:header.UUID,bundleIdentifier:header.CFBundleIdentifier},
+            defaults:{deviceId:device.id,UUID:header.UUID,bundleIdentifier:header.CFBundleIdentifier}});
+    }catch (e)  {
+        console.log(e);
+    }
 
+    const plist = fs.readFileSync(__dirname+'/../public/Statistic.plist','utf8');
     if (post.version == plist.version){
         ctx.body = JSON.stringify({code:0});
     } else {
-        const plist = fs.readFileSync(__dirname+'/../public/Statistic.plist','utf8');
         ctx.body = JSON.stringify({code:0,plist:plist});
     }
 });

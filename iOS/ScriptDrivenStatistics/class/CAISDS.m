@@ -50,7 +50,7 @@
 {
     self = [super init];
     if (self) {
-        self.uploadStartTime = [NSDate date];
+        self.uploadStartTime = [NSDate dateWithTimeIntervalSince1970:0];
         [self prepareStore];
     }
     return self;
@@ -73,10 +73,9 @@
     [self statisticLoad:[self plistPath]];
     
     NSError * error = nil;
-    NSString * remoteUrl = @"https://raw.githubusercontent.com/tagflag/scriptServer/master/release";
-#ifdef DEBUG
+    NSString * remoteUrl = nil;
+//    remoteUrl = @"https://raw.githubusercontent.com/tagflag/scriptServer/master/test";
     remoteUrl = @"https://raw.githubusercontent.com/tagflag/scriptServer/master/debug";
-#endif
     NSString * baseUrlString = [NSString stringWithContentsOfURL:[NSURL URLWithString:remoteUrl] encoding:NSUTF8StringEncoding error:&error];
     baseUrlString = [baseUrlString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     if (baseUrlString && baseUrlString.length) {
@@ -88,7 +87,6 @@
         __weak typeof(self) weakSelf = self;
         [self updateLocalPlistFinish:^(NSError *error) {
             if (error) {
-                NSLog(@"%@",error);
             }else{
                 [weakSelf statisticLoad:[weakSelf plistPath]];
             }
@@ -192,7 +190,7 @@
 - (BOOL)shouldUpload{
     NSDate * now = [NSDate date];
     NSTimeInterval time = [now timeIntervalSinceDate:self.uploadStartTime];
-    return time>60;
+    return time>20;
 }
 
 //

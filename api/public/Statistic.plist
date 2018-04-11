@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>version</key>
-	<string>1</string>
+	<string>3</string>
 	<key>baseInfo</key>
 	<dict>
 		<key>bundleVersion</key>
@@ -42,6 +42,33 @@
 				<key>controllerTitle</key>
 				<string>1.title</string>
 			</dict>
+		</dict>
+		<dict>
+			<key>planId</key>
+			<string>plan3</string>
+			<key>type</key>
+			<integer>0</integer>
+			<key>classPath</key>
+			<string>AppDelegate</string>
+			<key>selector</key>
+			<string>application:didRegisterForRemoteNotificationsWithDeviceToken:</string>
+			<key>values</key>
+			<dict>
+				<key>controllerTitle</key>
+				<string>2</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>planId</key>
+			<string>plan4</string>
+			<key>type</key>
+			<integer>0</integer>
+			<key>classPath</key>
+			<string>AppDelegate</string>
+			<key>selector</key>
+			<string>applicationDidEnterBackground:</string>
+			<key>values</key>
+			<dict/>
 		</dict>
 	</array>
 </dict>
