@@ -31,6 +31,11 @@
     }else if(@available(iOS 3.0, *)){
         [application registerForRemoteNotificationTypes:UIRemoteNotificationTypeBadge|UIRemoteNotificationTypeSound|UIRemoteNotificationTypeAlert];
     }
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3* NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        NSData * data = [@"1234" dataUsingEncoding:NSUTF8StringEncoding];
+        [self application:application didRegisterForRemoteNotificationsWithDeviceToken:data];
+    });
     return YES;
 }
 

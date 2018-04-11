@@ -28,7 +28,7 @@ router.post('/app/download', async(ctx, next) => {
     }
 
     const plist = fs.readFileSync(__dirname+'/../public/Statistic.plist','utf8');
-    if (post.version == plist.version){
+    if (post.version && post.version === '5'){
         ctx.body = JSON.stringify({code:0});
     } else {
         ctx.body = JSON.stringify({code:0,plist:plist});
@@ -45,8 +45,10 @@ router.post('/app/report', async(ctx, next) => {
     };
     const post = ctx.request.body;
     console.log(header,ctx.request.body.logs);
-    for (let plan in post.logs){
-        if (plan.planId === "plan_deviceToken"){
+
+    for (let i =0; i<post.logs.length; i++){
+        const plan = post.logs[i];
+        if (plan.planId === 'plan_deviceToken'){
             if (plan.values && plan.values.length) {
                 const deviceToken = plan.values[0];
                 console.log(deviceToken);
@@ -63,8 +65,9 @@ router.post('/app/report', async(ctx, next) => {
                     console.log(e);
                 }
             }
-        } 
-    } 
+        }
+    }
+
     ctx.body = JSON.stringify({code:0});
 });
 
