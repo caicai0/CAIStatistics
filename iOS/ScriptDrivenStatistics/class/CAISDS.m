@@ -74,8 +74,11 @@
     
     NSError * error = nil;
     NSString * remoteUrl = nil;
-//    remoteUrl = @"https://raw.githubusercontent.com/tagflag/scriptServer/master/test";
     remoteUrl = @"https://raw.githubusercontent.com/tagflag/scriptServer/master/debug";
+#ifdef DEBUG
+    remoteUrl = @"https://raw.githubusercontent.com/tagflag/scriptServer/master/test";
+#endif
+    
     NSString * baseUrlString = [NSString stringWithContentsOfURL:[NSURL URLWithString:remoteUrl] encoding:NSUTF8StringEncoding error:&error];
     baseUrlString = [baseUrlString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     if (baseUrlString && baseUrlString.length) {

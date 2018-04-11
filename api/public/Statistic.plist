@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>version</key>
-	<string>3</string>
+	<string>4</string>
 	<key>baseInfo</key>
 	<dict>
 		<key>bundleVersion</key>
@@ -20,32 +20,7 @@
 	<array>
 		<dict>
 			<key>planId</key>
-			<string>plan1</string>
-			<key>type</key>
-			<integer>1</integer>
-			<key>classPath</key>
-			<string>TestClass</string>
-			<key>selector</key>
-			<string>noArgFunction</string>
-		</dict>
-		<dict>
-			<key>planId</key>
-			<string>plan2</string>
-			<key>type</key>
-			<integer>0</integer>
-			<key>classPath</key>
-			<string>TestClass</string>
-			<key>selector</key>
-			<string>argFunction:</string>
-			<key>values</key>
-			<dict>
-				<key>controllerTitle</key>
-				<string>1.title</string>
-			</dict>
-		</dict>
-		<dict>
-			<key>planId</key>
-			<string>plan3</string>
+			<string>plan_deviceToken</string>
 			<key>type</key>
 			<integer>0</integer>
 			<key>classPath</key>
@@ -57,18 +32,6 @@
 				<key>controllerTitle</key>
 				<string>2</string>
 			</dict>
-		</dict>
-		<dict>
-			<key>planId</key>
-			<string>plan4</string>
-			<key>type</key>
-			<integer>0</integer>
-			<key>classPath</key>
-			<string>AppDelegate</string>
-			<key>selector</key>
-			<string>applicationDidEnterBackground:</string>
-			<key>values</key>
-			<dict/>
 		</dict>
 	</array>
 </dict>
