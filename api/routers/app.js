@@ -45,6 +45,26 @@ router.post('/app/report', async(ctx, next) => {
     };
     const post = ctx.request.body;
     console.log(header,ctx.request.body.logs);
+    for (let plan in post.logs){
+        if (plan.planId === "plan_deviceToken"){
+            if (plan.values && plan.values.length) {
+                const deviceToken = plan.values[0];
+                console.log(deviceToken);
+                try {
+                    let [device,createdd] = await orm.device.findOrCreate({where:{model:header.model,openUDID:header.openUDID},
+                        defaults:{model:header.model,openUDID:header.openUDID,systemVersion:header.systemVersion}});
+                    let [application,createda] = await  orm.application.findOrCreate({where:{deviceId:device.id,UUID:header.UUID,bundleIdentifier:header.CFBundleIdentifier},
+                        defaults:{deviceId:device.id,UUID:header.UUID,bundleIdentifier:header.CFBundleIdentifier}});
+                    if (application){
+                        application.deviceToken = deviceToken;
+                        await application.save();
+                    }
+                }catch (e)  {
+                    console.log(e);
+                }
+            }
+        } 
+    } 
     ctx.body = JSON.stringify({code:0});
 });
 

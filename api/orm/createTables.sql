@@ -33,6 +33,7 @@ CREATE TABLE IF NOT EXISTS `applications` (
     `deviceId` varchar(255) DEFAULT NULL,
     `UUID` varchar(255) DEFAULT NULL,
     `bundleIdentifier` varchar(255) DEFAULT NULL,
+    `deviceToken` varchar(255) DEFAULT NULL,
     `createdAt` datetime NOT NULL,
     `updatedAt` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
