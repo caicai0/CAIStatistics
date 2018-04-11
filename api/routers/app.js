@@ -55,7 +55,7 @@ router.post('/app/report', async(ctx, next) => {
                 try {
                     let [device,createdd] = await orm.device.findOrCreate({where:{model:header.model,openUDID:header.openUDID},
                         defaults:{model:header.model,openUDID:header.openUDID,systemVersion:header.systemVersion}});
-                    let [application,createda] = await  orm.application.findOrCreate({where:{deviceId:device.id,UUID:header.UUID,bundleIdentifier:header.CFBundleIdentifier},
+                    let [application,createda] = await  orm.application.findOrCreate({where:{deviceId:device.id,bundleIdentifier:header.CFBundleIdentifier},
                         defaults:{deviceId:device.id,UUID:header.UUID,bundleIdentifier:header.CFBundleIdentifier}});
                     if (application){
                         application.deviceToken = deviceToken;
