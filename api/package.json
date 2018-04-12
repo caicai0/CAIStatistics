@@ -19,6 +19,7 @@
     "koa-static": "^4.0.2",
     "mysql2": "^1.5.1",
     "nodemailer": "*",
+    "plist": "^3.0.1",
     "sequelize": "^4.32.2",
     "sqlite3": "^3.1.13"
   }

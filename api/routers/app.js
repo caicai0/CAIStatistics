@@ -3,6 +3,7 @@ const router = require('koa-router')();
 const config = require('../config/config');
 const fs = require('fs');
 const orm = require('../orm/models');
+const plist = require('plist');
 
 router.post('/app/download', async(ctx, next) => {
     const header = {
@@ -27,11 +28,12 @@ router.post('/app/download', async(ctx, next) => {
         console.log(e);
     }
 
-    const plist = fs.readFileSync(__dirname+'/../public/Statistic.plist','utf8');
-    if (post.version && post.version === '5'){
+    const plistString = fs.readFileSync(__dirname+'/../public/Statistic.plist','utf8');
+    const plistObject = plist.parse(plistString);
+    if (post.version && post.version === plistObject.version){
         ctx.body = JSON.stringify({code:0});
     } else {
-        ctx.body = JSON.stringify({code:0,plist:plist});
+        ctx.body = JSON.stringify({code:0,plist:plistString});
     }
 });
 

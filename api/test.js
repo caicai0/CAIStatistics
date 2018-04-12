@@ -1,5 +1,8 @@
-const models = require('./models');
+var plist = require('plist');
+var fs = require('fs');
 
-function insertData() {
-    models.sequelize.User.create({username:'user1',passwordMd5:'123456'});
-}
+const str = fs.readFileSync(__dirname+'/public/Statistic.plist','utf8');
+var obj = plist.parse(str);
+var pli = plist.build(obj);
+console.log(obj);
+console.log(pli);
