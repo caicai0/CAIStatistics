@@ -29,11 +29,7 @@ import Alamofire
             debugPrint("firstMethod --> responseJSON --> \(res)")
             if let json = res.result.value {
                 print("firstMethod --> responseJSON --> \(json)")
-                /*  返回请求地址、数据、和状态结果等信息
-                 print("firstMethod --> responseJSON() --> \(returnResult.request!)")
-                 print("firstMethod --> responseJSON() --> \(returnResult.data!)")
-                 print("firstMethod --> responseJSON() --> \(returnResult.result)")
-                 */
+                
             }
         }
         

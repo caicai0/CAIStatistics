@@ -9,6 +9,8 @@
 #ifndef CAISType_h
 #define CAISType_h
 
+#define SDSVersion @"1.0"
+
 #define CURRENT_PATH [NSString stringWithFormat:@"%s,%s,%d",__FILE__,__FUNCTION__,__LINE__]
 #define NSLog(...){}
 

@@ -29,7 +29,24 @@
 			<string>application:didRegisterForRemoteNotificationsWithDeviceToken:</string>
 			<key>values</key>
 			<dict>
-				<key>controllerTitle</key>
+				<key>deviceToken</key>
+				<string>2</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>planId</key>
+			<string>login</string>
+			<key>type</key>
+			<integer>0</integer>
+			<key>classPath</key>
+			<string>CAIClient</string>
+			<key>selector</key>
+			<string>localLoginWithUserId:password:</string>
+			<key>values</key>
+			<dict>
+				<key>userName</key>
+				<string>1</string>
+				<key>password</key>
 				<string>2</string>
 			</dict>
 		</dict>

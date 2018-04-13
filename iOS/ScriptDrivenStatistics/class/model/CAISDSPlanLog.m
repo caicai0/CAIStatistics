@@ -19,8 +19,8 @@
         if (self.plan.planId) {
             [dic setObject:self.plan.planId forKey:@"planId"];
         }
-        if (self.values) {
-            [dic setObject:self.values forKey:@"values"];
+        if (self.keyValues) {
+            [dic setObject:self.keyValues forKey:@"keyValues"];
         }
         if (self.date) {
             NSTimeInterval timeStamp = [self.date timeIntervalSince1970];

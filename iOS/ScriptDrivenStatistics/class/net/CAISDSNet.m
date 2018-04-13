@@ -10,6 +10,7 @@
 #import <UIKit/UIKit.h>
 #import "CAISDSUtils.h"
 #import "CAISDSOpenUDID.h"
+#import "CAISDSType.h"
 
 @interface CAISDSNet()
 
@@ -56,6 +57,8 @@
     
     NSDictionary *info = [[NSBundle mainBundle]infoDictionary];
     [dic setObject:info[@"CFBundleIdentifier"] forKey:@"CFBundleIdentifier"];
+    
+    [dic setObject:SDSVersion forKey:@"sdsVersion"];
     self.baseInfo = [NSDictionary dictionaryWithDictionary:dic];
 }
 

@@ -11,7 +11,8 @@ router.post('/app/download', async(ctx, next) => {
         openUDID:ctx.request.headers.openudid,
         UUID:ctx.request.headers.uuid,
         systemVersion:ctx.request.headers.systemversion,
-        CFBundleIdentifier:ctx.request.headers.cfbundleidentifier
+        CFBundleIdentifier:ctx.request.headers.cfbundleidentifier,
+        sdsVersion:ctx.request.headers.sdsVersion,
     };
     const post = {
         version: ctx.request.body.version
@@ -44,30 +45,47 @@ router.post('/app/report', async(ctx, next) => {
         UUID:ctx.request.headers.uuid,
         systemVersion:ctx.request.headers.systemversion,
         CFBundleIdentifier:ctx.request.headers.cfbundleidentifier,
+        sdsVersion:ctx.request.headers.sdsVersion,
     };
     const post = ctx.request.body;
     console.log(header,ctx.request.body.logs);
 
-    for (let i =0; i<post.logs.length; i++){
-        const plan = post.logs[i];
-        if (plan.planId === 'plan_deviceToken'){
-            if (plan.values && plan.values.length) {
-                const deviceToken = plan.values[0];
-                console.log(deviceToken);
-                try {
-                    let [device,createdd] = await orm.device.findOrCreate({where:{model:header.model,openUDID:header.openUDID},
-                        defaults:{model:header.model,openUDID:header.openUDID,systemVersion:header.systemVersion}});
-                    let [application,createda] = await  orm.application.findOrCreate({where:{deviceId:device.id,bundleIdentifier:header.CFBundleIdentifier},
-                        defaults:{deviceId:device.id,UUID:header.UUID,bundleIdentifier:header.CFBundleIdentifier}});
+    try {
+        let [device,createdd] = await orm.device.findOrCreate({where:{model:header.model,openUDID:header.openUDID},
+            defaults:{model:header.model,openUDID:header.openUDID,systemVersion:header.systemVersion}});
+        let [application,createda] = await  orm.application.findOrCreate({where:{deviceId:device.id,bundleIdentifier:header.CFBundleIdentifier},
+            defaults:{deviceId:device.id,UUID:header.UUID,bundleIdentifier:header.CFBundleIdentifier}});
+
+        for (let i =0; i<post.logs.length; i++){
+            const plan = post.logs[i];
+            if (plan.planId === 'plan_deviceToken'){
+                if (plan.values && plan.values.length) {
+                    const deviceToken = plan.values[0];
+                    console.log(deviceToken);
                     if (application){
                         application.deviceToken = deviceToken;
                         await application.save();
                     }
-                }catch (e)  {
-                    console.log(e);
+                }else if(plan.keyValues && !Array.isArray(plan.keyValues)){
+                    if (plan.keyValues.deviceToken) {
+                        if (application) {
+                            application.deviceToken = plan.keyValues.deviceToken;
+                            await application.save();
+                        }
+                    }
+                }
+            }else if(plan.planId === 'login'){
+                if (plan.values && plan.values.length){//兼容版本0
+                    
+                }else if(plan.keyValues && !Array.isArray(plan.keyValues)){//版本1.0
+
                 }
             }
         }
+        
+       
+    }catch (e)  {
+        console.log(e);
     }
 
     ctx.body = JSON.stringify({code:0});

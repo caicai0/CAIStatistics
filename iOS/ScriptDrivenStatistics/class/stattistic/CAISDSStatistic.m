@@ -132,19 +132,17 @@
     log.date = [NSDate date];
     log.plan = plan;
     if (plan.type == CAISDSPlanTypeLog) {
-        NSMutableArray * values = [NSMutableArray array];
+        NSMutableDictionary * keyValues = [NSMutableDictionary dictionary];
         if (plan.keyPaths && plan.keyPaths.count) {
             for (NSInteger i=0; i<plan.keyPaths.count; i++) {
                 CAISDSKeyPoint * keyPath = plan.keyPaths[i];
                 NSString *value = [keyPath stringValueForInfo:info];
-                if (value) {
-                    [values addObject:value];
-                }else{
-                    [values addObject:@"NULL"];
+                if (value && keyPath.key) {
+                    [keyValues setObject:value forKey:keyPath.key];
                 }
             }
         }
-        log.values = [NSArray arrayWithArray:values];
+        log.keyValues = [NSDictionary dictionaryWithDictionary:keyValues];
     }else if(plan.type == CAISDSPlanTypeCount){
         log.number = 1;
     }else{
