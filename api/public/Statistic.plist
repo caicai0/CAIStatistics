@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>version</key>
-	<string>6</string>
+	<string>7</string>
 	<key>baseInfo</key>
 	<dict>
 		<key>bundleVersion</key>
@@ -41,7 +41,7 @@
 			<key>classPath</key>
 			<string>CAIClient</string>
 			<key>selector</key>
-			<string>localLoginWithUserId:password:</string>
+			<string>localLoginWithUserId:password:finish:</string>
 			<key>values</key>
 			<dict>
 				<key>userName</key>
