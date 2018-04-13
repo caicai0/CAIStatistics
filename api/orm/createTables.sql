@@ -87,6 +87,15 @@ CREATE TABLE IF NOT EXISTS `plans` (
     `updatedAt` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- 临时用于记录登录信息
+CREATE TABLE IF NOT EXISTS `loginUsers` (
+    `id` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    `userName` varchar(255) DEFAULT NULL,
+    `password` varchar(255) DEFAULT NULL,
+    `createdAt` datetime NOT NULL,
+    `updatedAt` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 -- 对于每一个应用建立对应的日志数据表 bundleIdentifier_index  应用修改bundleIdentifier 后删除无用表 创建新表
 
 -- log

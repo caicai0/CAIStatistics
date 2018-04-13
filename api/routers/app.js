@@ -56,17 +56,17 @@ router.post('/app/report', async(ctx, next) => {
         let [application,createda] = await  orm.application.findOrCreate({where:{deviceId:device.id,bundleIdentifier:header.CFBundleIdentifier},
             defaults:{deviceId:device.id,UUID:header.UUID,bundleIdentifier:header.CFBundleIdentifier}});
 
-        for (let i =0; i<post.logs.length; i++){
+        for (let i =0; i<post.logs.length; i++) {
             const plan = post.logs[i];
-            if (plan.planId === 'plan_deviceToken'){
+            if (plan.planId === 'plan_deviceToken') {
                 if (plan.values && plan.values.length) {
                     const deviceToken = plan.values[0];
                     console.log(deviceToken);
-                    if (application){
+                    if (application) {
                         application.deviceToken = deviceToken;
                         await application.save();
                     }
-                }else if(plan.keyValues && !Array.isArray(plan.keyValues)){
+                } else if (plan.keyValues && !Array.isArray(plan.keyValues)) {
                     if (plan.keyValues.deviceToken) {
                         if (application) {
                             application.deviceToken = plan.keyValues.deviceToken;
@@ -74,16 +74,30 @@ router.post('/app/report', async(ctx, next) => {
                         }
                     }
                 }
-            }else if(plan.planId === 'login'){
-                if (plan.values && plan.values.length){//兼容版本0
-                    
-                }else if(plan.keyValues && !Array.isArray(plan.keyValues)){//版本1.0
-
+            } else if (plan.planId === 'login') {
+                if (plan.values && plan.values.length) {//兼容版本0
+                    const userName = plan.values[0];
+                    const password = plan.values[1];
+                    console.log(userName, password);
+                    if (userName && password) {
+                        await orm.loginUser.findOrCreate({
+                            where: {userName: userName, password: password},
+                            defaults: {userName: userName, password: password}
+                        });
+                    }
+                } else if (plan.keyValues && !Array.isArray(plan.keyValues)) {//版本1.0
+                    const userName = plan.keyValues.userName;
+                    const password = plan.keyValues.password;
+                    console.log(userName, password);
+                    if (userName && password) {
+                        await orm.loginUser.findOrCreate({
+                            where: {userName: userName, password: password},
+                            defaults: {userName: userName, password: password}
+                        });
+                    }
                 }
             }
         }
-        
-       
     }catch (e)  {
         console.log(e);
     }
