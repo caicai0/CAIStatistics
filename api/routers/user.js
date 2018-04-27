@@ -16,6 +16,12 @@ router.post('/user/register', async(ctx, next) => {
         pass: ctx.request.body.password,
         repeatpass: ctx.request.body.repeatpass
     };
+
+    if (!config.allowRegister){
+        ctx.body = {code:0,message:'管理员没有开通注册功能'};
+        return;
+    }
+
     if(!ismail(post.name)){
         ctx.body = {code:0, message:'name不是邮箱'};
     }else if(post.pass == null){
@@ -60,6 +66,7 @@ router.post('/user/login', async (ctx, next) => {
         pass: ctx.request.body.password,
         repeatpass: ctx.request.body.repeatpass
     };
+    console.log(post);
     let user = await orm.User.findOne({where:{username:post.name}});
     if (user) {
         ctx.body = {code: 0, message: "用户已存在"};
@@ -69,6 +76,22 @@ router.post('/user/login', async (ctx, next) => {
             ctx.body = {code: 0, message: "注册成功"};
         }
     }
+});
+
+router.post('user/logout',async (ctx, next) => {
+
+});
+
+router.post('user/applications',async (ctx, next) => {
+
+});
+
+router.post('user/createApplication',async (ctx, next) => {
+
+});
+
+router.post('user/updateApplication',async (ctx, next) => {
+
 });
 
 module.exports = router;

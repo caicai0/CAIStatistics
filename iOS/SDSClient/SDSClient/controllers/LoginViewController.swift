@@ -11,7 +11,6 @@ import Alamofire
 
 @objc class LoginViewController: UIViewController {
 
-    @IBOutlet weak var serverTfd: UITextField!
     @IBOutlet weak var userNameTfd: UITextField!
     @IBOutlet weak var passwordTfd: UITextField!
     
@@ -20,19 +19,11 @@ import Alamofire
     }
 
     @IBAction func login(_ sender: UIButton) {
-        guard let server = serverTfd.text else {return}
         guard let username = userNameTfd.text else {return}
         guard let password = passwordTfd.text else {return}
-        
-        let loginPath = String(format: "%@/user/login",server)
-        request(loginPath, method: .post, parameters: ["userName":username,"password":password], encoding: JSONEncoding() as ParameterEncoding, headers: nil).responseJSON { (res) in
-            debugPrint("firstMethod --> responseJSON --> \(res)")
-            if let json = res.result.value {
-                print("firstMethod --> responseJSON --> \(json)")
-                
-            }
+        Net.shared.login(userName: username, password: password) { (token, error) in
+            
         }
-        
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

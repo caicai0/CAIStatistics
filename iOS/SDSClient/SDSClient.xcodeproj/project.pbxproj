@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		227AEB872084997000BAFFC8 /* ServerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 227AEB862084997000BAFFC8 /* ServerController.swift */; };
+		227AEB8920849D9700BAFFC8 /* RegisterController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 227AEB8820849D9700BAFFC8 /* RegisterController.swift */; };
+		227AEB8B20849E6300BAFFC8 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 227AEB8A20849E6300BAFFC8 /* SwiftyJSON.framework */; };
 		4B2857EF207B164400A2A5E8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2857EE207B164400A2A5E8 /* AppDelegate.swift */; };
 		4B2857F4207B164400A2A5E8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4B2857F2207B164400A2A5E8 /* Main.storyboard */; };
 		4B2857F6207B164A00A2A5E8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4B2857F5207B164A00A2A5E8 /* Assets.xcassets */; };
@@ -36,6 +39,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		227AEB862084997000BAFFC8 /* ServerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerController.swift; sourceTree = "<group>"; };
+		227AEB8820849D9700BAFFC8 /* RegisterController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterController.swift; sourceTree = "<group>"; };
+		227AEB8A20849E6300BAFFC8 /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = Carthage/Build/iOS/SwiftyJSON.framework; sourceTree = "<group>"; };
 		4B2857EB207B164400A2A5E8 /* SDSClient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SDSClient.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B2857EE207B164400A2A5E8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4B2857F3207B164400A2A5E8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -58,6 +64,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				227AEB8B20849E6300BAFFC8 /* SwiftyJSON.framework in Frameworks */,
 				4B28581F207B29C300A2A5E8 /* Alamofire.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -136,6 +143,8 @@
 			isa = PBXGroup;
 			children = (
 				4B285821207B2A5100A2A5E8 /* LoginViewController.swift */,
+				227AEB862084997000BAFFC8 /* ServerController.swift */,
+				227AEB8820849D9700BAFFC8 /* RegisterController.swift */,
 			);
 			path = controllers;
 			sourceTree = "<group>";
@@ -143,6 +152,7 @@
 		4B28581D207B29C300A2A5E8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				227AEB8A20849E6300BAFFC8 /* SwiftyJSON.framework */,
 				4B28581E207B29C300A2A5E8 /* Alamofire.framework */,
 			);
 			name = Frameworks;
@@ -291,6 +301,7 @@
 			);
 			inputPaths = (
 				"$(SRCROOT)/Carthage/build/iOS/Alamofire.framework",
+				"$(SRCROOT)/Carthage/build/iOS/SwiftyJSON.framework",
 			);
 			outputPaths = (
 			);
@@ -305,6 +316,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				227AEB8920849D9700BAFFC8 /* RegisterController.swift in Sources */,
+				227AEB872084997000BAFFC8 /* ServerController.swift in Sources */,
 				4B285822207B2A5100A2A5E8 /* LoginViewController.swift in Sources */,
 				4B285825207B2AD000A2A5E8 /* Net.swift in Sources */,
 				4B2857EF207B164400A2A5E8 /* AppDelegate.swift in Sources */,

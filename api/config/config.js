@@ -6,6 +6,7 @@ const config = {
         dialect: "sqlite",
         storage: __dirname +"/db.sqlite"
     },
+    allowRegister:true,
     production: {
         port:3000,
         database: {
