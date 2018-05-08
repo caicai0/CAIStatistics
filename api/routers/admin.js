@@ -1,8 +1,8 @@
 
 const router = require('koa-router')();
-const user = require('../api/admin/user');
+const user = require('../controller/admin/user');
 
-router.post('/user/register', user.regist);
+router.post('/user/register', user.register);
 
 router.get('/user/verification', user.verification);
 

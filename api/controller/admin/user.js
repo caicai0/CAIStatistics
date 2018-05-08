@@ -3,8 +3,9 @@ const orm = require('../../orm/models/index');
 const md5 = require('blueimp-md5');
 const sendMail = require('../../service/sendMail');
 const config = require('../../config/config');
+const jsonToken = require('../../service/jsonToken');
 
-const regist = async function (ctx) {
+const register = async function (ctx) {
     const post = {
         name: ctx.request.body.name,
         pass: ctx.request.body.password,
@@ -21,7 +22,7 @@ const regist = async function (ctx) {
     }else if(post.pass == null){
 
     }
-    else if(post.pass != post.repeatpass){
+    else if(post.pass !== post.repeatpass){
         ctx.body = {code:0, message:'两次密码不一致'};
     }else {
         let user = await orm.user.findOne({where:{userName:post.name}});
@@ -51,15 +52,38 @@ const regist = async function (ctx) {
 };
 
 const verification = async function (ctx) {
-    ctx.body = {code:0,message:'验证'};
+    const get = {
+        name: ctx.query.name,
+        verification: ctx.query.verification
+    };
+
+    const userRgist = await orm.userRegist.findOne({where:{userName:get.name,verification:get.verification}});
+    if (userRgist){
+        await orm.userRegist.delete({where:{userName:get.name}});
+        await orm.user.create({userName:userRgist.userName,password:userRgist.password});
+        ctx.body = JSON.stringify({code:0,message:'成功'});
+    }else {
+        ctx.body = JSON.stringify({code:1,message:'请注册'});
+    }
 };
 
 const login = async function (ctx) {
+    const post = {
+        userName: ctx.request.body.userName,
+        password: ctx.request.body.password
+    };
+    const passwordMd5 = md5(post.password);
+    const user = await orm.user.findOne({where:{userName:post.userName,password:passwordMd5}});
+    if (user) {
+        const token = await jsonToken.sign({userId:user.id});
+        ctx.body = JSON.stringify({code:0,data:{token:token}});
+    }else {
+        ctx.body = JSON.stringify({code:1,message:'请注册'});
+    }
 };
 
-
 module.exports = {
-    regist,
+    register,
     verification,
     login
 };

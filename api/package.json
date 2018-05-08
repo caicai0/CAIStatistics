@@ -13,6 +13,7 @@
   "license": "GPL-3.0",
   "dependencies": {
     "blueimp-md5": "*",
+    "jsonwebtoken": "^8.2.1",
     "koa": "^2.4.1",
     "koa-bodyparser": "^4.2.0",
     "koa-router": "^7.4.0",
