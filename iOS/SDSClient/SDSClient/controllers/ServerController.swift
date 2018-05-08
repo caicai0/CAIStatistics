@@ -26,6 +26,7 @@ class ServerController: UIViewController {
         let serverurl = serverTfd.text;
         if (serverurl?.count)!>0 {
             Net.shared.baseUrl = serverurl!
+            
             UserDefaults.standard.set(serverurl, forKey: "serverUrl")
             self.performSegue(withIdentifier: "LoginViewController", sender: nil)
         }else{

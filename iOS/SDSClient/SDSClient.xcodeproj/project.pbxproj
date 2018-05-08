@@ -10,6 +10,7 @@
 		227AEB872084997000BAFFC8 /* ServerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 227AEB862084997000BAFFC8 /* ServerController.swift */; };
 		227AEB8920849D9700BAFFC8 /* RegisterController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 227AEB8820849D9700BAFFC8 /* RegisterController.swift */; };
 		227AEB8B20849E6300BAFFC8 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 227AEB8A20849E6300BAFFC8 /* SwiftyJSON.framework */; };
+		22B2A342209324FF002F4C42 /* SwiftNotice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B2A341209324FF002F4C42 /* SwiftNotice.swift */; };
 		4B2857EF207B164400A2A5E8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2857EE207B164400A2A5E8 /* AppDelegate.swift */; };
 		4B2857F4207B164400A2A5E8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4B2857F2207B164400A2A5E8 /* Main.storyboard */; };
 		4B2857F6207B164A00A2A5E8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4B2857F5207B164A00A2A5E8 /* Assets.xcassets */; };
@@ -42,6 +43,7 @@
 		227AEB862084997000BAFFC8 /* ServerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerController.swift; sourceTree = "<group>"; };
 		227AEB8820849D9700BAFFC8 /* RegisterController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterController.swift; sourceTree = "<group>"; };
 		227AEB8A20849E6300BAFFC8 /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = Carthage/Build/iOS/SwiftyJSON.framework; sourceTree = "<group>"; };
+		22B2A341209324FF002F4C42 /* SwiftNotice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftNotice.swift; sourceTree = "<group>"; };
 		4B2857EB207B164400A2A5E8 /* SDSClient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SDSClient.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B2857EE207B164400A2A5E8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4B2857F3207B164400A2A5E8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -86,6 +88,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		22B2A340209324FF002F4C42 /* thirdpart */ = {
+			isa = PBXGroup;
+			children = (
+				22B2A341209324FF002F4C42 /* SwiftNotice.swift */,
+			);
+			path = thirdpart;
+			sourceTree = "<group>";
+		};
 		4B2857E2207B164400A2A5E8 = {
 			isa = PBXGroup;
 			children = (
@@ -110,6 +120,7 @@
 		4B2857ED207B164400A2A5E8 /* SDSClient */ = {
 			isa = PBXGroup;
 			children = (
+				22B2A340209324FF002F4C42 /* thirdpart */,
 				4B285823207B2AA400A2A5E8 /* service */,
 				4B28581C207B16F800A2A5E8 /* controllers */,
 				4B2857EE207B164400A2A5E8 /* AppDelegate.swift */,
@@ -142,8 +153,8 @@
 		4B28581C207B16F800A2A5E8 /* controllers */ = {
 			isa = PBXGroup;
 			children = (
-				4B285821207B2A5100A2A5E8 /* LoginViewController.swift */,
 				227AEB862084997000BAFFC8 /* ServerController.swift */,
+				4B285821207B2A5100A2A5E8 /* LoginViewController.swift */,
 				227AEB8820849D9700BAFFC8 /* RegisterController.swift */,
 			);
 			path = controllers;
@@ -319,6 +330,7 @@
 				227AEB8920849D9700BAFFC8 /* RegisterController.swift in Sources */,
 				227AEB872084997000BAFFC8 /* ServerController.swift in Sources */,
 				4B285822207B2A5100A2A5E8 /* LoginViewController.swift in Sources */,
+				22B2A342209324FF002F4C42 /* SwiftNotice.swift in Sources */,
 				4B285825207B2AD000A2A5E8 /* Net.swift in Sources */,
 				4B2857EF207B164400A2A5E8 /* AppDelegate.swift in Sources */,
 			);

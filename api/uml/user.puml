@@ -17,48 +17,82 @@ a <- db :
 u <- a : token
 
 ==logout==
-
 u -> a : logout(token)
 a -> db : delete(token)
 a <- db
 u <- a : success
 
 ==applist==
-u -> a : getappList(token,page)
-
-a -> db: gettoken
-a <- db: token,timestamp
-a -> db: getUser(token)
-a <- db: userInfo
-
-a -> db: getappList(userId,page)
+u -> a : getappList(token,pageinfo,size)
+a -> db: getappList(userId,pageinfo,size)
 a <- db: appList
 u <- a : appList(id,bundle,icon,name)
 
 ==app==
 u -> a : getapp(token,appId)
-
-a -> db: gettoken
-a <- db: token,timestamp
-a -> db: getUser(token)
-a <- db: userInfo
-
 a -> db : getapp(userId,appId)
 a <- db : appInfo
 u <- a : appInfo
 
 ==createApp==
-
 u -> a : createApp(name,bundle,icon)
-
-a -> db : gettoken
-a <- db : token,timestamp
-a -> db : getUser(token)
-a <- db : userInfo
-
 a -> db : insert(userId,name,bundle,icon)
 a <- db
-
 u <- a : success
+
+==updateAppInfo==
+u -> a : updateAppInfo(appId,appInfoDictionary)
+a -> db : findOrCreate(appId)
+a <- db : appInfo
+a -> db : save(appInfo)
+u <- a : success
+
+==addBaseInfo==
+u -> a : addBaseInfo(appId,baseInfo)
+a -> db: findOrCreate(baseInfo)
+a <- db:
+u <- a : success
+
+==updateBaseInfo==
+u -> a : updateBaseInfo(appId,baseInfoId,baseInfo)
+a -> db : update(baseInfo);
+a <- db :
+u <- a : success
+
+==deleteBaseInfo==
+u -> a : deleteBaseInfo(appId,baseInfoId)
+a -> db : delete(appId,baseInfoId)
+a <- db
+u <- a : success
+
+==baseInfoList==
+u -> a : baseInfoList(appId,pageInfo,size)
+a -> db : findBaseInfo(appid,pageInfo,size)
+a <- db : list
+u <- a  : list
+
+==addlogInfo==
+u -> a : addLogInfo(appId,logInfo)
+a -> db: findOrCreate(logInfo)
+a <- db:
+u <- a : success
+
+==updateLogInfo==
+u -> a : updateBaseInfo(appId,logInfoId,logInfo)
+a -> db : update(logInfo);
+a <- db :
+u <- a : success
+
+==deleteLogInfo==
+u -> a : deleteBaseInfo(appId,logInfoId)
+a -> db : delete(appId,logInfoId)
+a <- db
+u <- a : success
+
+==logInfoList==
+u -> a : logInfoList(appId,pageInfo,size)
+a -> db : findLogInfoList(appId,pageInfo,size)
+a <- db : list
+u <- a  : list
 
 @enduml
