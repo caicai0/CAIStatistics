@@ -42,12 +42,17 @@ const createApp = async function (ctx) {
         const payload = await jsonToken.verify(header.token);
         if (jsonToken.isExpire(payload.iat)){
             const userId = payload.userId;
-            const [userApplication,created] = orm.userApplication.findOrCreate({where:{userId:userId,bundleIdentifier:post.bundleIdentifier,platform:post.platform},
+            const [userApplication,created] = orm.userApplication.findOrCreate({
+                where:{userId:userId,bundleIdentifier:post.bundleIdentifier,platform:post.platform},
                 defaults:{userId:userId,bundleIdentifier:post.bundleIdentifier,platform:post.platform}});
             //这里可以修改信息的
-            userApplication.icon = post.icon;
-            userApplication.save();
-            ctx.body = JSON.stringify({code:0,message:'成功'});
+            if (created) {
+                userApplication.icon = post.icon;
+                userApplication.save();
+                ctx.body = JSON.stringify({code:0,message:'成功'});
+            }else {
+                ctx.body = JSON.stringify({code:3,message:'此应用已存在'});
+            }
         } else {
             ctx.body = JSON.stringify({code:2,message:'token过期'});
         }
@@ -56,20 +61,19 @@ const createApp = async function (ctx) {
     }
 };
 
-const updateApplication = async function (ctx) {
+const update = async function (ctx) {
     const header = {
         token:ctx.request.headers.token
     };
     const post = {
-        bundleIdentifier: ctx.request.body.bundleIdentifier,
-        platform: ctx.request.body.platform,
+        userApplicationId: ctx.request.body.userApplicationId,
         icon:ctx.request.body.icon
     };
     try {
         const payload = await jsonToken.verify(header.token);
         if (jsonToken.isExpire(payload.iat)){
             const userId = payload.userId;
-            const userApplication = await orm.userApplication.findOne({where:{userId:userId,bundleIdentifier:post.bundleIdentifier,platform:post.platform}});
+            const userApplication = await orm.userApplication.findOne({where:{id:post.userApplicationId}});
             //这里可以修改信息的
             if (userApplication) {
                 if (post.icon) {
@@ -88,21 +92,19 @@ const updateApplication = async function (ctx) {
     }
 };
 
-const deleteUserApplication = async function (ctx) {
+const del = async function (ctx) {
     //删除应用 和应用相关的内容 此处做真实删除  如果有必要后期添加历史数据库
     const header = {
         token:ctx.request.headers.token
     };
     const post = {
-        bundleIdentifier: ctx.request.body.bundleIdentifier,
-        platform: ctx.request.body.platform
+        userApplicationId: ctx.request.body.userApplicationId
     };
     try {
         const payload = await jsonToken.verify(header.token);
         if (jsonToken.isExpire(payload.iat)){
             const userId = payload.userId;
-
-            let del = await orm.userApplication.delete({where:{userId:userId,bundleIdentifier:post.bundleIdentifier,platform:post.platform}});
+            let del = await orm.userApplication.delete({where:{id:post.userApplicationId}});
             if (del){
                 ctx.body = JSON.stringify({code: 0, message: '成功'});
             } else {
@@ -119,5 +121,6 @@ const deleteUserApplication = async function (ctx) {
 module.exports = {
     userApplicationList,
     createApp,
-    updateApplication
+    update,
+    del
 };

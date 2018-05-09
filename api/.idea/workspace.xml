@@ -15,8 +15,8 @@
       <file leaf-file-name="user.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/controller/admin/user.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="75">
-              <caret line="5" column="18" selection-start-line="5" selection-start-column="18" selection-end-line="5" selection-end-column="18" />
+            <state relative-caret-position="604">
+              <caret line="82" column="2" lean-forward="true" selection-start-line="82" selection-start-column="2" selection-end-line="82" selection-end-column="2" />
             </state>
           </provider>
         </entry>
@@ -30,38 +30,38 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="admin.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/routers/admin.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="30">
-              <caret line="2" column="49" selection-start-line="2" selection-start-column="49" selection-end-line="2" selection-end-column="49" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="user.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/orm/models/user.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="10" column="2" selection-end-line="10" selection-end-column="2" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="app.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/controller/admin/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="75">
-              <caret line="5" column="4" selection-start-line="5" selection-start-column="4" selection-end-line="28" selection-end-column="5" />
+            <state relative-caret-position="1770">
+              <caret line="118" column="2" lean-forward="true" selection-start-line="118" selection-start-column="2" selection-end-line="118" selection-end-column="2" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="baseInfo.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="baseInfo.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/controller/admin/baseInfo.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1650">
-              <caret line="110" column="32" selection-start-line="110" selection-start-column="32" selection-end-line="110" selection-end-column="32" />
+            <state relative-caret-position="483">
+              <caret line="129" column="13" lean-forward="true" selection-start-line="118" selection-start-column="12" selection-end-line="129" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="plan.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/controller/admin/plan.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="603">
+              <caret line="157" column="2" lean-forward="true" selection-start-line="157" selection-start-column="2" selection-end-line="157" selection-end-column="2" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="plan.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/orm/models/plan.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="210">
+              <caret line="14" column="2" lean-forward="true" selection-start-line="14" selection-start-column="2" selection-end-line="14" selection-end-column="2" />
             </state>
           </provider>
         </entry>
@@ -139,7 +139,6 @@
         <option value="$PROJECT_DIR$/test.js" />
         <option value="$PROJECT_DIR$/orm/models/baseInfo.js" />
         <option value="$PROJECT_DIR$/orm/models/applicationBaseInfo.js" />
-        <option value="$PROJECT_DIR$/orm/models/plan.js" />
         <option value="$PROJECT_DIR$/orm/models/log.js" />
         <option value="$PROJECT_DIR$/orm/createTables.sql" />
         <option value="$PROJECT_DIR$/orm/models/loginUser.js" />
@@ -159,9 +158,11 @@
         <option value="$PROJECT_DIR$/controller/admin/user.js" />
         <option value="$PROJECT_DIR$/service/jsonToken.js" />
         <option value="$PROJECT_DIR$/routers/admin.js" />
-        <option value="$PROJECT_DIR$/controller/admin/app.js" />
         <option value="$PROJECT_DIR$/controller/admin/applicationConfigure.js" />
+        <option value="$PROJECT_DIR$/orm/models/plan.js" />
+        <option value="$PROJECT_DIR$/controller/admin/app.js" />
         <option value="$PROJECT_DIR$/controller/admin/baseInfo.js" />
+        <option value="$PROJECT_DIR$/controller/admin/plan.js" />
       </list>
     </option>
   </component>
@@ -234,6 +235,11 @@
               <item name="api" type="462c0819:PsiDirectoryNode" />
               <item name="orm" type="462c0819:PsiDirectoryNode" />
               <item name="models" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="api" type="b2602c69:ProjectViewProjectNode" />
+              <item name="api" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="api" type="b2602c69:ProjectViewProjectNode" />
@@ -359,12 +365,12 @@
       <workItem from="1525828954327" duration="3888000" />
       <workItem from="1525833975392" duration="18000" />
       <workItem from="1525839901731" duration="991000" />
-      <workItem from="1525841529943" duration="851000" />
+      <workItem from="1525841529943" duration="7567000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="75848000" />
+    <option name="totallyTimeSpent" value="82564000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -423,13 +429,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/service/jsonToken.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="65" lean-forward="true" selection-start-line="4" selection-start-column="65" selection-end-line="4" selection-end-column="65" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/controller/admin/app.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="930">
@@ -579,13 +578,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/orm/models/plan.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="14" column="2" selection-start-line="14" selection-start-column="2" selection-end-line="14" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/orm/models/log.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
@@ -698,13 +690,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/controller/admin/user.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" column="18" selection-start-line="5" selection-start-column="18" selection-end-line="5" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/routers/admin.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
@@ -734,13 +719,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/controller/admin/applicationConfigure.js" />
-    <entry file="file://$PROJECT_DIR$/controller/admin/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" column="4" selection-start-line="5" selection-start-column="4" selection-end-line="28" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/orm/models/baseInfo.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="195">
@@ -755,10 +733,38 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/orm/models/plan.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="14" column="2" lean-forward="true" selection-start-line="14" selection-start-column="2" selection-end-line="14" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/controller/admin/user.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="604">
+          <caret line="82" column="2" lean-forward="true" selection-start-line="82" selection-start-column="2" selection-end-line="82" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/controller/admin/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1770">
+          <caret line="118" column="2" lean-forward="true" selection-start-line="118" selection-start-column="2" selection-end-line="118" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/controller/admin/baseInfo.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1650">
-          <caret line="110" column="32" selection-start-line="110" selection-start-column="32" selection-end-line="110" selection-end-column="32" />
+        <state relative-caret-position="483">
+          <caret line="129" column="13" lean-forward="true" selection-start-line="118" selection-start-column="12" selection-end-line="129" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/controller/admin/plan.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="603">
+          <caret line="157" column="2" lean-forward="true" selection-start-line="157" selection-start-column="2" selection-end-line="157" selection-end-column="2" />
         </state>
       </provider>
     </entry>

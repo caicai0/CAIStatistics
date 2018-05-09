@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
         type:DataTypes.INTEGER,
         classPath:DataTypes.STRING,
         functionName:DataTypes.STRING,
-        keyPath:DataTypes.STRING,
+        values:DataTypes.STRING,              //json字符串  {key:value}
     }, {});
     plan.associate = function(models) {
         // associations can be defined here
